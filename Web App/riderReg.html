@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<title>SIGN UP TO RIDE</title>
+  <head>
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+
+
+
+
+<h1 class="teal lighten-2 white-text" style="text-align:center;font-size:200%;font-family:Calibri;">SIGN UP TO RIDE</h1>
+<p align="center"> Welcome to SpeedX, the easiest way to get around at the tap of a button.
+Create your account and get moving in minutes.</p>
+
+<form name= "riderRegisterForm"  class="col s12" action="" onsubmit="return ()" method="post">
+  <div class="row" >
+    <div class="input-field col s4">
+      <input placeholder=" " id="first_name" type="text" class="validate" name="firstname" >
+      <label for="first_name" id="first_name">First Name</label>
+    </div>
+    <div class="input-field col s4">
+      <input placeholder=" " id="last_name" type="text" class="validate" name="lastname">
+      <label for="last_name" id="last_name">Last Name</label>
+    </div>
+  </div>
+
+  <div class="row" >
+    <div class="input-field col s4">
+      <input placeholder=" " id="password" type="text" class="validate" name="password" >
+      <label for="password" id="password">Password</label>
+    </div>
+  </div>
+
+
+    <div class="row" >
+      <div class="input-field col s4">
+        <input placeholder=" " id="confirm_password" type="text" class="validate" name="confirm_password" >
+        <label for="confirm_password" id="confirm_password">Confirm Password</label>
+      </div>
+    </div>
+
+    <div class="row" >
+      <div class="input-field col s4">
+        <input placeholder=" " id="mobile" type="text" class="validate" name="mobile">
+        <label for="mobile" id="mobile">Mobile No</label>
+      </div>
+    </div>
+
+    <div class="row">
+           <button class="btn waves-effect waves-light" id="rider_register_button" type="submit">Register</button>
+         </div>
+
+
+
+</form>
+
+     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+      <script type="text/javascript" src="js/index.js"></script>
+      <script>
+      $(document).ready(function() {
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.modal-trigger').leanModal();
+      });
+      </script>
+
+
+  </body>
+  </body>
+</html>

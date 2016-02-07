@@ -1,0 +1,59 @@
+#firstname {
+    position: relative;
+    margin-top:20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    width: 600px;
+}
+
+#user_name{
+    margin-left: 150px;
+    width: 300px;
+}
+
+#password{
+    margin-left: 150px;
+    width: 300px
+}
+
+#confirmPassword{
+    margin-left: 150px;
+    width: 300px
+}
+
+
+#email{
+    margin-left: 150px;
+    width: 300px
+}
+
+#log_in_button{
+    margin-left: 162px;
+    width: 300px;
+    vertical-align:middle;
+    height: 40px;
+}
+
+#register_button{
+    margin-left: 162px;
+    width: 300px;
+    vertical-align:middle;
+    height: 40px;
+}
+
+#forgot_pass{
+    position: relative;
+    margin-left: 250px;
+    margin-right: auto;
+    width: 500px;
+}
+
+body {
+    background-image: url("");
+    background-size: 1000px;
+}
+
+.pics1{
+    height: 40px;
+}

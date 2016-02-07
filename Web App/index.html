@@ -1,0 +1,90 @@
+  <!DOCTYPE html>
+  <html>
+  <title>SpeedX Login</title>
+    <head>
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="css/index.css"/>
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+
+
+
+<h1 class="teal lighten-2 white-text" style="text-align:center;font-size:200%;font-family:Calibri;">SpeedX Sign In</h1>
+
+	<ul class="collapsible" id="firstname" data-collapsible="accordion">
+    <li>
+      <div class="active collapsible-header teal lighten-2 white-text"><i class="material-icons">input</i>Login</div>
+      <div class="collapsible-body">
+      <p>
+      	<div class="row">
+    <form name= "loginForm" class="col s12" action="" onsubmit="return loginValidateForm()" method="post">
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder=" " id="user_name" type="text" class="validate" name="username">
+          <label for="user_name" id="user_name">Username</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder=" " id="password" type="password" class="validate" name="password">
+          <label for="password" id="password">Password</label>
+        </div>
+      </div>
+
+
+      <form action="#">
+        <p style=" margin-bottom: -10px;margin-top: -30px;margin-left: 200px;margin-right: auto; align="center"">
+          <input class="with-gap" name="Rbutton" type="radio" value="rider" id="rider" checked />
+          <label for="rider">Rider</label>
+          <input class="with-gap" name="Rbutton" type="radio" value="driver" id="driver"/>
+          <label for="driver">Driver</label>
+        </p>
+        </form>
+
+
+
+       <div class="row">
+       		<a href="" id="forgot_pass">Forgot Password?</a>
+        </div>
+<div class="row">
+       <button class="btn waves-effect waves-light" id="log_in_button" type="submit">Log in</button>
+     </div>
+
+     <div class="row">
+      <p style=" margin-bottom: -80px;margin-top: -10px;margin-left: 170px;margin-right: auto; align="center"">Don't have an account? <a data-target="modal1" class="modal-trigger" href="">Sign Up</a>
+      </div>
+
+      <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Register as:</h4>
+
+      <a href="driverReg.html" class="waves-effect waves-light btn">Driver</a>
+      <a href="riderReg.html" class="waves-effect waves-light btn">Rider</a>
+
+    </div>
+  </div>
+<body>
+
+    </form>
+  </div>
+      </p></div>
+    </li>
+
+  </ul>
+       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script>
+        $(document).ready(function() {
+          // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+          $('.modal-trigger').leanModal();
+        });
+        </script>
+
+
+    </body>
+    </body>
+  </html>
