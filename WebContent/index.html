@@ -15,11 +15,11 @@
 
 	<ul class="collapsible" id="firstname" data-collapsible="accordion">
     <li>
-      <div class="active collapsible-header teal lighten-2 white-text"><i class="material-icons">input</i>Login</div>
+      <div class="active collapsible-header teal lighten-2 white-text"><i class="material-icons"></i>Login</div>
       <div class="collapsible-body">
       <p>
       	<div class="row">
-    <form name= "loginForm" class="col s12" action="" onsubmit="return loginValidateForm()" method="post">
+    <form name= "loginForm" class="col s12" action="Login" onsubmit="return loginValidateForm()" method="post">
       <div class="row">
         <div class="input-field col s6">
           <input placeholder=" " id="user_name" type="text" class="validate" name="username">
@@ -49,11 +49,11 @@
        		<a href="" id="forgot_pass">Forgot Password?</a>
         </div>
 <div class="row">
-       <button class="btn waves-effect waves-light" id="log_in_button" type="submit">Log in</button>
+       <button class="btn waves-effect waves-light" id="log_in_button" type="submit" value="login">Log in</button>
      </div>
 
      <div class="row">
-      <p style=" margin-bottom: -80px;margin-top: -10px;margin-left: 170px;margin-right: auto; align="center"">Don't have an account? <a data-target="modal1" class="modal-trigger" href="">Sign Up</a>
+      <p style=" margin-bottom: -80px;margin-top: -10px;margin-left: 170px;margin-right: auto;">Don't have an account? <a data-target="modal1" class="modal-trigger" href="">Sign Up</a>
       </div>
 
       <!-- Modal Structure -->
@@ -66,7 +66,6 @@
 
     </div>
   </div>
-<body>
 
     </form>
   </div>
