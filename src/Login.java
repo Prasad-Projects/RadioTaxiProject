@@ -1,5 +1,4 @@
 
-
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -15,7 +14,7 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet("/Login")
 public class Login extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;	
 
     /**
      * Default constructor. 
@@ -28,24 +27,32 @@ public class Login extends HttpServlet {
 		response.setContentType("text/html");  
 		PrintWriter out=response.getWriter();  
 //		request.getRequestDispatcher("index.html").include(request, response);  
-		System.out.println("ggg");  
-		String name=request.getParameter("username");  
+	//	System.out.println("ggg");  
+		String username=request.getParameter("username");  
 		String password=request.getParameter("password");  
-		
-		if(password.equals("admin123")){
-		System.out.print("Welcome, "+name);  
+		String btn=request.getParameter("Rbutton");
+		System.out.println("rajat is");
+
+		Register_db r = new Register_db();
+	//	System.out.println("rajat");
+		r.use_keyspace();
+	//	System.out.println("rajat is gone");
+		if(r.login(username, password, btn)){
+		System.out.print("Welcome, "+username);  
 		HttpSession session=request.getSession();  
-		session.setAttribute("name",name);  
+		session.setAttribute("name",username);  
+		request.getRequestDispatcher("profile.html").include(request, response);  
 		}  
-		else{  
-		    System.out.print("Sorry, username or password error!");  
+		else{
+		    System.out.print("Sorry, username or password error!");
+		    System.out.println(btn);
 		    request.getRequestDispatcher("index.html").include(request, response);  
 		}  
 		out.close();  
     }     	
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)  
+ /*   protected void doGet(HttpServletRequest request, HttpServletResponse response)  
             throws ServletException, IOException {  
     	PrintWriter out=response.getWriter();
     	out.println("get");
-    }
+    }*/
 }

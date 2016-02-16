@@ -14,7 +14,7 @@
 <p align="center"> Welcome to SpeedX, the easiest way to get around at the tap of a button.
 Create your account and get moving in minutes.</p>
 
-<form name= "driverRegisterForm"  class="col s12" action="" onsubmit="return ()" method="post">
+<form name= "driverRegisterForm"  class="col s12" method="post" action="Driver_Register" onsubmit="return ()" >
   <div class="row" >
     <div class="input-field col s4">
       <input placeholder=" " id="first_name" type="text" class="validate" name="firstname" >
@@ -28,7 +28,14 @@ Create your account and get moving in minutes.</p>
 
   <div class="row" >
     <div class="input-field col s4">
-      <input placeholder=" " id="password" type="text" class="validate" name="password" >
+      <input placeholder=" " id="username" type="text" class="validate" name="username"  >
+      <label for="username" id="username">Username</label>
+    </div>
+  </div>
+	
+  <div class="row" >
+    <div class="input-field col s4">
+      <input placeholder=" " id="password" type="password" class="validate" name="password" >
       <label for="password" id="password">Password</label>
     </div>
   </div>
@@ -36,7 +43,7 @@ Create your account and get moving in minutes.</p>
 
     <div class="row" >
       <div class="input-field col s4">
-        <input placeholder=" " id="confirm_password" type="text" class="validate" name="confirm_password" >
+        <input placeholder=" " id="confirm_password" type="password" class="validate" name="confirm_password" >
         <label for="confirm_password" id="confirm_password">Confirm Password</label>
       </div>
     </div>
@@ -48,6 +55,21 @@ Create your account and get moving in minutes.</p>
       </div>
     </div>
 
+   <div class="row" >
+      <div class="input-field col s4">
+        <input placeholder=" " id="licence" type="text" class="validate" name="licence">
+        <label for="licence" id="licence">Licence No</label>
+      </div>
+    </div>
+
+   <div class="row" >
+      <div class="input-field col s4">
+        <input placeholder=" " id="car_no" type="text" class="validate" name="car_no">
+        <label for="car_no" id="car_no">Car No</label>
+      </div>
+    </div>
+
+	
     <div class="row">
            <button class="btn waves-effect waves-light" id="driver_register_button" type="submit">Register</button>
          </div>
