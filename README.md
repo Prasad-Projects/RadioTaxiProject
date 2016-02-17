@@ -5,7 +5,5 @@ OOP Case Study Project on Radio Taxis
 
 Hosted at http://ec2-54-179-158-124.ap-southeast-1.compute.amazonaws.com:7000/RadioTaxiProject-Release-1/
 
-Jenkins build status - http://ec2-54-179-158-124.ap-southeast-1.compute.amazonaws.com:8080/
-
 [![Build Status](http://ec2-54-179-158-124.ap-southeast-1.compute.amazonaws.com:8080/buildStatus/icon?job=RadioTaxi-Release-1)](http://ec2-54-179-158-124.ap-southeast-1.compute.amazonaws.com:8080/job/RadioTaxi-Release-1/)
 
