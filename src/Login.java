@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet("/Login")
 public class Login extends HttpServlet {
-<<<<<<< HEAD
+
 	private static final long serialVersionUID = 1L;
 
     /**
@@ -51,7 +51,7 @@ public class Login extends HttpServlet {
 		}  
 		out.close();  
     }     	
-<<<<<<< HEAD
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)  
             throws ServletException, IOException {  
     	PrintWriter out=response.getWriter();
