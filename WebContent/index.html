@@ -8,18 +8,23 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
 
+<!-- 
+<form name="loginForm" method="post" action="Login">
+    Username: <input type="text" name="username"/> <br/>
+    Password: <input type="password" name="password"/> <br/>
+    <input type="submit" value="Login" />
+</form>
 
-
-
+-->
 <h1 class="teal lighten-2 white-text" style="text-align:center;font-size:200%;font-family:Calibri;">SpeedX Sign In</h1>
 
-	<ul class="collapsible" id="firstname" data-collapsible="accordion">
+ 	<ul class="collapsible" id="firstname" data-collapsible="accordion">
     <li>
       <div class="active collapsible-header teal lighten-2 white-text"><i class="material-icons"></i>Login</div>
       <div class="collapsible-body">
       <p>
       	<div class="row">
-    <form name= "loginForm" class="col s12" action="Login" onsubmit="return loginValidateForm()" method="post">
+    <form name= "loginForm"  method="post" action="Login" class="col s12" >
       <div class="row">
         <div class="input-field col s6">
           <input placeholder=" " id="user_name" type="text" class="validate" name="username">
@@ -32,16 +37,17 @@
           <label for="password" id="password">Password</label>
         </div>
       </div>
-
-
-      <form action="#">
+	<!-- 
+	<input type="radio" name="rbtn" value="driver">Driver<br>
+	<input type="radio" name="rbtn" value="rider">Rider<br>
+       <form action="#">
         <p style=" margin-bottom: -10px;margin-top: -30px;margin-left: 200px;margin-right: auto; align="center"">
-          <input class="with-gap" name="Rbutton" type="radio" value="rider" id="rider" checked />
-          <label for="rider">Rider</label>
+     -->     <input class="with-gap" name="Rbutton" type="radio" value="rider" id="rider" style="margin-left: 150px;" checked />
+          <label for="rider" style="margin-left:225px;">Rider</label>
           <input class="with-gap" name="Rbutton" type="radio" value="driver" id="driver"/>
           <label for="driver">Driver</label>
-        </p>
-        </form>
+       <!--   </p>
+        </form>-->
 
 
 
@@ -49,14 +55,14 @@
        		<a href="" id="forgot_pass">Forgot Password?</a>
         </div>
 <div class="row">
-       <button class="btn waves-effect waves-light" id="log_in_button" type="submit" value="login">Log in</button>
+       <button class="btn waves-effect waves-light" id="log_in_button" type="submit" value="Login">Log in</button>
      </div>
 
      <div class="row">
       <p style=" margin-bottom: -80px;margin-top: -10px;margin-left: 170px;margin-right: auto;">Don't have an account? <a data-target="modal1" class="modal-trigger" href="">Sign Up</a>
       </div>
 
-      <!-- Modal Structure -->
+
   <div id="modal1" class="modal">
     <div class="modal-content">
       <h4>Register as:</h4>
@@ -67,7 +73,7 @@
     </div>
   </div>
 
-    </form>
+    </form> 
   </div>
       </p></div>
     </li>
