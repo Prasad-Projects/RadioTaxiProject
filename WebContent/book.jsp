@@ -23,7 +23,7 @@ html, body {
 	<%
 		//allow access only if session exists
 		String user = null;
-		if (session.getAttribute("user") == null) {
+		if (session == null) {
 			response.sendRedirect("index.html");
 		} else
 			user = (String) session.getAttribute("user");
@@ -176,12 +176,12 @@ html, body {
 					for (var i = 0; i < origins.length; i++) {
 						var results = response.rows[i].elements;
 						for (var j = 0; j < results.length; j++) {
-							outputDiv.innerHTML += "Origin: " + origins[i]
-									+ '<br />' + 'Destination: '
-									+ destinations[j] + '<br />' + 'Distance: '
+							outputDiv.innerHTML += 'Distance: '
 									+ results[j].distance.text + '<br />'
 									+ 'Estimated time: '
 									+ results[j].duration.text + '<br>';
+							document.getElementById("origin").value = origins[i];
+							document.getElementById("dest").value = destinations[j];
 						}
 					}
 				}
@@ -211,10 +211,12 @@ html, body {
 		src="https://maps.googleapis.com/maps/api/js?v=3&region=IN&callback=initMap">
 		
 	</script>
-	<div id="output">Drag and drop marker B at the destination!</div>
-	<form action="Book">
+	<div id="output">Drag and drop marker B at the destination, or enter your destination in the field below!</div>
+	<form action="Book" method="post">
+		Origin: <input type="text" name="origin" id="origin" /><br />
+		Dest: <input type="text" name="dest" id="dest" /><br />
 		<!-- send coordinates to servlet -->
-		<input type="submit" value="book" />
+		<input type="submit" value="Book" />
 	</form>
 </body>
 

@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-
-<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-                      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-	version="3.0">
-
-	<!--
-		Configure Tomcat to recompile JSPs on every hit
-		http://serverfault.com/questions/681074/how-to-set-tomcat-8-to-recompile-jsp-on-page-hit-for-development-server?newreg=24c8791249c94f2793deddddfcf2f5fe 
-	 -->
-
-	<servlet>
-		<servlet-name>jsp</servlet-name>
-		<servlet-class>org.apache.jasper.servlet.JspServlet</servlet-class>
-		<init-param>
-			<param-name>modificationTestInterval</param-name>
-			<param-value>0</param-value>
-		</init-param>
-	</servlet>
-
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  <servlet>
+    <servlet-name>jsp</servlet-name>
+    <servlet-class>org.apache.jasper.servlet.JspServlet</servlet-class>
+    <init-param>
+      <param-name>modificationTestInterval</param-name>
+      <param-value>0</param-value>
+    </init-param>
+  </servlet>
 </web-app>
