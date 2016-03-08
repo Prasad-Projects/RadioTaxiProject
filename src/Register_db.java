@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 import com.datastax.driver.core.Cluster;
@@ -86,21 +89,17 @@ public class Register_db {
 		// TODO: generate valid booking IDs
 		int randBookingId = 0 + (int) (Math.random()*100000);
 		
-		String query = "INSERT INTO bookings (booking_id,rider,driver,time,origin,destination,matched) VALUES ("
+		String query = "INSERT INTO unmatched_bookings (booking_id,rider,time,origin,destination) VALUES ("
 				+ randBookingId
 				+ ",'"
 				+ rider
-				+ "','"
-				+ null // driver
 				+ "','"
 				+ time
 				+ "','"
 				+ origin
 				+ "','"
 				+ destination
-				+ "',"
-				+ false
-				+ ");";
+				+ "');";
 		try {
 			session.execute(query);
 		} catch (Exception e) {
@@ -110,7 +109,7 @@ public class Register_db {
 	}
 	
 	public List<Row> getRides() {
-		String query = "SELECT * FROM bookings WHERE matched = false ALLOW FILTERING;";
+		String query = "SELECT * FROM unmatched_bookings;";
 		List<Row> results = null;
 		try {
 			ResultSet rs = session.execute(query);
@@ -119,6 +118,61 @@ public class Register_db {
 			e.printStackTrace();
 		}
 		return results;
+	}
+	
+	public boolean confirmMatch(int bookingId, String driver) {
+		List<Row> results = null;
+		String query = "SELECT * FROM unmatched_bookings WHERE booking_id = "
+				+bookingId
+				+";";
+		try {
+			ResultSet rs = session.execute(query);
+			results = rs.all();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(results == null) {
+			return false;
+		}
+		Row r = results.get(0);
+		String rider = r.getString("rider");
+		Date time = r.getTimestamp("time");
+		LocalDateTime localTime = LocalDateTime.ofInstant(time.toInstant(), ZoneId.of("Asia/Kolkata"));
+		String time_str = localTime.toString().replace('T', ' ').split("\\.")[0];
+		
+		String origin = r.getString("origin");
+		String destination = r.getString("destination");
+		
+		query = "DELETE FROM unmatched_bookings WHERE booking_id = "
+				+bookingId
+				+";";
+		try {
+			session.execute(query);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		query = "INSERT INTO matched_bookings (booking_id,rider,driver,time,origin,destination) VALUES ("
+				+ bookingId
+				+ ",'"
+				+ rider
+				+ "','"
+				+ driver
+				+ "','"
+				+ time_str
+				+ "','"
+				+ origin
+				+ "','"
+				+ destination
+				+ "');";
+		
+		try {
+			session.execute(query);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return true;
 	}
 
 	public boolean login(String username, String password, String type) {
