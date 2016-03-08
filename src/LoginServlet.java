@@ -52,10 +52,10 @@ public class LoginServlet extends HttpServlet {
             //userName.setMaxAge(5*60);
             //response.addCookie(userName);
             if(user_type.compareTo("rider") == 0) {
-            	response.sendRedirect("riderProfile.jsp");
+            	request.getRequestDispatcher("riderProfile.jsp").forward(request, response);
             }
             else {
-            	response.sendRedirect("driverProfile.jsp");
+            	request.getRequestDispatcher("driverProfile.jsp").forward(request, response);
             }
 			
 		} else {
