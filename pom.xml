@@ -6,6 +6,9 @@
 	<version>Release-1</version>
 	<packaging>war</packaging>
 	<name>RadioTaxi-Release-1</name>
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
