@@ -24,7 +24,6 @@ public class LoginServlet extends HttpServlet {
      */
     public LoginServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -40,22 +39,17 @@ public class LoginServlet extends HttpServlet {
 		Login login = new Login();
 		
 		if(login.doLogin(username, password, user_type)){
-		//if (username.compareTo("user1") == 0 && password.compareTo("pass") == 0) { // test
-			
-			//System.out.print("Authentication successful for user " + username);
-
-            HttpSession session = request.getSession();
+			HttpSession session = request.getSession();
             session.setAttribute("user", username);
-            //setting session to expiry in 30 mins
             session.setMaxInactiveInterval(-1);
-            //Cookie userName = new Cookie("user", username);
-            //userName.setMaxAge(5*60);
-            //response.addCookie(userName);
             if(user_type.compareTo("rider") == 0) {
             	request.getRequestDispatcher("riderProfile.jsp").forward(request, response);
             }
-            else {
+            else if(user_type.compareTo("driver") == 0){
             	request.getRequestDispatcher("driverProfile.jsp").forward(request, response);
+            }
+            else { // admin
+            	response.sendRedirect("/RadioTaxiProject-Release/AdminPortal"); // change this to avoid using absolute path
             }
 			
 		} else {
