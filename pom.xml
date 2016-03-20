@@ -3,9 +3,9 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>RadioTaxiProject</groupId>
 	<artifactId>RadioTaxiProject</artifactId>
-	<version>Release-1</version>
+	<version>Release</version> <!-- configure servlets to take version from this file -->
 	<packaging>war</packaging>
-	<name>RadioTaxi-Release-1</name>
+	<name>RadioTaxiProject</name>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
