@@ -7,6 +7,16 @@
 <title>Rides nearby</title>
 </head>
 <body>
+	<%
+		//allow access only if session exists
+		String user = null;
+		if (session.getAttribute("type") == null) {
+			response.sendRedirect("index.html");
+		} else if(session.getAttribute("type").toString().compareTo("driver") != 0) {
+			response.sendRedirect("error.jsp");
+		} else
+			user = (String) session.getAttribute("user");
+	%>
 	Display nearby rides which are not matched with a driver here.
 </body>
 </html>

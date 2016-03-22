@@ -30,44 +30,44 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		String user_type = request.getParameter("Rbutton");
-		
-		Login login = new Login();
-		
-		if(login.doLogin(username, password, user_type)){
-		//if (username.compareTo("user1") == 0 && password.compareTo("pass") == 0) { // test
-			
-			//System.out.print("Authentication successful for user " + username);
-
-            HttpSession session = request.getSession();
-            session.setAttribute("user", username);
-            //setting session to expiry in 30 mins
-            session.setMaxInactiveInterval(-1);
-            //Cookie userName = new Cookie("user", username);
-            //userName.setMaxAge(5*60);
-            //response.addCookie(userName);
-            if(user_type.compareTo("rider") == 0) {
-            	request.getRequestDispatcher("riderProfile.jsp").forward(request, response);
-            }
-            else {
-            	request.getRequestDispatcher("driverProfile.jsp").forward(request, response);
-            }
-			
-		} else {
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.html");
-			out.println("<p align=\"center\"><font color=red>Either user name or password is wrong.</font></p>");
-			rd.include(request, response);
+		if(request.getParameter("username") == null) {
+			response.sendRedirect("index.html");
 		}
-	}
+		else {
+			response.setContentType("text/html");
+			PrintWriter out = response.getWriter();
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
-		out.println("GET request received");
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			String userType = request.getParameter("Rbutton");
+			
+			Login login = new Login();
+			
+			if(login.doLogin(username, password, userType)){
+			//if (username.compareTo("user1") == 0 && password.compareTo("pass") == 0) { // test
+
+				//System.out.print("Authentication successful for user " + username);
+
+	            HttpSession session = request.getSession();
+	            session.setAttribute("user", username);
+	            session.setAttribute("type", userType);
+	            //setting session to expiry in 30 mins
+	            session.setMaxInactiveInterval(1800);
+	            //Cookie userName = new Cookie("user", username);
+	            //userName.setMaxAge(5*60);
+	            //response.addCookie(userName);
+	            if(userType.compareTo("rider") == 0) {
+	            	request.getRequestDispatcher("riderProfile.jsp").forward(request, response);
+	            }
+	            else {
+	            	request.getRequestDispatcher("driverProfile.jsp").forward(request, response);
+	            }
+
+			} else {
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.html");
+				out.println("<p align=\"center\"><font color=red>Either user name or password is wrong.</font></p>");
+				rd.include(request, response);
+			}
+		}
 	}
 }

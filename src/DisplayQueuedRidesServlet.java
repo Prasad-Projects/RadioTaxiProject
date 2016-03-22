@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.datastax.driver.core.Row;
 
@@ -33,28 +34,29 @@ public class DisplayQueuedRidesServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
+		HttpSession session = request.getSession(false);
 
-		DisplayQueuedRides rides = new DisplayQueuedRides();
-		List<Row> results = rides.getRides();
+		if(session.getAttribute("type") != null) {
+			if(session.getAttribute("type").toString().compareTo("driver") != 0) {
+				response.sendRedirect("error.jsp");
+			} else {
+				response.setContentType("text/html");
+				PrintWriter out = response.getWriter();
 
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/rideQueue.jsp");
-		rd.include(request, response);
-		for (Row r : results) {
-			out.println("<br /><pre><a href = \"/RadioTaxiProject-Release-1/ConfirmMatch?booking_id="
-					+ r.getInt("booking_id") + "\">" + // TODO
-					r.getInt("booking_id") + "</a>" + " <strong>Rider:</strong> " + r.getString("rider") + " <strong>Origin:</strong> " + r.getString("origin") + " <strong>Destination:</strong> "
-					+ r.getString("destination") + " <strong>Time:</strong> " + r.getTimestamp("time") + "</pre>");
+				DisplayQueuedRides rides = new DisplayQueuedRides();
+				List<Row> results = rides.getRides();
+
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/rideQueue.jsp");
+				rd.include(request, response);
+				for (Row r : results) {
+					out.println("<br /><pre><a href = \"/RadioTaxiProject-Release-1/ConfirmMatch?booking_id="
+							+ r.getInt("booking_id") + "\">" + // TODO
+							r.getInt("booking_id") + "</a>" + " <strong>Rider:</strong> " + r.getString("rider") + " <strong>Origin:</strong> " + r.getString("origin") + " <strong>Destination:</strong> "
+							+ r.getString("destination") + " <strong>Time:</strong> " + r.getTimestamp("time") + "</pre>");
+				}
+			}
+		} else {
+			response.sendRedirect("index.html");
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		response.getWriter().append("POST served at: ").append(request.getContextPath());
 	}
 }

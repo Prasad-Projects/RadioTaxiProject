@@ -23,23 +23,12 @@ html, body {
 	<%
 		//allow access only if session exists
 		String user = null;
-		if (session == null) {
+		if (session.getAttribute("type") == null) {
 			response.sendRedirect("index.html");
+		} else if(session.getAttribute("type").toString().compareTo("rider") != 0) {
+			response.sendRedirect("error.jsp");
 		} else
 			user = (String) session.getAttribute("user");
-		/*
-		String userName = null;
-		String sessionID = null;
-		Cookie[] cookies = request.getCookies();
-		if (cookies != null) {
-			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals("user"))
-					userName = cookie.getValue();
-				if (cookie.getName().equals("JSESSIONID"))
-					sessionID = cookie.getValue();
-			}
-		}
-		*/
 	%>
 	<div id="map"></div>
 	<!-- holds the google map -->

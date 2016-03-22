@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class RegisterRiderServlet
@@ -22,19 +23,14 @@ public class RegisterRiderServlet extends HttpServlet {
      */
     public RegisterRiderServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)  
+			throws ServletException, IOException {
 
-	  protected void doPost(HttpServletRequest request, HttpServletResponse response)  
-	            throws ServletException, IOException {  
+		HttpSession session = request.getSession(false);
+
+		if(session != null) {
 			response.setContentType("text/html");  
 			PrintWriter out=response.getWriter();  
 
@@ -43,14 +39,16 @@ public class RegisterRiderServlet extends HttpServlet {
 			String lastName=request.getParameter("lastname");
 			String mobile=request.getParameter("mobile");
 			String password=request.getParameter("password");  
-			
+
 			RegisterRider register = new RegisterRider();
 			register.doRegister(username, firstName, lastName, mobile, password);
-			
+
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.html");
 			out.println("<p align=\"center\"><font color=green>Successfully registered!</font></p>");
 			rd.include(request, response);
+		} else {
+			response.sendRedirect("index.html");
+		}
+	}
 
-	    }    
-	
 }

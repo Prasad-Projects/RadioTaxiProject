@@ -7,6 +7,15 @@
 <title>My bookings</title>
 </head>
 <body>
+	<%
+		String user = null;
+		if (session.getAttribute("type") == null) {
+			response.sendRedirect("index.html");
+		} else if(session.getAttribute("type").toString().compareTo("rider") != 0) {
+			response.sendRedirect("error.jsp");
+		} else
+			user = (String) session.getAttribute("user");
+	 %>
 Display rider bookings here.
 <a href="riderProfile.jsp">My Profile</a>
 </body>

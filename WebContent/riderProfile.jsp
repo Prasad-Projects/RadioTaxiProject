@@ -12,23 +12,12 @@
 	<%
 		//allow access only if session exists
 		String user = null;
-		if (session == null || session.getAttribute("user") == null) {
+		if (session.getAttribute("type") == null) {
 			response.sendRedirect("index.html");
+		} else if(session.getAttribute("type").toString().compareTo("rider") != 0) {
+			response.sendRedirect("error.jsp");
 		} else
 			user = (String) session.getAttribute("user");
-		/*
-		String userName = null;
-		String sessionID = null;
-		Cookie[] cookies = request.getCookies();
-		if (cookies != null) {
-			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals("user"))
-					userName = cookie.getValue();
-				if (cookie.getName().equals("JSESSIONID"))
-					sessionID = cookie.getValue();
-			}
-		}
-		*/
 	%>
 	<h3>
 		Hi!
@@ -37,7 +26,7 @@
 	<a href="book.jsp" class="waves-effect waves-light btn">Book</a>
 
 	<br>
-	<form action="Logout" method="post">
+	<form action="Logout" method="get">
 		<input type="submit" value="Logout">
 	</form>
 
