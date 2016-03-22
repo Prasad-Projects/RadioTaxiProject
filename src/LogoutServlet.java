@@ -1,6 +1,9 @@
 
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -32,12 +35,17 @@ public class LogoutServlet extends HttpServlet {
 		response.setContentType("text/html");
 		// invalidate the session if exists
 		HttpSession session = request.getSession(false);
-		try {
-			session.invalidate();
-		} catch (IllegalStateException e) { // called on an already invalidated session
-			e.printStackTrace();
+		if(session != null) {
+			try {
+				session.invalidate();
+			} catch (IllegalStateException e) { // called on an already invalidated session
+				e.printStackTrace();
+			}
 		}
-		response.sendRedirect("index.html");
+		PrintWriter out = response.getWriter();
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.html");
+		out.println("<p align=\"center\"><font color=green>Successfully logged out!</font></p>");
+		rd.include(request, response);
 	}
 
 }
