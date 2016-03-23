@@ -46,14 +46,9 @@ public class DisplayQueuedRidesServlet extends HttpServlet {
 				DisplayQueuedRides rides = new DisplayQueuedRides();
 				List<Row> results = rides.getRides();
 
+				request.setAttribute("results", results);
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/rideQueue.jsp");
-				rd.include(request, response);
-				for (Row r : results) {
-					out.println("<br /><pre><a href = \"/RadioTaxiProject-Release-1/ConfirmMatch?booking_id="
-							+ r.getInt("booking_id") + "\">" + // TODO
-							r.getInt("booking_id") + "</a>" + " <strong>Rider:</strong> " + r.getString("rider") + " <strong>Origin:</strong> " + r.getString("origin") + " <strong>Destination:</strong> "
-							+ r.getString("destination") + " <strong>Time:</strong> " + r.getTimestamp("time") + "</pre>");
-				}
+				rd.forward(request, response);
 			}
 		} else {
 			response.sendRedirect("index.html");

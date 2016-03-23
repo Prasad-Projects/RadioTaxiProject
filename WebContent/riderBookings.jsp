@@ -16,6 +16,9 @@
 		} else
 			user = (String) session.getAttribute("user");
 	 %>
+	<%
+		out.println("<p align=\"center\"><font color=green>Booking successful!</font></p><br />");
+	%>
 Display rider bookings here.
 <a href="riderProfile.jsp">My Profile</a>
 </body>

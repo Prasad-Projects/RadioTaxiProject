@@ -42,8 +42,8 @@ public class BookingServlet extends HttpServlet {
 			String query = b.bookTrip(rider, origin, dest); // add driver later when confirmed
 			
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/riderBookings.jsp");
-			out.println("<p align=\"center\"><font color=green>Booking successful!</font></p><br />");
-			rd.include(request, response);
+			request.setAttribute("success", true);
+			rd.forward(request, response);
 		}
 		else {
 			response.sendRedirect("index.html");
