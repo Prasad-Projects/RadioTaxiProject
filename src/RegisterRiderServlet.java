@@ -30,7 +30,7 @@ public class RegisterRiderServlet extends HttpServlet {
 
 		HttpSession session = request.getSession(false);
 
-		if(session != null) {
+		if(session == null) {
 			response.setContentType("text/html");  
 			PrintWriter out=response.getWriter();  
 
@@ -47,7 +47,8 @@ public class RegisterRiderServlet extends HttpServlet {
 			out.println("<p align=\"center\"><font color=green>Successfully registered!</font></p>");
 			rd.include(request, response);
 		} else {
-			response.sendRedirect("index.html");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/riderProfile.jsp");
+			rd.forward(request, response);
 		}
 	}
 
