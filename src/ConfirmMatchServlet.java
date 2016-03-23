@@ -48,6 +48,11 @@ public class ConfirmMatchServlet extends HttpServlet {
 					out.println("<p align=\"center\"><font color=red>No unmatched rides!</font></p>");
 					rd.include(request, response);
 				}
+				else {
+					RequestDispatcher rd = getServletContext().getRequestDispatcher("/rideQueue.jsp");
+					out.println("<p align=\"center\"><font color=green>Successfully allotted ride!</font></p>");
+					rd.include(request, response);
+				}
 			}
 		} else {
 			response.sendRedirect("index.html");
