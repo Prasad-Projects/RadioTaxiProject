@@ -1,7 +1,6 @@
 
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -33,13 +32,13 @@ public class BookingServlet extends HttpServlet {
 
 		HttpSession session = request.getSession(false);
 		if(session != null) {
-			PrintWriter out = response.getWriter();
+//			PrintWriter out = response.getWriter();
 			String rider = (String) session.getAttribute("user");
 			String origin = request.getParameter("origin");
 			String dest = request.getParameter("dest");
 			
 			Booking b = new Booking();
-			String query = b.bookTrip(rider, origin, dest); // add driver later when confirmed
+			b.bookTrip(rider, origin, dest); // add driver later when confirmed
 			
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/riderBookings.jsp");
 			request.setAttribute("success", true);

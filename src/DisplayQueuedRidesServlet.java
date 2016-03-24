@@ -1,6 +1,5 @@
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -41,7 +40,7 @@ public class DisplayQueuedRidesServlet extends HttpServlet {
 				response.sendRedirect("error.jsp");
 			} else {
 				response.setContentType("text/html");
-				PrintWriter out = response.getWriter();
+				//PrintWriter out = response.getWriter();
 
 				DisplayQueuedRides rides = new DisplayQueuedRides();
 				List<Row> results = rides.getRides();

@@ -40,7 +40,7 @@ public class RegisterRiderServlet extends HttpServlet {
 			String mobile=request.getParameter("mobile");
 			String password=request.getParameter("password");  
 
-			RegisterRider register = new RegisterRider();
+			Register register = new Register();
 			register.doRegister(username, firstName, lastName, mobile, password);
 
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.html");

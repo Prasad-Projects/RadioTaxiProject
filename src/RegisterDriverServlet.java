@@ -42,7 +42,7 @@ public class RegisterDriverServlet extends HttpServlet {
 			String licence=request.getParameter("licence");
 			String carNo=request.getParameter("car_no");
 
-			RegisterDriver register = new RegisterDriver();
+			Register register = new Register();
 			register.doRegister(username, firstName, lastName, mobile, password, licence, carNo);
 
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.html");

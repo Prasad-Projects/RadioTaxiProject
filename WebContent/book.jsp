@@ -4,6 +4,9 @@
 <html>
 
 <head>
+<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+<link type="text/css" rel="stylesheet" href="css/index.css"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css">
 html, body {
@@ -201,12 +204,27 @@ html, body {
 		
 	</script>
 	<div id="output">Drag and drop marker B at the destination, or enter your destination in the field below!</div>
-	<form action="Book" method="post">
-		Origin: <input type="text" name="origin" id="origin" /><br />
-		Dest: <input type="text" name="dest" id="dest" /><br />
-		<!-- send coordinates to servlet -->
-		<input type="submit" value="Book" />
+	
+	<form action="Book" method="post" class="col s12">
+		<div class="row">
+			<div class="input-field col s4">
+				<input placeholder=" "  type="text" name="origin" id="origin" class="validate">
+				<label for="origin" id="origin">Origin</label>
+			</div>
+			<div class="input-field col s4">
+				<input placeholder=" "  type="text" name="dest" id="dest" class="validate">
+				<label for="dest" id="dest">Destination</label>
+			</div>
+			<div class="input-field col s4">
+				<button class="btn waves-effect waves-light" id="book_button" type="submit" value="Book">Book</button>
+			</div>
+		</div>
 	</form>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+
 </body>
 
 </html>
