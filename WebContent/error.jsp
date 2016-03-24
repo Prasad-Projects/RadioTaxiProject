@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Error</title>
 </head>
 <body>
 <font color=red>Access Denied. You are not allowed to access this page. Please go back.</font> 
