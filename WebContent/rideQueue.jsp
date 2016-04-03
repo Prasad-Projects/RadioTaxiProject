@@ -21,7 +21,7 @@
 		if (session.getAttribute("type") == null) {
 			response.sendRedirect("index.html");
 		} else if(session.getAttribute("type").toString().compareTo("driver") != 0) {
-			response.sendRedirect("error.jsp");
+			response.sendRedirect("error.html");
 		} else
 			user = (String) session.getAttribute("user");
 		
@@ -32,7 +32,7 @@
 			out.println("</div>");
 			for (Row r : results) {
 				out.println("<div class=\"row\">");
-				out.println("<div class=\"col s2\"><a href = \"/RadioTaxiProject-Release-1/ConfirmMatch?booking_id="+ r.getInt("booking_id") + "\"></div><div class=\"col s2\">" + r.getInt("booking_id") + "</a></div><div class=\"col s2\">" +  "</div><div class=\"col s2\">" + r.getString("rider") + "</div><div class=\"col s2\">" + r.getString("origin") + "</div><div class=\"col s2\">"+ r.getString("destination") + "</div><div class=\"col s2\">" + r.getTimestamp("time")+"</div>");
+				out.println("<div class=\"col s2\"><a href = \"/RadioTaxiProject-Release-1/confirmmatch?booking_id="+ r.getInt("booking_id") + "\"></div><div class=\"col s2\">" + r.getInt("booking_id") + "</a></div><div class=\"col s2\">" +  "</div><div class=\"col s2\">" + r.getString("rider") + "</div><div class=\"col s2\">" + r.getString("origin") + "</div><div class=\"col s2\">"+ r.getString("destination") + "</div><div class=\"col s2\">" + r.getTimestamp("time")+"</div>");
 				out.println("</div>");
 			}
 						
@@ -40,6 +40,9 @@
 		}
 	%>
 	</div>
+	<form action="profile" method="get">
+	        <button id="profile_in_button" type="submit" value="profile">My Profile</button>
+	</form>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script type="text/javascript" src="js/materialize.min.js"></script>
         <script type="text/javascript" src="js/index.js"></script>

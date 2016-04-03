@@ -12,7 +12,7 @@
 		if (session.getAttribute("type") == null) {
 			response.sendRedirect("index.html");
 		} else if(session.getAttribute("type").toString().compareTo("rider") != 0) {
-			response.sendRedirect("error.jsp");
+			response.sendRedirect("error.html");
 		} else
 			user = (String) session.getAttribute("user");
 	 %>
@@ -20,6 +20,8 @@
 		out.println("<p align=\"center\"><font color=green>Booking successful!</font></p><br />");
 	%>
 Display rider bookings here.
-<a href="riderProfile.jsp">My Profile</a>
+<form action="profile" method="get">
+        <button id="profile_in_button" type="submit" value="profile">My Profile</button>
+</form>
 </body>
 </html>

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class RegisterDriverServlet
  */
-@WebServlet("/Driver_Register")
+@WebServlet("/registerdriver")
 public class RegisterDriverServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -49,7 +49,7 @@ public class RegisterDriverServlet extends HttpServlet {
 			out.println("<p align=\"center\"><font color=green>Successfully registered!</font></p>");
 			rd.include(request, response);
 		} else {
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/driverProfile.jsp");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/profile");
 			rd.forward(request, response);
 		}
 

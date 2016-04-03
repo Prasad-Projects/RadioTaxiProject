@@ -13,15 +13,22 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class Book
  */
-@WebServlet("/Book")
+@WebServlet("/book")
 public class BookingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
     public BookingServlet() {
         super();
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/book.jsp");
+		rd.forward(request, response);
+
     }
 
 	/**

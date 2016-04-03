@@ -16,7 +16,7 @@
 		if (session.getAttribute("type") == null) {
 			response.sendRedirect("index.html");
 		} else if(session.getAttribute("type").toString().compareTo("driver") != 0) {
-			response.sendRedirect("error.jsp");
+			response.sendRedirect("error.html");
 		} else
 			user = (String) session.getAttribute("user");
 	%>
@@ -34,10 +34,13 @@
         
     <br>    
     <div class="row">
-    <div class="col s6"><a href="/RadioTaxiProject-Release-1/displayQueuedRides" class="waves-effect waves-light btn">Get Rides!</a>
+    <div class="col s6">
+    <form action="displayqueuedrides" method="get">
+        <button class="btn waves-effect waves-light" id="get_ride_in_button" type="submit" value="Get Rides">Get Rides</button>
+    </form>
     </div>
      <div class="col s6">
-     <form action="Logout" method="get">
+     <form action="logout" method="get">
         <button class="btn waves-effect waves-light" id="logout_in_button" type="submit" value="Logout">Logout</button>
     </form>
     </div>

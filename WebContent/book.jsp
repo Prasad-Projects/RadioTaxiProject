@@ -29,7 +29,7 @@ html, body {
 		if (session.getAttribute("type") == null) {
 			response.sendRedirect("index.html");
 		} else if(session.getAttribute("type").toString().compareTo("rider") != 0) {
-			response.sendRedirect("error.jsp");
+			response.sendRedirect("error.html");
 		} else
 			user = (String) session.getAttribute("user");
 	%>
@@ -205,7 +205,7 @@ html, body {
 	</script>
 	<div id="output">Drag and drop marker B at the destination, or enter your destination in the field below!</div>
 	
-	<form action="Book" method="post" class="col s12">
+	<form action="book" method="post" class="col s12">
 		<div class="row">
 			<div class="input-field col s4">
 				<input placeholder=" "  type="text" name="origin" id="origin" class="validate">

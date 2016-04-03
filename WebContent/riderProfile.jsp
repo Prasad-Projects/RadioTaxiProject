@@ -18,7 +18,7 @@
 		if (session.getAttribute("type") == null) {
 			response.sendRedirect("index.html");
 		} else if(session.getAttribute("type").toString().compareTo("rider") != 0) {
-			response.sendRedirect("error.jsp");
+			response.sendRedirect("error.html");
 		} else
 			user = (String) session.getAttribute("user");
 	%>
@@ -35,9 +35,13 @@
         
     <br>    
     <div class="row">
-    <div class="col s6"><a href="book.jsp" class="waves-effect waves-light btn">Book</a></div>
+    <div class="col s6">
+    <form action="book" method="get">
+        <button class="btn waves-effect waves-light" id="book_in_button" type="submit" value="Book">Book</button>
+    </form>
+    </div>
      <div class="col s6">
-     <form action="Logout" method="get">
+     <form action="logout" method="get">
         <button class="btn waves-effect waves-light" id="logout_in_button" type="submit" value="Logout">Logout</button>
     </form>
     </div>

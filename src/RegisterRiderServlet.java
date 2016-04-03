@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class RegisterRiderServlet
  */
-@WebServlet("/Rider_Register")
+@WebServlet("/registerrider")
 public class RegisterRiderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -47,7 +47,7 @@ public class RegisterRiderServlet extends HttpServlet {
 			out.println("<p align=\"center\"><font color=green>Successfully registered!</font></p>");
 			rd.include(request, response);
 		} else {
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/riderProfile.jsp");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/profile");
 			rd.forward(request, response);
 		}
 	}

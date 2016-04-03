@@ -15,7 +15,7 @@ import com.datastax.driver.core.Row;
 /**
  * Servlet implementation class displayQueuedRides
  */
-@WebServlet("/displayQueuedRides")
+@WebServlet("/displayqueuedrides")
 public class DisplayQueuedRidesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -35,7 +35,7 @@ public class DisplayQueuedRidesServlet extends HttpServlet {
 
 		HttpSession session = request.getSession(false);
 
-		if(session.getAttribute("type") != null) {
+		if(session != null) {
 			if(session.getAttribute("type").toString().compareTo("driver") != 0) {
 				response.sendRedirect("error.jsp");
 			} else {

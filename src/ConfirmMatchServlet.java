@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class ConfirmMatchServlet
  */
-@WebServlet("/ConfirmMatch")
+@WebServlet("/confirmmatch")
 public class ConfirmMatchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
