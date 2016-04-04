@@ -47,7 +47,7 @@ public class RegisterRiderServlet extends HttpServlet {
 			out.println("<p align=\"center\"><font color=green>Successfully registered!</font></p>");
 			rd.include(request, response);
 		} else {
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/profile.jsp");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/profile");
 			rd.forward(request, response);
 		}
 	}
