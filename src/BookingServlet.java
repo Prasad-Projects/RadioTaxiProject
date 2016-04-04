@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/book")
 public class BookingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -24,6 +24,9 @@ public class BookingServlet extends HttpServlet {
         super();
     }
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/book.jsp");
