@@ -55,6 +55,7 @@ public class LoginServlet extends HttpServlet {
 	            //Cookie userName = new Cookie("user", username);
 	            //userName.setMaxAge(5*60);
 	            //response.addCookie(userName);
+
 	            request.getRequestDispatcher("/profile").forward(request, response);
 
 			} else {
