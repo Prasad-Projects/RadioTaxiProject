@@ -33,11 +33,11 @@ public class ProfileServlet extends HttpServlet {
 		
 		if(session != null) {
 			if(session.getAttribute("type").toString().compareTo("rider") == 0) {
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/riderProfile.jsp");
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/riderProfile.jsp");
 				rd.include(request, response);				
 			}
 			else if(session.getAttribute("type").toString().compareTo("driver") == 0) {
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/driverProfile.jsp");
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/driverProfile.jsp");
 				rd.include(request, response);
 			}
 		}

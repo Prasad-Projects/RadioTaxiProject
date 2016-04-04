@@ -11,16 +11,8 @@
 </head>
 <body>
 	<%
-		//allow access only if session exists
-		String user = null;
-		if (session.getAttribute("type") == null) {
-			response.sendRedirect("index.html");
-		} else if(session.getAttribute("type").toString().compareTo("driver") != 0) {
-			response.sendRedirect("error.html");
-		} else
-			user = (String) session.getAttribute("user");
+		String user = (String) session.getAttribute("user");
 	%>
-	
  <h1 class="teal lighten-2 white-text" style="text-align:center;font-size:200%;font-family:Calibri;">SpeedX </h1>
 
 <div class="parallax-container" style="height:200px">

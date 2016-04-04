@@ -8,17 +8,10 @@
 </head>
 <body>
 	<%
-		String user = null;
-		if (session.getAttribute("type") == null) {
-			response.sendRedirect("index.html");
-		} else if(session.getAttribute("type").toString().compareTo("rider") != 0) {
-			response.sendRedirect("error.html");
-		} else
-			user = (String) session.getAttribute("user");
-	 %>
-	<%
-		out.println("<p align=\"center\"><font color=green>Booking successful!</font></p><br />");
+		String user = (String) session.getAttribute("user");
 	%>
+<!-- TODO: add conditional to display below message only when booking succesful -->
+<p align="center"><font color=green>Booking successful!</font></p><br />
 Display rider bookings here.
 <form action="profile" method="get">
         <button id="profile_in_button" type="submit" value="profile">My Profile</button>

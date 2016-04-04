@@ -16,14 +16,7 @@
 <h1 class="teal lighten-2 white-text" style="text-align:center;font-size:200%;font-family:Calibri;">Nearby Rides</h1>
 <div class="row">
 	<%
-		//allow access only if session exists
-		String user = null;
-		if (session.getAttribute("type") == null) {
-			response.sendRedirect("index.html");
-		} else if(session.getAttribute("type").toString().compareTo("driver") != 0) {
-			response.sendRedirect("error.html");
-		} else
-			user = (String) session.getAttribute("user");
+		String user = (String) session.getAttribute("user");
 		
 		if(request.getAttribute("results") != null) {
 			List<Row> results = (List<Row>) request.getAttribute("results");

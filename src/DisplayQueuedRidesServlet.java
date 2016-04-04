@@ -46,7 +46,7 @@ public class DisplayQueuedRidesServlet extends HttpServlet {
 				List<Row> results = rides.getRides();
 
 				request.setAttribute("results", results);
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/rideQueue.jsp");
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/rideQueue.jsp");
 				rd.forward(request, response);
 			}
 		} else {

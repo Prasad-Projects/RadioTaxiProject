@@ -24,14 +24,7 @@ html, body {
 
 <body>
 	<%
-		//allow access only if session exists
-		String user = null;
-		if (session.getAttribute("type") == null) {
-			response.sendRedirect("index.html");
-		} else if(session.getAttribute("type").toString().compareTo("rider") != 0) {
-			response.sendRedirect("error.html");
-		} else
-			user = (String) session.getAttribute("user");
+		String user = (String) session.getAttribute("user");
 	%>
 	<div id="map"></div>
 	<!-- holds the google map -->
