@@ -9,7 +9,12 @@ public class DisplayQueuedRides {
 	}
 	
 	public List<Row> getRides() {
-		List<Row> results = AccessDB.getUnmatchedRides();
+		
+		Register_db db = new Register_db();
+		List<Row> results = db.getRides();
+		
 		return results;
+		
 	}
+
 }

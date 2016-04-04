@@ -55,12 +55,7 @@ public class LoginServlet extends HttpServlet {
 	            //Cookie userName = new Cookie("user", username);
 	            //userName.setMaxAge(5*60);
 	            //response.addCookie(userName);
-	            if(userType.compareTo("rider") == 0) {
-	            	request.getRequestDispatcher("riderProfile.jsp").forward(request, response);
-	            }
-	            else {
-	            	request.getRequestDispatcher("driverProfile.jsp").forward(request, response);
-	            }
+	            request.getRequestDispatcher("/profile").forward(request, response);
 
 			} else {
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.html");

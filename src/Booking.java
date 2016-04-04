@@ -9,7 +9,8 @@ public class Booking {
 		LocalDateTime time = LocalDateTime.now(ZoneId.of("Asia/Kolkata"));
         String time_str = time.toString().replace('T', ' ').split("\\.")[0];
 
-     	return AccessDB.bookARide(rider, time_str, origin, dest);
+		Register_db db = new Register_db();
+		return db.registerBooking(rider, time_str, origin, dest);
 		
 	}
 }

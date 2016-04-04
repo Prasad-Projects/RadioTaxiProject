@@ -9,19 +9,20 @@ import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.exceptions.AlreadyExistsException;
 
-public class AccessDB {
+public class Register_db {
 
 	static Cluster cluster;
 	static Session session;
 	
-	public static void initialise(){
+	static {
 		cluster = Cluster.builder().addContactPoint("127.0.0.1").build();
 		session = cluster.connect();
+		//	System.out.println("connection successful");
 		use_keyspace();
-		
 	}
 
-	public AccessDB() {
+	public Register_db() {
+
 	}
 
 	public static void use_keyspace() {
@@ -29,7 +30,7 @@ public class AccessDB {
 		session.execute(query);
 	}
 
-	public static void createTable() {
+	public void createTable() {
 		String query = "CREATE TABLE driver_info( first_name text, last_name text, username text PRIMARY KEY, password text, mobile_no text, license_no text, car_no text);";
 		try {
 			session.execute(query);
@@ -38,15 +39,16 @@ public class AccessDB {
 		}
 	}
 
-	public static void registerRider(Rider rider, String password) {
+	public void registerRider(String username, String first_name,
+			String last_name, String mobile_no, String password) {
 		String query = " INSERT INTO rider_info (username,first_name,last_name,mobile_no,password) VALUES ('"
-				+ rider.getUsername()
+				+ username
 				+ "','"
-				+ rider.getFirstname()
+				+ first_name
 				+ "','"
-				+ rider.getLastname()
+				+ last_name
 				+ "','"
-				+ rider.getMobile_no() + "','" + password + "');";
+				+ mobile_no + "','" + password + "');";
 		try {
 			session.execute(query);
 		} catch (Exception e) {
@@ -54,21 +56,23 @@ public class AccessDB {
 		}
 	}
 
-	public static void registerDriver(Driver driver, String password) {
-		String query = " INSERT INTO driver_info (username,first_name,last_name,mobile_no,car_no,license_no,password) VALUES ('"
-				+ driver.getUsername()
+	public void registerDriver(String username, String first_name,
+			String last_name, String mobile_no, String password, String car_no,
+			String license_no) {
+		String query = " INSERT INTO driver_info (username,first_name,last_name,mobile_no,password,car_no,license_no) VALUES ('"
+				+ username
 				+ "','"
-				+ driver.getFirstname()
+				+ first_name
 				+ "','"
-				+ driver.getLastname()
+				+ last_name
 				+ "','"
-				+ driver.getMobile_no()
+				+ mobile_no
 				+ "','"
-				+ driver.getLicense_no() 
+				+ password
 				+ "','"
-				+ driver.getCar_no()
+				+ car_no
 				+ "','"
-				+ password+ "');";
+				+ license_no + "');";
 		try {
 			session.execute(query);
 		} catch (Exception e) {
@@ -80,7 +84,7 @@ public class AccessDB {
 	  command to create bookings table -
 	    CREATE TABLE bookings (rider text,driver text,time timestamp,origin text,destination text,PRIMARY KEY(rider, time));
 	 */
-	public static String bookARide(String rider, String time, String origin, String destination) {
+	public String registerBooking(String rider, String time, String origin, String destination) {
 		
 		// TODO: generate valid booking IDs
 		int randBookingId = 0 + (int) (Math.random()*100000);
@@ -104,7 +108,7 @@ public class AccessDB {
 		return query;
 	}
 	
-	public static List<Row> getUnmatchedRides() {
+	public List<Row> getRides() {
 		String query = "SELECT * FROM unmatched_bookings;";
 		List<Row> results = null;
 		try {
@@ -116,7 +120,7 @@ public class AccessDB {
 		return results;
 	}
 	
-	public static boolean confirmMatch(int bookingId, String driver) {
+	public boolean confirmMatch(int bookingId, String driver) {
 		List<Row> results = null;
 		String query = "SELECT * FROM unmatched_bookings WHERE booking_id = "
 				+bookingId
@@ -171,7 +175,7 @@ public class AccessDB {
 		return true;
 	}
 
-	public static boolean login(String username, String password, String type) {
+	public boolean login(String username, String password, String type) {
 		if (type.equals("rider")) {
 			String query = "SELECT * FROM rider_info WHERE username='"
 					+ username + "' and password='" + password
@@ -210,7 +214,7 @@ public class AccessDB {
 	}
 
 /*	public static void main(String[] args) {
-		AccessDB r = new AccessDB();
+		Register_db r = new Register_db();
 		r.use_keyspace();
 		// r.create_table();
 		System.out.println("f");

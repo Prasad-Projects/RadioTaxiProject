@@ -43,13 +43,13 @@ public class RegisterDriverServlet extends HttpServlet {
 			String carNo=request.getParameter("car_no");
 
 			Register register = new Register();
-			register.registerDriver(new Driver(username, firstName, lastName, mobile, licence, carNo),password);
+			register.doRegister(username, firstName, lastName, mobile, password, licence, carNo);
 
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.html");
 			out.println("<p align=\"center\"><font color=green>Successfully registered!</font></p>");
 			rd.include(request, response);
 		} else {
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/driverProfile.jsp");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/profile");
 			rd.forward(request, response);
 		}
 

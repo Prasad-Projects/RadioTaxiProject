@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class LogoutServlet
+ * TODO: verify session invalidation
  */
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
