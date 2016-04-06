@@ -7,7 +7,14 @@
 <title>My bookings</title>
 </head>
 <body>
+	<%
+		String user = (String) session.getAttribute("user");
+	%>
+<!-- TODO: add conditional to display below message only when booking succesful -->
+<p align="center"><font color=green>Booking successful!</font></p><br />
 Display rider bookings here.
-<a href="riderProfile.jsp">My Profile</a>
+<form action="profile" method="get">
+        <button id="profile_in_button" type="submit" value="profile">My Profile</button>
+</form>
 </body>
 </html>
