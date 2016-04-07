@@ -1,7 +1,6 @@
 
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,7 +13,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class Book
  */
-@WebServlet("/Book")
+@WebServlet("/book")
 public class BookingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -26,31 +25,34 @@ public class BookingServlet extends HttpServlet {
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/book.jsp");
+		rd.forward(request, response);
+
+    }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
 
 		HttpSession session = request.getSession(false);
 		if(session != null) {
+//			PrintWriter out = response.getWriter();
 			String rider = (String) session.getAttribute("user");
 			String origin = request.getParameter("origin");
 			String dest = request.getParameter("dest");
 			
 			Booking b = new Booking();
-			String query = b.bookTrip(rider, origin, dest); // add driver later when confirmed
+			b.bookTrip(rider, origin, dest); // add driver later when confirmed
 			
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/riderBookings.jsp");
-			out.println("<p align=\"center\"><font color=green>Booking successful!</font></p><br />");
-			rd.include(request, response);
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/riderBookings.jsp");
+			request.setAttribute("success", true);
+			rd.forward(request, response);
 		}
 		else {
 			response.sendRedirect("index.html");

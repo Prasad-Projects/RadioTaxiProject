@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class ConfirmMatchServlet
  */
-@WebServlet("/ConfirmMatch")
+@WebServlet("/confirmmatch")
 public class ConfirmMatchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -30,25 +30,32 @@ public class ConfirmMatchServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		PrintWriter out = response.getWriter();
-		
-		int bookingId = Integer.parseInt(request.getParameter("booking_id"));
 		HttpSession session = request.getSession(false);
-		String driver = (String) session.getAttribute("user");
-		
-		ConfirmMatch match = new ConfirmMatch();
-		if(!match.confirmMatch(bookingId, driver)) {
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/rideQueue.jsp");
-			out.println("<p align=\"center\"><font color=red>No unmatched rides!</font></p>");
-			rd.include(request, response);
+
+		if(session.getAttribute("type") != null) {
+			if(session.getAttribute("type").toString().compareTo("driver") != 0) {
+				response.sendRedirect("error.jsp");
+			} else {
+
+				PrintWriter out = response.getWriter();
+
+				int bookingId = Integer.parseInt(request.getParameter("booking_id"));
+				String driver = (String) session.getAttribute("user");
+
+				ConfirmMatch match = new ConfirmMatch();
+				if(!match.confirmMatch(bookingId, driver)) {
+					RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/rideQueue.jsp");
+					out.println("<p align=\"center\"><font color=red>No unmatched rides!</font></p>");
+					rd.include(request, response);
+				}
+				else {
+					RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/rideQueue.jsp");
+					out.println("<p align=\"center\"><font color=green>Successfully allotted ride!</font></p>");
+					rd.include(request, response);
+				}
+			}
+		} else {
+			response.sendRedirect("index.html");
 		}
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("POST served at: ").append(request.getContextPath());
-	}
-
 }

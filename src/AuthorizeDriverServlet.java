@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class AuthorizeDriverServlet
  */
-@WebServlet("/AuthorizeDriver")
+@WebServlet("/authorisedriver")
 public class AuthorizeDriverServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -23,7 +23,6 @@ public class AuthorizeDriverServlet extends HttpServlet {
      */
     public AuthorizeDriverServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -37,22 +36,13 @@ public class AuthorizeDriverServlet extends HttpServlet {
 		
 		if(session != null) {
 			AuthorizeDriver auth = new AuthorizeDriver();
-			//out.println(auth.doAuthorize(username));
 			
-			if(!auth.doAuthorize(username)) {
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/unregisteredDrivers.jsp");
+			if(!auth.authorise(username)) {
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/unregisteredDrivers.jsp");
 				out.println("<p align=\"center\"><font color=red>No unregistered drivers!</font></p>");
 				rd.include(request, response);
 			}
 			
 		}
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("POST served at: ").append(request.getContextPath());
-	}
-
 }

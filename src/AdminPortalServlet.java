@@ -17,7 +17,7 @@ import com.datastax.driver.core.Row;
 /**
  * Servlet implementation class AdminPortalServlet
  */
-@WebServlet("/AdminPortal")
+@WebServlet("/adminportal")
 public class AdminPortalServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -28,10 +28,7 @@ public class AdminPortalServlet extends HttpServlet {
         super();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
@@ -42,29 +39,9 @@ public class AdminPortalServlet extends HttpServlet {
 			AdminPortal adminPortal = new AdminPortal();
 			List<Row> results = adminPortal.getUnregisteredDrivers();
 	
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/unregisteredDrivers.jsp");
-			rd.include(request, response);
-			for (Row r : results) {
-				out.println("<br /><pre>"
-						+ " <strong>Username:</strong> " + r.getString("username")
-						+ " <strong>Car No:</strong> " + r.getString("car_no")
-						+ " <strong>First Name:</strong> " + r.getString("first_name")
-						+ " <strong>Last Name:</strong> " + r.getString("last_name")
-						+ " <strong>License No:</strong> " + r.getString("license_no") 
-						+ " <strong>Mobile No:</strong> " + r.getString("mobile_no")
-						+ " 	<a href = \"/RadioTaxiProject-Release/AuthorizeDriver?username=" 
-											// change this to avoid using absolute path
-						+ r.getString("username") + "\">Approve</a>"
-						+ "</pre>");
-			}
+			request.setAttribute("results", results);
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/unregisteredDrivers.jsp");
+			rd.forward(request, response);
 		}		
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("POST served at: ").append(request.getContextPath());
-	}
-
 }

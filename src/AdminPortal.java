@@ -9,7 +9,7 @@ public class AdminPortal {
 	}
 	
 	public List<Row> getUnregisteredDrivers() {
-		Register_db db = new Register_db();
+		AccessDB db = new AccessDB();
 		List<Row> results = db.getUnregisteredDrivers();
 		return results;
 	}

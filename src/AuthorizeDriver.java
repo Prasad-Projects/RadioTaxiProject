@@ -1,9 +1,9 @@
 
 public class AuthorizeDriver {
 	
-	public boolean doAuthorize(String username) {
+	public boolean authorise(String username) {
 		
-		Register_db db = new Register_db();
+		AccessDB db = new AccessDB();
 		return db.authorizeDriver(username);
 		
 	}

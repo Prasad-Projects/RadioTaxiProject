@@ -1,6 +1,5 @@
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -9,13 +8,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.datastax.driver.core.Row;
 
 /**
  * Servlet implementation class displayQueuedRides
  */
-@WebServlet("/displayQueuedRides")
+@WebServlet("/displayqueuedrides")
 public class DisplayQueuedRidesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -33,28 +33,23 @@ public class DisplayQueuedRidesServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
+		HttpSession session = request.getSession(false);
 
-		DisplayQueuedRides rides = new DisplayQueuedRides();
-		List<Row> results = rides.getRides();
+		if(session != null) {
+			if(session.getAttribute("type").toString().compareTo("driver") != 0) {
+				response.sendRedirect("error.jsp");
+			} else {
+				response.setContentType("text/html");
 
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/rideQueue.jsp");
-		rd.include(request, response);
-		for (Row r : results) {
-			out.println("<br /><pre><a href = \"/RadioTaxiProject-Release/ConfirmMatch?booking_id=" // change this to avoid using absolute path
-					+ r.getInt("booking_id") + "\">" + // TODO
-					r.getInt("booking_id") + "</a>" + " <strong>Rider:</strong> " + r.getString("rider") + " <strong>Origin:</strong> " + r.getString("origin") + " <strong>Destination:</strong> "
-					+ r.getString("destination") + " <strong>Time:</strong> " + r.getTimestamp("time") + "</pre>");
+				DisplayQueuedRides rides = new DisplayQueuedRides();
+				List<Row> results = rides.getRides();
+
+				request.setAttribute("results", results);
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/rideQueue.jsp");
+				rd.forward(request, response);
+			}
+		} else {
+			response.sendRedirect("index.html");
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		response.getWriter().append("POST served at: ").append(request.getContextPath());
 	}
 }

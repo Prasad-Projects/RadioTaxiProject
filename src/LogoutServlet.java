@@ -1,9 +1,11 @@
 
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +14,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class LogoutServlet
  */
-@WebServlet("/Logout")
+@WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -29,34 +31,20 @@ public class LogoutServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
 		response.setContentType("text/html");
-		/*
-		Cookie[] cookies = request.getCookies();
-		if (cookies != null) {
-			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals("JSESSIONID")) {
-					System.out.println("JSESSIONID=" + cookie.getValue());
-					break;
-				}
-			}
-		}
-		*/
 		// invalidate the session if exists
 		HttpSession session = request.getSession(false);
-		System.out.println("User=" + session.getAttribute("user"));
-		if (session != null) {
-			session.invalidate();
+		if(session != null) {
+			try {
+				session.invalidate();
+			} catch (IllegalStateException e) { // called on an already invalidated session
+				e.printStackTrace();
+			}
 		}
-		response.sendRedirect("index.html");
+		PrintWriter out = response.getWriter();
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.html");
+		out.println("<p align=\"center\"><font color=green>Successfully logged out!</font></p>");
+		rd.include(request, response);
 	}
 
 }
