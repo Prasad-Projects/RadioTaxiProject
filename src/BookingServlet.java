@@ -29,7 +29,7 @@ public class BookingServlet extends HttpServlet {
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/book.jsp");
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/book.html");
 		rd.forward(request, response);
 
     }

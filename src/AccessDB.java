@@ -36,7 +36,7 @@ public class AccessDB {
 			System.out.print(e);
 		}
 	}
-
+	
 	public static void registerRider(Rider rider, String password) {
 		String query = " INSERT INTO rider_info (username,first_name,last_name,mobile_no,password) VALUES ('"
 				+ rider.getUsername()
@@ -147,9 +147,7 @@ public class AccessDB {
 		}
 		return query;
 	}
-	
 	public static List<Row> getUnmatchedRides() {
-
 		String query = "SELECT * FROM unmatched_bookings;";
 		List<Row> results = null;
 		try {
@@ -162,7 +160,6 @@ public class AccessDB {
 	}
 	
 	public static boolean confirmMatch(int bookingId, String driver) {
-
 		List<Row> results = null;
 		String query = "SELECT * FROM unmatched_bookings WHERE booking_id = " + bookingId + ";";
 		try {
@@ -202,24 +199,24 @@ public class AccessDB {
 	}
 
 	public static boolean login(String username, String password, String type) {
-	
 		String table = null;
 		switch (type) {
 			case "rider":
 				table = "rider_info";
+				break;
 			case "driver":
 				table = "driver_info";
+				break;
 			case "admin":
 				table = "admin_list";
-	
-			String query = "SELECT * FROM " + table + " WHERE username = '" + username + "' AND password = '" + password
-					+ "' ALLOW FILTERING;";
-			try {
-				ResultSet rs = session.execute(query);
-				return (!rs.all().isEmpty());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		}
+		String query = "SELECT * FROM " + table + " WHERE username = '" + username + "' AND password = '" + password
+				+ "' ALLOW FILTERING;";
+		try {
+			ResultSet rs = session.execute(query);
+			return (!rs.all().isEmpty());
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return false;
 	}

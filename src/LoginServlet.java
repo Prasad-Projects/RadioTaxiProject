@@ -38,23 +38,16 @@ public class LoginServlet extends HttpServlet {
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
 			String userType = request.getParameter("Rbutton");
-			
-			Login login = new Login();
-			
-			if(login.doLogin(username, password, userType)){
-			//if (username.compareTo("user1") == 0 && password.compareTo("pass") == 0) { // test
 
-				//System.out.print("Authentication successful for user " + username);
+			Login login = new Login();
+
+			if(login.login(username, password, userType)){
+			//if (username.compareTo("user1") == 0 && password.compareTo("pass") == 0) { // test
 
 	            HttpSession session = request.getSession();
 	            session.setAttribute("user", username);
 	            session.setAttribute("type", userType);
-	            //setting session to expiry in 30 mins
 	            session.setMaxInactiveInterval(1800);
-	            //Cookie userName = new Cookie("user", username);
-	            //userName.setMaxAge(5*60);
-	            //response.addCookie(userName);
-
 	            request.getRequestDispatcher("/profile").forward(request, response);
 
 			} else {
