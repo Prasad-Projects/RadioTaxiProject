@@ -5,7 +5,7 @@ import com.datastax.driver.core.Row;
 public class AdminPortal {
 	
 	public AdminPortal() {
-		
+
 	}
 	
 	public List<Row> getUnregisteredDrivers() {

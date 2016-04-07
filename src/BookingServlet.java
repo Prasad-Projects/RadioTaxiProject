@@ -24,9 +24,6 @@ public class BookingServlet extends HttpServlet {
         super();
     }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/book.html");
@@ -34,15 +31,10 @@ public class BookingServlet extends HttpServlet {
 
     }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html");
 
 		HttpSession session = request.getSession(false);
 		if(session != null) {
-//			PrintWriter out = response.getWriter();
 			String rider = (String) session.getAttribute("user");
 			String origin = request.getParameter("origin");
 			String dest = request.getParameter("dest");

@@ -1,5 +1,4 @@
 
-
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -18,9 +17,6 @@ import javax.servlet.http.HttpSession;
 public class RegisterRiderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public RegisterRiderServlet() {
         super();
     }
@@ -51,5 +47,4 @@ public class RegisterRiderServlet extends HttpServlet {
 			rd.forward(request, response);
 		}
 	}
-
 }

@@ -1,5 +1,4 @@
 
-
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -18,9 +17,6 @@ import javax.servlet.http.HttpSession;
 public class RegisterDriverServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public RegisterDriverServlet() {
         super();
     }
@@ -52,7 +48,6 @@ public class RegisterDriverServlet extends HttpServlet {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/profile.jsp");
 			rd.forward(request, response);
 		}
-
     }
 }
 

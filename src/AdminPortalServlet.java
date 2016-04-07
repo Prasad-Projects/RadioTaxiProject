@@ -21,17 +21,11 @@ import com.datastax.driver.core.Row;
 public class AdminPortalServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public AdminPortalServlet() {
         super();
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
 		
 		HttpSession session = request.getSession(false);
 		

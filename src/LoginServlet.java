@@ -1,5 +1,4 @@
 
-
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -18,9 +17,6 @@ import javax.servlet.http.HttpSession;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public LoginServlet() {
         super();
     }
@@ -42,14 +38,11 @@ public class LoginServlet extends HttpServlet {
 			Login login = new Login();
 
 			if(login.login(username, password, userType)){
-			//if (username.compareTo("user1") == 0 && password.compareTo("pass") == 0) { // test
-
 	            HttpSession session = request.getSession();
 	            session.setAttribute("user", username);
 	            session.setAttribute("type", userType);
 	            session.setMaxInactiveInterval(1800);
 	            request.getRequestDispatcher("/profile").forward(request, response);
-
 			} else {
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.html");
 				out.println("<p align=\"center\"><font color=red>Either user name or password is wrong.</font></p>");

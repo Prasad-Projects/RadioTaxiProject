@@ -7,10 +7,7 @@
 <title>My bookings</title>
 </head>
 <body>
-	<%
-		String user = (String) session.getAttribute("user");
-	%>
-<!-- TODO: add conditional to display below message only when booking succesful -->
+<!-- TODO: add conditional to display below message only when booking successful -->
 <p align="center"><font color=green>Booking successful!</font></p><br />
 Display rider bookings here.
 <form action="profile" method="get">
