@@ -3,6 +3,8 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
@@ -37,6 +39,10 @@ public class AccessDB {
 		}
 	}
 	
+	public static String hashPassword(String password) {
+		return DigestUtils.sha1Hex(password);
+	}
+
 	public static void registerRider(Rider rider, String password) {
 		String query = " INSERT INTO rider_info (username,first_name,last_name,mobile_no,password) VALUES ('"
 				+ rider.getUsername()
@@ -45,7 +51,7 @@ public class AccessDB {
 				+ "','"
 				+ rider.getLastname()
 				+ "','"
-				+ rider.getMobile_no() + "','" + password + "');";
+				+ rider.getMobile_no() + "','" + hashPassword(password) + "');";
 		try {
 			session.execute(query);
 		} catch (Exception e) {
@@ -121,7 +127,23 @@ public class AccessDB {
 				+ "','"
 				+ driver.getCar_no()
 				+ "','"
-				+ password+ "');";
+				+ hashPassword(password) + "');";
+		try {
+			session.execute(query);
+		} catch (Exception e) {
+			System.out.print(e);
+		}
+	}
+
+	public static void registerAdmin() {
+		String query = " INSERT INTO admin_list (username,first_name,last_name,password) VALUES ('"
+				+ "admin"
+				+ "','"
+				+ "Admin"
+				+ "','"
+				+ "Admin"
+				+ "','"
+				+ hashPassword("admin") + "');";
 		try {
 			session.execute(query);
 		} catch (Exception e) {
@@ -210,8 +232,8 @@ public class AccessDB {
 			case "admin":
 				table = "admin_list";
 		}
-		String query = "SELECT * FROM " + table + " WHERE username = '" + username + "' AND password = '" + password
-				+ "' ALLOW FILTERING;";
+		String query = "SELECT * FROM " + table + " WHERE username = '" + username
+				+ "' AND password = '" + hashPassword(password)	+ "' ALLOW FILTERING;";
 		try {
 			ResultSet rs = session.execute(query);
 			return (!rs.all().isEmpty());
