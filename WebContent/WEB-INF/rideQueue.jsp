@@ -23,7 +23,7 @@
 			out.println("</div>");
 			for (Row r : results) {
 				out.println("<div class=\"row\">");
-				out.println("<div class=\"col s2\"><a href = \"/RadioTaxiProject-Release-1/confirmmatch?booking_id="+ r.getInt("booking_id") + "\"></div><div class=\"col s2\">" + r.getInt("booking_id") + "</a></div><div class=\"col s2\">" +  "</div><div class=\"col s2\">" + r.getString("rider") + "</div><div class=\"col s2\">" + r.getString("origin") + "</div><div class=\"col s2\">"+ r.getString("destination") + "</div><div class=\"col s2\">" + r.getTimestamp("time")+"</div>");
+				out.println("<div class=\"col s2\"><a href = \"/RadioTaxiProject-Release/confirmmatch?booking_id="+ r.getInt("booking_id") + "\"></div><div class=\"col s2\">" + r.getInt("booking_id") + "</a></div><div class=\"col s2\">" +  "</div><div class=\"col s2\">" + r.getString("rider") + "</div><div class=\"col s2\">" + r.getString("origin") + "</div><div class=\"col s2\">"+ r.getString("destination") + "</div><div class=\"col s2\">" + r.getTimestamp("time")+"</div>");
 				out.println("</div>");
 			}
 		}
