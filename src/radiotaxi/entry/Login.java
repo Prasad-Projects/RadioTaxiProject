@@ -1,3 +1,6 @@
+package radiotaxi.entry;
+
+import radiotaxi.db.AccessDB;
 
 public class Login {
 	

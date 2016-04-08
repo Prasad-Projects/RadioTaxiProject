@@ -1,3 +1,4 @@
+package radiotaxi.roles;
 
 public abstract class User {
 		

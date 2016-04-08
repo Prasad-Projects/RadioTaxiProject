@@ -1,3 +1,5 @@
+package radiotaxi.db;
+
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -10,6 +12,9 @@ import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.exceptions.AlreadyExistsException;
+
+import radiotaxi.roles.driver.Driver;
+import radiotaxi.roles.rider.Rider;
 
 public class AccessDB {
 

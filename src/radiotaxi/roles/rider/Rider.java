@@ -1,3 +1,6 @@
+package radiotaxi.roles.rider;
+
+import radiotaxi.roles.User;
 
 public class Rider extends User {
 

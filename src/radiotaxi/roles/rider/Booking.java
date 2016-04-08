@@ -1,5 +1,9 @@
+package radiotaxi.roles.rider;
+
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+
+import radiotaxi.db.AccessDB;
 
 public class Booking {
 	

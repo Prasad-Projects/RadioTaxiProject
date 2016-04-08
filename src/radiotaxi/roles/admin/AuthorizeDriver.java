@@ -1,3 +1,6 @@
+package radiotaxi.roles.admin;
+
+import radiotaxi.db.AccessDB;
 
 public class AuthorizeDriver {
 	

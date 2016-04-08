@@ -1,3 +1,6 @@
+package radiotaxi.roles.driver;
+
+import radiotaxi.roles.User;
 
 public class Driver extends User {
 

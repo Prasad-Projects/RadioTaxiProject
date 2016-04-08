@@ -1,3 +1,6 @@
+package radiotaxi.roles.driver;
+
+import radiotaxi.db.AccessDB;
 
 public class ConfirmMatch {
 	

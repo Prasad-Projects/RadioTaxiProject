@@ -1,4 +1,4 @@
-
+package radiotaxi.roles;
 
 import java.io.IOException;
 
