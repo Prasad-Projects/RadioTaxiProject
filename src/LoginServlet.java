@@ -42,11 +42,10 @@ public class LoginServlet extends HttpServlet {
 	            session.setAttribute("user", username);
 	            session.setAttribute("type", userType);
 	            session.setMaxInactiveInterval(1800);
-	            request.getRequestDispatcher("/profile").forward(request, response);
+	            request.getRequestDispatcher("profile").forward(request, response);
 			} else {
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.html");
 				out.println("<p align=\"center\"><font color=red>Either user name or password is wrong.</font></p>");
-				rd.include(request, response);
+				request.getRequestDispatcher("index.html").include(request, response);
 			}
 		}
 	}

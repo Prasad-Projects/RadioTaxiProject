@@ -38,14 +38,12 @@ public class ConfirmMatchServlet extends HttpServlet {
 
 				ConfirmMatch match = new ConfirmMatch();
 				if(!match.confirmMatch(bookingId, driver)) {
-					RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/rideQueue.jsp");
 					out.println("<p align=\"center\"><font color=red>No unmatched rides!</font></p>");
-					rd.include(request, response);
+					request.getRequestDispatcher("WEB-INF/rideQueue.jsp").include(request, response);
 				}
 				else {
-					RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/rideQueue.jsp");
 					out.println("<p align=\"center\"><font color=green>Successfully allotted ride!</font></p>");
-					rd.include(request, response);
+					request.getRequestDispatcher("WEB-INF/rideQueue.jsp").include(request, response);
 				}
 			}
 		} else {

@@ -27,20 +27,17 @@ public class ProfileServlet extends HttpServlet {
 		
 		if(session != null) {
 			if(session.getAttribute("type").toString().compareTo("rider") == 0) {
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/riderProfile.jsp");
-				rd.include(request, response);				
+				request.getRequestDispatcher("WEB-INF/riderProfile.jsp").forward(request, response);
 			}
 			else if(session.getAttribute("type").toString().compareTo("driver") == 0) {
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/driverProfile.jsp");
-				rd.include(request, response);
+				request.getRequestDispatcher("WEB-INF/driverProfile.jsp").forward(request, response);
 			}
 			else if(session.getAttribute("type").toString().compareTo("admin") == 0) {
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/adminportal");
-				rd.forward(request, response);
+				request.getRequestDispatcher("adminportal").forward(request, response);
 			}
 		}
 		else {
-			response.sendRedirect("/index.html");
+			response.sendRedirect("index.html");
 		}
 	}
 

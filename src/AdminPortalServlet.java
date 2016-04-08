@@ -34,8 +34,10 @@ public class AdminPortalServlet extends HttpServlet {
 			List<Row> results = adminPortal.getUnregisteredDrivers();
 	
 			request.setAttribute("results", results);
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/unregisteredDrivers.jsp");
-			rd.forward(request, response);
-		}		
+			request.getRequestDispatcher("WEB-INF/unregisteredDrivers.jsp").forward(request, response);
+		}
+		else {
+			response.sendRedirect("index.html");
+		}
 	}
 }

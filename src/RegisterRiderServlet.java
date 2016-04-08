@@ -39,12 +39,10 @@ public class RegisterRiderServlet extends HttpServlet {
 			Register register = new Register();
 			register.registerRider(new Rider(username,firstName, lastName,mobile),password);
 
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.html");
 			out.println("<p align=\"center\"><font color=green>Successfully registered!</font></p>");
-			rd.include(request, response);
+			request.getRequestDispatcher("index.html").include(request, response);
 		} else {
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/profile");
-			rd.forward(request, response);
+			request.getRequestDispatcher("profile").forward(request, response);
 		}
 	}
 }

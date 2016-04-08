@@ -26,8 +26,7 @@ public class BookingServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/book.html");
-		rd.forward(request, response);
+		request.getRequestDispatcher("WEB-INF/book.html").forward(request, response);
 
     }
 
@@ -42,9 +41,8 @@ public class BookingServlet extends HttpServlet {
 			Booking b = new Booking();
 			b.bookTrip(rider, origin, dest); // add driver later when confirmed
 			
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/riderBookings.jsp");
 			request.setAttribute("success", true);
-			rd.forward(request, response);
+			request.getRequestDispatcher("WEB-INF/riderBookings.jsp").forward(request, response);
 		}
 		else {
 			response.sendRedirect("index.html");

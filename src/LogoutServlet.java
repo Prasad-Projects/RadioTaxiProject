@@ -34,9 +34,8 @@ public class LogoutServlet extends HttpServlet {
 			}
 		}
 		PrintWriter out = response.getWriter();
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.html");
 		out.println("<p align=\"center\"><font color=green>Successfully logged out!</font></p>");
-		rd.include(request, response);
+		request.getRequestDispatcher("index.html").include(request, response);
 	}
 
 }

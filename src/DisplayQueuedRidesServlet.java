@@ -32,14 +32,11 @@ public class DisplayQueuedRidesServlet extends HttpServlet {
 			if(session.getAttribute("type").toString().compareTo("driver") != 0) {
 				response.sendRedirect("error.jsp");
 			} else {
-				response.setContentType("text/html");
-
 				DisplayQueuedRides rides = new DisplayQueuedRides();
 				List<Row> results = rides.getRides();
 
 				request.setAttribute("results", results);
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/rideQueue.jsp");
-				rd.forward(request, response);
+				request.getRequestDispatcher("WEB-INF/rideQueue.jsp").forward(request, response);
 			}
 		} else {
 			response.sendRedirect("index.html");

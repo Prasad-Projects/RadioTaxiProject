@@ -32,9 +32,8 @@ public class AuthorizeDriverServlet extends HttpServlet {
 			AuthorizeDriver auth = new AuthorizeDriver();
 			
 			if(!auth.authorise(username)) {
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/unregisteredDrivers.jsp");
 				out.println("<p align=\"center\"><font color=red>No unregistered drivers!</font></p>");
-				rd.include(request, response);
+				request.getRequestDispatcher("WEB-INF/unregisteredDrivers.jsp").include(request, response);
 			}
 			
 		}

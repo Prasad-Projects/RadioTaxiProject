@@ -41,12 +41,10 @@ public class RegisterDriverServlet extends HttpServlet {
 			Register register = new Register();
 			register.registerDriver(new Driver(username, firstName, lastName, mobile, licence, carNo),password);
 
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.html");
 			out.println("<p align=\"center\"><font color=green>Successfully registered! Pending verification</font></p>");
-			rd.include(request, response);
+			request.getRequestDispatcher("index.html").include(request, response);
 		} else {
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/profile.jsp");
-			rd.forward(request, response);
+			request.getRequestDispatcher("profile").forward(request, response);
 		}
     }
 }
