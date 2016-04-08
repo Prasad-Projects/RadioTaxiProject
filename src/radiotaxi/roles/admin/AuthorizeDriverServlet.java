@@ -35,6 +35,10 @@ public class AuthorizeDriverServlet extends HttpServlet {
 				request.getRequestDispatcher("WEB-INF/unregisteredDrivers.jsp").include(request, response);
 			}
 			
+			else {
+				//out.println("<p align=\"center\"><font color=green>Driver successfully approved!</font></p>");
+				request.getRequestDispatcher("adminportal").forward(request, response);
+			}
 		}
 	}
 }

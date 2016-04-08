@@ -28,5 +28,8 @@
 		}
 	}
 	%>
+	<form action="logout" method="get">
+        <button type="submit" value="Logout">Logout</button>
+	</form>
 </body>
 </html>

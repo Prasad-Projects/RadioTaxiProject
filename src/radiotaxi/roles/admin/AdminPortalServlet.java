@@ -40,4 +40,8 @@ public class AdminPortalServlet extends HttpServlet {
 			response.sendRedirect("index.html");
 		}
 	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request, response);
+	}
 }
