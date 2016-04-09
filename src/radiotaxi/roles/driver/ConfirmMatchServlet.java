@@ -27,7 +27,7 @@ public class ConfirmMatchServlet extends HttpServlet {
 
 		if(session.getAttribute("type") != null) {
 			if(session.getAttribute("type").toString().compareTo("driver") != 0) {
-				response.sendRedirect("error.jsp");
+				response.sendRedirect("WEB-INF/error.jsp");
 			} else {
 
 				PrintWriter out = response.getWriter();
@@ -36,13 +36,18 @@ public class ConfirmMatchServlet extends HttpServlet {
 				String driver = (String) session.getAttribute("user");
 
 				ConfirmMatch match = new ConfirmMatch();
-				if(!match.confirmMatch(bookingId, driver)) {
-					out.println("<p align=\"center\"><font color=red>No unmatched rides!</font></p>");
-					request.getRequestDispatcher("WEB-INF/rideQueue.jsp").include(request, response);
-				}
-				else {
-					out.println("<p align=\"center\"><font color=green>Successfully allotted ride!</font></p>");
-					request.getRequestDispatcher("WEB-INF/rideQueue.jsp").include(request, response);
+				try {
+					if(!match.confirmMatch(bookingId, driver)) {
+						out.println("<p align=\"center\"><font color=red>No unmatched rides!</font></p>");
+						request.getRequestDispatcher("WEB-INF/rideQueue.jsp").include(request, response);
+					}
+					else {
+						out.println("<p align=\"center\"><font color=green>Successfully allotted ride!</font></p>");
+						request.getRequestDispatcher("WEB-INF/rideQueue.jsp").include(request, response);
+					}
+				} catch(Exception e) {
+					//request.setAttribute("errMsg", e.getMessage());
+					request.getRequestDispatcher("WEB-INF/error.jsp").forward(request, response);
 				}
 			}
 		} else {

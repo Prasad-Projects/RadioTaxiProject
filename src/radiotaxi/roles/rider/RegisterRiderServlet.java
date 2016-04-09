@@ -39,10 +39,15 @@ public class RegisterRiderServlet extends HttpServlet {
 			String password=request.getParameter("password");  
 
 			Register register = new Register();
-			register.registerRider(new Rider(username,firstName, lastName,mobile),password);
 
-			out.println("<p align=\"center\"><font color=green>Successfully registered!</font></p>");
-			request.getRequestDispatcher("index.html").include(request, response);
+			try {
+				register.registerRider(new Rider(username,firstName, lastName,mobile),password);
+				out.println("<p align=\"center\"><font color=green>Successfully registered!</font></p>");
+				request.getRequestDispatcher("index.html").include(request, response);
+			} catch(Exception e) {
+				//request.setAttribute("errMsg", e.getMessage());
+				request.getRequestDispatcher("WEB-INF/error.jsp").forward(request, response);
+			}
 		} else {
 			request.getRequestDispatcher("profile").forward(request, response);
 		}

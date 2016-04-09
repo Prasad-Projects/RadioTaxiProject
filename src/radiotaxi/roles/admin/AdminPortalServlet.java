@@ -1,10 +1,8 @@
 package radiotaxi.roles.admin;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,11 +28,17 @@ public class AdminPortalServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		
 		if(session != null) {
+
 			AdminPortal adminPortal = new AdminPortal();
-			List<Row> results = adminPortal.getUnregisteredDrivers();
-	
-			request.setAttribute("results", results);
-			request.getRequestDispatcher("WEB-INF/unregisteredDrivers.jsp").forward(request, response);
+
+			try {
+				List<Row> results = adminPortal.getUnregisteredDrivers();
+				request.setAttribute("results", results);
+				request.getRequestDispatcher("WEB-INF/unregisteredDrivers.jsp").forward(request, response);
+			} catch(Exception e) {
+				//request.setAttribute("errMsg", e.getMessage());
+				request.getRequestDispatcher("WEB-INF/error.jsp").forward(request, response);
+			}
 		}
 		else {
 			response.sendRedirect("index.html");

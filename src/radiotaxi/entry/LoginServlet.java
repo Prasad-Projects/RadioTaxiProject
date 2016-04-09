@@ -3,7 +3,6 @@ package radiotaxi.entry;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,15 +37,20 @@ public class LoginServlet extends HttpServlet {
 
 			Login login = new Login();
 
-			if(login.login(username, password, userType)){
-	            HttpSession session = request.getSession();
-	            session.setAttribute("user", username);
-	            session.setAttribute("type", userType);
-	            session.setMaxInactiveInterval(1800);
-	            request.getRequestDispatcher("profile").forward(request, response);
-			} else {
-				out.println("<p align=\"center\"><font color=red>Either user name or password is wrong.</font></p>");
-				request.getRequestDispatcher("index.html").include(request, response);
+			try {
+				if(login.login(username, password, userType)){
+		            HttpSession session = request.getSession();
+		            session.setAttribute("user", username);
+		            session.setAttribute("type", userType);
+		            session.setMaxInactiveInterval(1800);
+		            request.getRequestDispatcher("profile").forward(request, response);
+				} else {
+					out.println("<p align=\"center\"><font color=red>Either user name or password is wrong.</font></p>");
+					request.getRequestDispatcher("index.html").include(request, response);
+				}
+			} catch(Exception e) {
+				//request.setAttribute("errMsg", e.getMessage());
+				request.getRequestDispatcher("WEB-INF/error.jsp").forward(request, response);
 			}
 		}
 	}

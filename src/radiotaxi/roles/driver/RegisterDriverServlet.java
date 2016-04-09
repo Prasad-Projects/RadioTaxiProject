@@ -41,10 +41,15 @@ public class RegisterDriverServlet extends HttpServlet {
 			String carNo=request.getParameter("car_no");
 
 			Register register = new Register();
-			register.registerDriver(new Driver(username, firstName, lastName, mobile, licence, carNo),password);
 
-			out.println("<p align=\"center\"><font color=green>Successfully registered! Pending verification</font></p>");
-			request.getRequestDispatcher("index.html").include(request, response);
+			try {
+				register.registerDriver(new Driver(username, firstName, lastName, mobile, licence, carNo),password);
+				out.println("<p align=\"center\"><font color=green>Successfully registered! Pending verification</font></p>");
+				request.getRequestDispatcher("index.html").include(request, response);
+			} catch (Exception e) {
+				//request.setAttribute("errMsg", e.getMessage());
+				request.getRequestDispatcher("WEB-INF/error.jsp").forward(request, response);
+			}
 		} else {
 			request.getRequestDispatcher("profile").forward(request, response);
 		}

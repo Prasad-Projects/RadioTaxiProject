@@ -30,13 +30,18 @@ public class DisplayQueuedRidesServlet extends HttpServlet {
 
 		if(session != null) {
 			if(session.getAttribute("type").toString().compareTo("driver") != 0) {
-				response.sendRedirect("error.jsp");
+				response.sendRedirect("WEB-INF/error.jsp");
 			} else {
 				DisplayQueuedRides rides = new DisplayQueuedRides();
-				List<Row> results = rides.getRides();
 
-				request.setAttribute("results", results);
-				request.getRequestDispatcher("WEB-INF/rideQueue.jsp").forward(request, response);
+				try {
+					List<Row> results = rides.getRides();
+					request.setAttribute("results", results);
+					request.getRequestDispatcher("WEB-INF/rideQueue.jsp").forward(request, response);
+				} catch(Exception e) {
+					//request.setAttribute("errMsg", e.getMessage());
+					request.getRequestDispatcher("WEB-INF/error.jsp").forward(request, response);
+				}
 			}
 		} else {
 			response.sendRedirect("index.html");

@@ -12,7 +12,7 @@ public class AdminPortal {
 
 	}
 	
-	public List<Row> getUnregisteredDrivers() {
+	public List<Row> getUnregisteredDrivers() throws Exception {
 		AccessDB db = new AccessDB();
 		List<Row> results = db.getUnregisteredDrivers();
 		return results;

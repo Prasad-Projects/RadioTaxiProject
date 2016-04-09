@@ -30,14 +30,19 @@ public class AuthorizeDriverServlet extends HttpServlet {
 		if(session != null) {
 			AuthorizeDriver auth = new AuthorizeDriver();
 			
-			if(!auth.authorise(username)) {
-				out.println("<p align=\"center\"><font color=red>No unregistered drivers!</font></p>");
-				request.getRequestDispatcher("WEB-INF/unregisteredDrivers.jsp").include(request, response);
-			}
-			
-			else {
-				//out.println("<p align=\"center\"><font color=green>Driver successfully approved!</font></p>");
-				request.getRequestDispatcher("adminportal").forward(request, response);
+			try {
+				if(!auth.authorise(username)) {
+					out.println("<p align=\"center\"><font color=red>No unregistered drivers!</font></p>");
+					request.getRequestDispatcher("WEB-INF/unregisteredDrivers.jsp").include(request, response);
+				}
+
+				else {
+					//out.println("<p align=\"center\"><font color=green>Driver successfully approved!</font></p>");
+					request.getRequestDispatcher("adminportal").forward(request, response);
+				}
+			} catch(Exception e) {
+				//request.setAttribute("errMsg", e.getMessage());
+				request.getRequestDispatcher("WEB-INF/error.jsp").forward(request, response);
 			}
 		}
 	}

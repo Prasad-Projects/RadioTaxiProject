@@ -38,10 +38,15 @@ public class BookingServlet extends HttpServlet {
 			String dest = request.getParameter("dest");
 			
 			Booking b = new Booking();
-			b.bookTrip(rider, origin, dest); // add driver later when confirmed
 			
-			request.setAttribute("success", true);
-			request.getRequestDispatcher("WEB-INF/riderBookings.jsp").forward(request, response);
+			try {
+				b.bookTrip(rider, origin, dest); // add driver later when confirmed
+				request.setAttribute("success", true);
+				request.getRequestDispatcher("WEB-INF/riderBookings.jsp").forward(request, response);
+			} catch(Exception e) {
+				//request.setAttribute("errMsg", e.getMessage());
+				request.getRequestDispatcher("WEB-INF/error.jsp").forward(request, response);
+			}
 		}
 		else {
 			response.sendRedirect("index.html");

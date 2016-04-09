@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -21,18 +23,30 @@ public class AccessDB {
 	static Cluster cluster;
 	static Session session;
 	
-	public static void initialise(){
+	private static Logger logger = Logger.getLogger("AccessDB.class");
+	
+	public static void initialise() throws Exception {
 		cluster = Cluster.builder().addContactPoint("127.0.0.1").build();
-		session = cluster.connect();
-		useKeyspace();
+		try {
+			session = cluster.connect();
+			useKeyspace();
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "error initialising db", e);
+			throw e;
+		}
 	}
 
 	public AccessDB() {
 	}
 
-	public static void useKeyspace() {
+	public static void useKeyspace() throws Exception {
 		String query = "use radiotaxi";
-		session.execute(query);
+		try {
+			session.execute(query);
+		} catch(Exception e) {
+			logger.log(Level.SEVERE, "error using keyspace", e);
+			throw e;
+		}
 	}
 
 	public static void createTable() {
@@ -48,7 +62,7 @@ public class AccessDB {
 		return DigestUtils.sha1Hex(password);
 	}
 
-	public static void registerRider(Rider rider, String password) {
+	public static void registerRider(Rider rider, String password) throws Exception {
 		String query = " INSERT INTO rider_info (username,first_name,last_name,mobile_no,password) VALUES ('"
 				+ rider.getUsername()
 				+ "','"
@@ -60,23 +74,25 @@ public class AccessDB {
 		try {
 			session.execute(query);
 		} catch (Exception e) {
-			System.out.print(e);
+			logger.log(Level.SEVERE, "error registerRider", e);
+			throw e;
 		}
 	}
 
-	public List<Row> getUnregisteredDrivers() {
+	public List<Row> getUnregisteredDrivers() throws Exception {
 		String query = "SELECT * FROM unregistered_drivers;";
 		List<Row> results = null;
 		try {
 			ResultSet rs = session.execute(query);
 			results = rs.all();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, "error getUnregisteredDrivers", e);
+			throw e;
 		}
 		return results;
 	}
 
-	public boolean authorizeDriver(String username) {
+	public boolean authorizeDriver(String username) throws Exception {
 
 		String query = "SELECT * FROM unregistered_drivers WHERE username = '" + username + "';";
 
@@ -85,7 +101,8 @@ public class AccessDB {
 			ResultSet rs = session.execute(query);
 			results = rs.all();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, "error authorizeDriver", e);
+			throw e;
 		}
 		if (results == null) {
 			return false;
@@ -105,20 +122,22 @@ public class AccessDB {
 		try {
 			session.execute(query);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, "error authorizeDriver", e);
+			throw e;
 		}
 
 		query = "DELETE FROM unregistered_drivers WHERE username = '" + username + "';";
 		try {
 			session.execute(query);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, "error authorizeDriver", e);
+			throw e;
 		}
 
 		return true;
 	}
 
-	public static void registerDriver(Driver driver, String password) {
+	public static void registerDriver(Driver driver, String password) throws Exception {
 		String query = " INSERT INTO unregistered_drivers (username,first_name,last_name,mobile_no,car_no,license_no,password) VALUES ('"
 				+ driver.getUsername()
 				+ "','"
@@ -136,11 +155,12 @@ public class AccessDB {
 		try {
 			session.execute(query);
 		} catch (Exception e) {
-			System.out.print(e);
+			logger.log(Level.SEVERE, "error registerDriver", e);
+			throw e;
 		}
 	}
 
-	public static void registerAdmin() {
+	public static void registerAdmin() throws Exception {
 		String query = " INSERT INTO admin_list (username,first_name,last_name,password) VALUES ('"
 				+ "admin"
 				+ "','"
@@ -152,7 +172,8 @@ public class AccessDB {
 		try {
 			session.execute(query);
 		} catch (Exception e) {
-			System.out.print(e);
+			logger.log(Level.SEVERE, "error registerAdmin", e);
+			throw e;
 		}
 	}
 
@@ -161,7 +182,7 @@ public class AccessDB {
 	 * text,driver text,time timestamp,origin text,destination text,PRIMARY
 	 * KEY(rider, time));
 	 */
-	public static String bookARide(String rider, String time, String origin, String destination) {
+	public static String bookARide(String rider, String time, String origin, String destination) throws Exception {
 		// TODO: generate valid booking IDs
 		int randBookingId = 0 + (int) (Math.random() * 100000);
 
@@ -170,30 +191,33 @@ public class AccessDB {
 		try {
 			session.execute(query);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, "error bookARide", e);
+			throw e;
 		}
 		return query;
 	}
-	public static List<Row> getUnmatchedRides() {
+	public static List<Row> getUnmatchedRides() throws Exception {
 		String query = "SELECT * FROM unmatched_bookings;";
 		List<Row> results = null;
 		try {
 			ResultSet rs = session.execute(query);
 			results = rs.all();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, "error getUnmatchedRides", e);
+			throw e;
 		}
 		return results;
 	}
 	
-	public static boolean confirmMatch(int bookingId, String driver) {
+	public static boolean confirmMatch(int bookingId, String driver) throws Exception {
 		List<Row> results = null;
 		String query = "SELECT * FROM unmatched_bookings WHERE booking_id = " + bookingId + ";";
 		try {
 			ResultSet rs = session.execute(query);
 			results = rs.all();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, "error confirmMatch", e);
+			throw e;
 		}
 		if (results == null) {
 			return false;
@@ -212,20 +236,22 @@ public class AccessDB {
 		try {
 			session.execute(query);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, "error confirmMatch", e);
+			throw e;
 		}
 
 		query = "DELETE FROM unmatched_bookings WHERE booking_id = " + bookingId + ";";
 		try {
 			session.execute(query);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, "error confirmMatch", e);
+			throw e;
 		}
 
 		return true;
 	}
 
-	public static boolean login(String username, String password, String type) {
+	public static boolean login(String username, String password, String type) throws Exception {
 		String table = null;
 		switch (type) {
 			case "rider":
@@ -243,8 +269,8 @@ public class AccessDB {
 			ResultSet rs = session.execute(query);
 			return (!rs.all().isEmpty());
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, "error login", e);
+			throw e;
 		}
-		return false;
 	}
 }

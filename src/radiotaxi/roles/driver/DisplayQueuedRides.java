@@ -12,7 +12,7 @@ public class DisplayQueuedRides {
 		
 	}
 	
-	public List<Row> getRides() {
+	public List<Row> getRides() throws Exception {
 		List<Row> results = AccessDB.getUnmatchedRides();
 		return results;
 	}

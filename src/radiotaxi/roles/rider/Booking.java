@@ -7,13 +7,13 @@ import radiotaxi.db.AccessDB;
 
 public class Booking {
 	
-	public String bookTrip(String rider, String origin, String dest) {
+	public String bookTrip(String rider, String origin, String dest) throws Exception {
 		
 		// get current time (format yyyy-mm-dd HH:mm:ss) 
 		LocalDateTime time = LocalDateTime.now(ZoneId.of("Asia/Kolkata"));
-        String time_str = time.toString().replace('T', ' ').split("\\.")[0];
+        String strTime = time.toString().replace('T', ' ').split("\\.")[0];
 
-     	return AccessDB.bookARide(rider, time_str, origin, dest);
+     	return AccessDB.bookARide(rider, strTime, origin, dest);
 		
 	}
 }
