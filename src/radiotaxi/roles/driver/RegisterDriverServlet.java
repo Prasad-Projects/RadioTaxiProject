@@ -43,7 +43,7 @@ public class RegisterDriverServlet extends HttpServlet {
 			Register register = new Register();
 
 			try {
-				register.registerDriver(new Driver(username, firstName, lastName, mobile, licence, carNo),password);
+				register.registerDriver(new Driver(username, firstName, lastName, mobile, licence, carNo,0),password);
 				out.println("<p align=\"center\"><font color=green>Successfully registered! Pending verification</font></p>");
 				request.getRequestDispatcher("index.html").include(request, response);
 			} catch (Exception e) {
@@ -55,4 +55,3 @@ public class RegisterDriverServlet extends HttpServlet {
 		}
     }
 }
-

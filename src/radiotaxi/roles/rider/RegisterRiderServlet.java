@@ -41,7 +41,7 @@ public class RegisterRiderServlet extends HttpServlet {
 			Register register = new Register();
 
 			try {
-				register.registerRider(new Rider(username,firstName, lastName,mobile),password);
+				register.registerRider(new Rider(username,firstName, lastName,mobile,0),password);
 				out.println("<p align=\"center\"><font color=green>Successfully registered!</font></p>");
 				request.getRequestDispatcher("index.html").include(request, response);
 			} catch(Exception e) {

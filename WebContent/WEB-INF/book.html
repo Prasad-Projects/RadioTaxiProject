@@ -162,6 +162,8 @@ html, body {
 									+ results[j].duration.text + '<br>';
 							document.getElementById("origin").value = origins[i];
 							document.getElementById("dest").value = destinations[j];
+							document.getElementById("distance").value = results[j].distance.text;
+							document.getElementById("time").value = results[j].duration.text;
 						}
 					}
 				}
@@ -192,7 +194,16 @@ html, body {
 		
 	</script>
 	<div id="output">Drag and drop marker B at the destination, or enter your destination in the field below!</div>
-	
+	<form action="book" method="post">
+		<input type="text" name="origin" id="origin">
+		<input type="hidden" name="distance" id="distance">
+		<input type="text" name="dest" id="dest">
+		<input type="hidden" name="time" id="time">
+		<button id="book_button" type="submit" value="Book">Book</button>
+		
+	</form>
+
+	<!--
 	<form action="book" method="post" class="col s12">
 		<div class="row">
 			<div class="input-field col s4">
@@ -204,10 +215,20 @@ html, body {
 				<label for="dest" id="dest">Destination</label>
 			</div>
 			<div class="input-field col s4">
+			
+				<input placeholder=" "  type="text" name="time" id="time" class="validate">
+				<label for="time" id="time">time</label>
+			</div>
+			
+			<input type="text" name="distance" id="distance" >
+			</div>
+				
+			<div class="input-field col s4">
 				<button class="btn waves-effect waves-light" id="book_button" type="submit" value="Book">Book</button>
 			</div>
 		</div>
 	</form>
+	-->
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script type="text/javascript" src="js/materialize.min.js"></script>

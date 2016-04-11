@@ -6,14 +6,14 @@ import java.time.ZoneId;
 import radiotaxi.db.AccessDB;
 
 public class Booking {
-	
-	public String bookTrip(String rider, String origin, String dest) throws Exception {
+
+	public String bookTrip(String rider, String origin, String dest, int fare) throws Exception {
 		
 		// get current time (format yyyy-mm-dd HH:mm:ss) 
 		LocalDateTime time = LocalDateTime.now(ZoneId.of("Asia/Kolkata"));
-        String strTime = time.toString().replace('T', ' ').split("\\.")[0];
+        String time_str = time.toString().replace('T', ' ').split("\\.")[0];
 
-     	return AccessDB.bookARide(rider, strTime, origin, dest);
-		
+     	return AccessDB.bookARide(rider, time_str, origin, dest,fare);
+			
 	}
 }
