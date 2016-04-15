@@ -11,9 +11,9 @@ import radiotaxi.db.AccessDB;
  *
  */
 @WebListener
-public class Initialise implements ServletContextListener {
+public class InitialiseApp implements ServletContextListener {
 
-    public Initialise() {
+    public InitialiseApp() {
 
     }
 
