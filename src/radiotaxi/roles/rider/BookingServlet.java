@@ -1,6 +1,7 @@
 package radiotaxi.roles.rider;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,6 +36,8 @@ public class BookingServlet extends HttpServlet {
 
 		HttpSession session = request.getSession(false);
 		if(session != null) {
+			PrintWriter out = response.getWriter();
+
 			String rider = (String) session.getAttribute("user");
 			String origin = request.getParameter("origin");
 			String dest = request.getParameter("dest");
@@ -62,14 +65,17 @@ public class BookingServlet extends HttpServlet {
 			Booking b = new Booking();
 			int fare = d*7+t;
 			System.out.println(fare);
+
+			request.getRequestDispatcher("html/html-top-common.html").include(request, response);
+			request.getRequestDispatcher("html/riderbookings-layout-1.html").include(request, response);
 			try {
 				b.bookTrip(rider, origin, dest,fare); // add driver later when confirmed
-				request.setAttribute("success", true);
-				request.getRequestDispatcher("WEB-INF/riderBookings.jsp").forward(request, response);
 			} catch(Exception e) {
-				//request.setAttribute("errMsg", e.getMessage());
-				request.getRequestDispatcher("WEB-INF/error.jsp").forward(request, response);
+				request.getRequestDispatcher("html/error.html").include(request, response);
+				out.println("Database error");
 			}
+			//request.getRequestDispatcher("WEB-INF/riderBookings.jsp").forward(request, response);
+			request.getRequestDispatcher("html/html-bottom-common.html").include(request, response);
 		}
 		else {
 			response.sendRedirect("index.html");

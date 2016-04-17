@@ -1,6 +1,7 @@
 package radiotaxi.roles;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,15 +26,30 @@ public class ProfileServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		
 		if(session != null) {
+
+			PrintWriter out = response.getWriter();
+			request.getRequestDispatcher("html/html-top-common.html").include(request, response);
+
 			if(session.getAttribute("type").toString().compareTo("rider") == 0) {
-				request.getRequestDispatcher("WEB-INF/riderProfile.jsp").forward(request, response);
+				request.getRequestDispatcher("html/riderprofile-layout-1.html").include(request, response);
+				String user = (String) session.getAttribute("user");
+				out.println("<h1 class=\"teal lighten-2 white-text\" style=\"text-align:center;font-size:200%;font-family:Calibri;\">Hi! "+user+"</h1>");
+				request.getRequestDispatcher("html/riderprofile-layout-2.html").include(request, response);
 			}
 			else if(session.getAttribute("type").toString().compareTo("driver") == 0) {
-				request.getRequestDispatcher("WEB-INF/driverProfile.jsp").forward(request, response);
+				request.getRequestDispatcher("html/driverprofile-layout-1.html").include(request, response);
+				String user = (String) session.getAttribute("user");
+				out.println("<h1 class=\"teal lighten-2 white-text\" style=\"text-align:center;font-size:200%;font-family:Calibri;\">Hi! "+user+"</h1>");
+				request.getRequestDispatcher("html/driverprofile-layout-2.html").include(request, response);
 			}
 			else if(session.getAttribute("type").toString().compareTo("admin") == 0) {
-				request.getRequestDispatcher("adminportal").forward(request, response);
+				request.getRequestDispatcher("html/adminprofile-layout-1.html").include(request, response);
+				String user = (String) session.getAttribute("user");
+				out.println("<h1 class=\"teal lighten-2 white-text\" style=\"text-align:center;font-size:200%;font-family:Calibri;\">Hi! "+user+"</h1>");
+				request.getRequestDispatcher("html/adminprofile-layout-2.html").include(request, response);
 			}
+
+			request.getRequestDispatcher("html/html-bottom-common.html").include(request, response);
 		}
 		else {
 			response.sendRedirect("index.html");

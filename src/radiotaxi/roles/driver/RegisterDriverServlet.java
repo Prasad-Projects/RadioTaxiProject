@@ -47,8 +47,8 @@ public class RegisterDriverServlet extends HttpServlet {
 				out.println("<p align=\"center\"><font color=green>Successfully registered! Pending verification</font></p>");
 				request.getRequestDispatcher("index.html").include(request, response);
 			} catch (Exception e) {
-				//request.setAttribute("errMsg", e.getMessage());
-				request.getRequestDispatcher("WEB-INF/error.jsp").forward(request, response);
+				request.getRequestDispatcher("html/error.html").include(request, response);
+				out.println("Database error");
 			}
 		} else {
 			request.getRequestDispatcher("profile").forward(request, response);

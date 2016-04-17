@@ -26,29 +26,34 @@ public class ConfirmMatchServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 
 		if(session.getAttribute("type") != null) {
-			if(session.getAttribute("type").toString().compareTo("driver") != 0) {
-				response.sendRedirect("WEB-INF/error.jsp");
-			} else {
+			PrintWriter out = response.getWriter();
 
-				PrintWriter out = response.getWriter();
+			if(session.getAttribute("type").toString().compareTo("driver") != 0) {
+				request.getRequestDispatcher("html/error.html").include(request, response);
+				out.println("Access denied");
+			} else {
 
 				int bookingId = Integer.parseInt(request.getParameter("booking_id"));
 				String driver = (String) session.getAttribute("user");
 
 				ConfirmMatch match = new ConfirmMatch();
+				boolean confirmed = false;
 				try {
-					if(!match.confirmMatch(bookingId, driver)) {
-						out.println("<p align=\"center\"><font color=red>No unmatched rides!</font></p>");
-						request.getRequestDispatcher("WEB-INF/rideQueue.jsp").include(request, response);
-					}
-					else {
-						out.println("<p align=\"center\"><font color=green>Successfully allotted ride!</font></p>");
-						request.getRequestDispatcher("WEB-INF/rideQueue.jsp").include(request, response);
-					}
+					confirmed = match.confirmMatch(bookingId, driver);
 				} catch(Exception e) {
-					//request.setAttribute("errMsg", e.getMessage());
-					request.getRequestDispatcher("WEB-INF/error.jsp").forward(request, response);
+					request.getRequestDispatcher("html/error.html").include(request, response);
+					out.println("Database error");
 				}
+
+				request.getRequestDispatcher("html/html-top-common.html").include(request, response);
+				if(!confirmed) {
+					out.println("<p align=\"center\"><font color=red>No unmatched rides!</font></p>");
+				}
+				else {
+					out.println("<p align=\"center\"><font color=green>Successfully allotted ride!</font></p>");
+				}
+				request.getRequestDispatcher("displayqueuedrides").include(request, response);
+				request.getRequestDispatcher("html/html-bottom-common.html").include(request, response);
 			}
 		} else {
 			response.sendRedirect("index.html");
