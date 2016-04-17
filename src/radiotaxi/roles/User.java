@@ -5,14 +5,14 @@ public abstract class User {
 	private String username;
 	private String firstname;
 	private String lastname;
-	private String mobile_no;
+	private String mobileNo;
 	private int balance;
 	
-	public User(String username,String  firstname, String lastname, String mobile_no, int balance){
+	public User(String username,String  firstname, String lastname, String mobileNo, int balance){
 		this.username=username; 
 		this.firstname=firstname;
 		this.lastname=lastname;
-		this.mobile_no=mobile_no;
+		this.mobileNo=mobileNo;
 		this.balance=balance;
 	}
 	
@@ -32,7 +32,7 @@ public abstract class User {
 		return lastname;
 	}
 
-	public String getMobile_no() {
-		return mobile_no;
+	public String getMobileNo() {
+		return mobileNo;
 	}
 }

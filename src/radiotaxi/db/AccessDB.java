@@ -61,7 +61,7 @@ public class AccessDB {
 				+ "','"
 				+ rider.getLastname()
 				+ "','"
-				+ rider.getMobile_no()
+				+ rider.getMobileNo()
 				+ "',0,'"
 				+ hashPassword(password) + "');";
 		try {
@@ -152,11 +152,11 @@ public class AccessDB {
 				+ "','"
 				+ driver.getLastname()
 				+ "','"
-				+ driver.getMobile_no()
+				+ driver.getMobileNo()
 				+ "','"
-				+ driver.getCar_no()
+				+ driver.getCarNo()
 				+ "','"
-				+ driver.getLicense_no()
+				+ driver.getLicenseNo()
 				+ "',0,'"
 				+ hashPassword(password) + "');";
 		try {

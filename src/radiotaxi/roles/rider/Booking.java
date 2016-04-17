@@ -11,9 +11,9 @@ public class Booking {
 		
 		// get current time (format yyyy-mm-dd HH:mm:ss) 
 		LocalDateTime time = LocalDateTime.now(ZoneId.of("Asia/Kolkata"));
-        String time_str = time.toString().replace('T', ' ').split("\\.")[0];
+        String timeStr = time.toString().replace('T', ' ').split("\\.")[0];
 
-     	return AccessDB.bookARide(rider, time_str, origin, dest,fare);
+     	return AccessDB.bookARide(rider, timeStr, origin, dest,fare);
 			
 	}
 }
