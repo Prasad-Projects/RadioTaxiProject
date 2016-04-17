@@ -1,10 +1,10 @@
-package radiotaxi.roles.driver;
+package in.ac.bits_pilani.radiotaxi.roles.driver;
 
 import java.util.List;
 
 import com.datastax.driver.core.Row;
 
-import radiotaxi.db.AccessDB;
+import in.ac.bits_pilani.radiotaxi.db.AccessDB;
 
 public class DisplayQueuedRides {
 	

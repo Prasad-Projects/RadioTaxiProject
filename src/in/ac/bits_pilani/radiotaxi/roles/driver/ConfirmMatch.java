@@ -1,6 +1,6 @@
-package radiotaxi.roles.driver;
+package in.ac.bits_pilani.radiotaxi.roles.driver;
 
-import radiotaxi.db.AccessDB;
+import in.ac.bits_pilani.radiotaxi.db.AccessDB;
 
 public class ConfirmMatch {
 	

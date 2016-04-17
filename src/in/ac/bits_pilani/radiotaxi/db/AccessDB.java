@@ -1,4 +1,4 @@
-package radiotaxi.db;
+package in.ac.bits_pilani.radiotaxi.db;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -9,13 +9,13 @@ import java.util.logging.Logger;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import radiotaxi.roles.driver.Driver;
-import radiotaxi.roles.rider.Rider;
-
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
+
+import in.ac.bits_pilani.radiotaxi.roles.driver.Driver;
+import in.ac.bits_pilani.radiotaxi.roles.rider.Rider;
 
 public class AccessDB {
 

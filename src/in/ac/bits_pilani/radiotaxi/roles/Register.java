@@ -1,8 +1,8 @@
-package radiotaxi.roles;
+package in.ac.bits_pilani.radiotaxi.roles;
 
-import radiotaxi.db.AccessDB;
-import radiotaxi.roles.driver.Driver;
-import radiotaxi.roles.rider.Rider;
+import in.ac.bits_pilani.radiotaxi.db.AccessDB;
+import in.ac.bits_pilani.radiotaxi.roles.driver.Driver;
+import in.ac.bits_pilani.radiotaxi.roles.rider.Rider;
 
 public class Register {
 

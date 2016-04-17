@@ -1,4 +1,4 @@
-package radiotaxi.entry;
+package in.ac.bits_pilani.radiotaxi.entry;
 
 import java.io.IOException;
 import java.io.PrintWriter;

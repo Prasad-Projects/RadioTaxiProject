@@ -1,6 +1,6 @@
-package radiotaxi.entry;
+package in.ac.bits_pilani.radiotaxi.entry;
 
-import radiotaxi.db.AccessDB;
+import in.ac.bits_pilani.radiotaxi.db.AccessDB;
 
 public class Login {
 	

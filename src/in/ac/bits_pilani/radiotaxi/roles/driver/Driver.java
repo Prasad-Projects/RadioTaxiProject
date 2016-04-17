@@ -1,6 +1,6 @@
-package radiotaxi.roles.driver;
+package in.ac.bits_pilani.radiotaxi.roles.driver;
 
-import radiotaxi.roles.User;
+import in.ac.bits_pilani.radiotaxi.roles.User;
 
 public class Driver extends User {
 

@@ -1,10 +1,10 @@
-package radiotaxi.entry;
+package in.ac.bits_pilani.radiotaxi.entry;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import radiotaxi.db.AccessDB;
+import in.ac.bits_pilani.radiotaxi.db.AccessDB;
 
 /**
  * Application Lifecycle Listener implementation class Initialise

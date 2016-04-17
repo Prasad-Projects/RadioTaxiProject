@@ -1,6 +1,6 @@
-package radiotaxi.roles.rider;
+package in.ac.bits_pilani.radiotaxi.roles.rider;
 
-import radiotaxi.roles.User;
+import in.ac.bits_pilani.radiotaxi.roles.User;
 
 public class Rider extends User {
 

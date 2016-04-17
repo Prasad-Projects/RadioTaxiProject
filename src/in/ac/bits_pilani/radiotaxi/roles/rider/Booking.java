@@ -1,9 +1,9 @@
-package radiotaxi.roles.rider;
+package in.ac.bits_pilani.radiotaxi.roles.rider;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
-import radiotaxi.db.AccessDB;
+import in.ac.bits_pilani.radiotaxi.db.AccessDB;
 
 public class Booking {
 

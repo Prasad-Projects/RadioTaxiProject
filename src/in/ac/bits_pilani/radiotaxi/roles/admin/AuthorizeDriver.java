@@ -1,10 +1,10 @@
-package radiotaxi.roles.admin;
+package in.ac.bits_pilani.radiotaxi.roles.admin;
 
 import java.util.List;
 
 import com.datastax.driver.core.Row;
 
-import radiotaxi.db.AccessDB;
+import in.ac.bits_pilani.radiotaxi.db.AccessDB;
 
 public class AuthorizeDriver {
 

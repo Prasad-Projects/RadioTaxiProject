@@ -1,4 +1,4 @@
-package radiotaxi.roles;
+package in.ac.bits_pilani.radiotaxi.roles;
 
 public abstract class User {
 	

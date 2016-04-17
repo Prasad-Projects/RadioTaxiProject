@@ -1,4 +1,4 @@
-package radiotaxi.roles.rider;
+package in.ac.bits_pilani.radiotaxi.roles.rider;
 
 import java.io.IOException;
 import java.io.PrintWriter;
