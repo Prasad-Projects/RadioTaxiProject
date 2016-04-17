@@ -72,7 +72,7 @@ public class AccessDB {
 		}
 	}
 
-	public List<Row> getUnregisteredDrivers() throws Exception {
+	public static List<Row> getUnregisteredDrivers() throws Exception {
 		String query = "SELECT * FROM unregistered_drivers;";
 		List<Row> results = null;
 		try {
@@ -85,7 +85,7 @@ public class AccessDB {
 		return results;
 	}
 
-	public boolean authorizeDriver(String username) throws Exception {
+	public static boolean authorizeDriver(String username) throws Exception {
 
 		String query = "SELECT * FROM unregistered_drivers WHERE username = '"
 				+ username + "';";
