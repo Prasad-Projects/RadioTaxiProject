@@ -12,4 +12,8 @@ public class AuthorizeDriver {
 		return AccessDB.authorizeDriver(username);		
 	}
 
+	public List<Row> getUnregisteredDrivers() throws Exception {
+		List<Row> results = AccessDB.getUnregisteredDrivers();
+		return results;
+	}
 }
