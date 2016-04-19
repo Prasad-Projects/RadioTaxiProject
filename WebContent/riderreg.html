@@ -7,14 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   </head>
 
-
-
-
 <h1 class="teal lighten-2 white-text" style="text-align:center;font-size:200%;font-family:Calibri;">SIGN UP TO RIDE</h1>
 <p align="center"> Welcome to SpeedX, the easiest way to get around at the tap of a button.
 Create your account and get moving in minutes.</p>
 
-<form name= "riderRegisterForm"  class="col s12" method="post" action="registerrider" onsubmit="return ()" >
+<form name= "riderRegisterForm"  class="col s12" method="post" action="registerrider" onsubmit="return registerValidateForm()" >
   <div class="row" >
     <div class="input-field col s4">
       <input placeholder=" " id="first_name" type="text" class="validate" name="firstname" >
@@ -59,14 +56,12 @@ Create your account and get moving in minutes.</p>
     <div class="row">
            <button class="btn waves-effect waves-light" id="rider_register_button" type="submit">Register</button>
          </div>
-
-
-
 </form>
 
-     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
-      <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/riderreg.js"></script>
+    
       <script>
       $(document).ready(function() {
         // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered

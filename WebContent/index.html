@@ -8,14 +8,6 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
 
-<!-- 
-<form name="loginForm" method="post" action="login">
-    Username: <input type="text" name="username"/> <br/>
-    Password: <input type="password" name="password"/> <br/>
-    <input type="submit" value="Login" />
-</form>
-
--->
 <h1 class="teal lighten-2 white-text" style="text-align:center;font-size:200%;font-family:Calibri;">SpeedX Sign In</h1>
 
  	<ul class="collapsible" id="firstname" data-collapsible="accordion">
@@ -24,7 +16,7 @@
       <div class="collapsible-body">
       <p>
       	<div class="row">
-    <form name= "loginForm"  method="post" action="login" class="col s12" >
+    <form name= "loginForm"  method="post" action="login" class="col s12" onsubmit="return loginValidateForm()">
       <div class="row">
         <div class="input-field col s6">
           <input placeholder=" " id="user_name" type="text" class="validate" name="username">
@@ -37,20 +29,12 @@
           <label for="password" id="password">Password</label>
         </div>
       </div>
-	<!-- 
-	<input type="radio" name="rbtn" value="driver">Driver<br>
-	<input type="radio" name="rbtn" value="rider">Rider<br>
-	<input type="radio" name="rbtn" value="admin">Admin<br>
-       <form action="#">
-        <p style=" margin-bottom: -10px;margin-top: -30px;margin-left: 200px;margin-right: auto; align="center""> -->
           <input class="with-gap" name="Rbutton" type="radio" value="rider" id="rider" style="margin-left: 150px;" checked />
           <label for="rider" style="margin-left:225px;">Rider</label>
           <input class="with-gap" name="Rbutton" type="radio" value="driver" id="driver"/>
           <label for="driver">Driver</label>
           <input class="with-gap" name="Rbutton" type="radio" value="admin" id="admin"/>
           <label for="admin">Admin</label>
-       <!--   </p>
-        </form>-->
 
 <div class="row">
        <button class="btn waves-effect waves-light" id="log_in_button" type="submit" value="Login">Log in</button>
@@ -82,7 +66,6 @@
         <script type="text/javascript" src="js/index.js"></script>
         <script>
         $(document).ready(function() {
-          // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
           $('.modal-trigger').leanModal();
         });
         </script>

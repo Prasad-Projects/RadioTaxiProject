@@ -14,7 +14,7 @@
 <p align="center"> Welcome to SpeedX, the easiest way to get around at the tap of a button.
 Create your account and get moving in minutes.</p>
 
-<form name= "driverRegisterForm"  class="col s12" method="post" action="registerdriver" onsubmit="return ()" >
+<form name= "driverRegisterForm"  class="col s12" method="post" action="registerdriver" onsubmit="return registerValidateForm()" >
   <div class="row" >
     <div class="input-field col s4">
       <input placeholder=" " id="first_name" type="text" class="validate" name="firstname" >
@@ -81,6 +81,7 @@ Create your account and get moving in minutes.</p>
      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
       <script type="text/javascript" src="js/index.js"></script>
+      <script type="text/javascript" src="js/driverreg.js"></script>
       <script>
       $(document).ready(function() {
         // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered

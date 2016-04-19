@@ -191,16 +191,24 @@ html, body {
      -->
 	<script async defer
 		src="https://maps.googleapis.com/maps/api/js?v=3&region=IN&callback=initMap">
-		
+
 	</script>
+	
 	<div id="output">Drag and drop marker B at the destination, or enter your destination in the field below!</div>
-	<form action="book" method="post">
-		<input type="text" name="origin" id="origin">
-		<input type="hidden" name="distance" id="distance">
-		<input type="text" name="dest" id="dest">
-		<input type="hidden" name="time" id="time">
-		<button id="book_button" type="submit" value="Book">Book</button>
-		
+	
+	<form action="book" method="post" name="bookForm" onsubmit="return validateBookForm()">
+	<div class="row">
+		<div class="input-field col s4">
+			<input type="text" name="origin" id="origin" class="validate">
+		</div>
+		<div class="input-field col s4">
+			<input type="text" name="dest" id="dest" class="validate">
+		</div>
+			<input type="hidden" name="distance" id="distance">
+			<input type="hidden" name="time" id="time">
+		<div class="input-field col s4">
+			<button class="btn waves-effect waves-light" id="book_button" type="submit" value="Book"  >Book</button>
+		</div>
 	</form>
 
 	<!--
@@ -232,7 +240,7 @@ html, body {
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script type="text/javascript" src="js/materialize.min.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/book.js"></script>
 
 </body>
 
