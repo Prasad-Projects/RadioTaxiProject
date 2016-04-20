@@ -35,6 +35,8 @@ public class AccessDB {
 		}
 	}
 
+	
+	
 	public AccessDB() {
 	}
 
@@ -329,6 +331,25 @@ public class AccessDB {
 		return true;
 	}
 
+	public static int bookedCabBalance(){
+		List<Row> results = null;
+		String query = "SELECT SUM(FARE) from matched_bookings;";
+		try {
+			ResultSet rs = session.execute(query);
+			results = rs.all();
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "error confirmMatch", e);
+			throw e;
+		}
+		if (results == null) {
+			return 0;
+		}
+		Row r = results.get(0);
+		return r.getInt("system.sum(fare)");
+		//int balance= Integer.parseInt(r.getString("system.sum(fare)"));
+		
+	}
+	
 	public static boolean login(String username, String password, String type)
 			throws Exception {
 		String table = null;
