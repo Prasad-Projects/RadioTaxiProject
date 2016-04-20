@@ -21,6 +21,7 @@ html, body {
 </head>
 
 <body>
+	<input id="pac-input" class="controls" type="text" placeholder="Enter a location">
 	<div id="map"></div>
 	<!-- holds the google map -->
 	<script type="text/javascript">
@@ -134,9 +135,13 @@ html, body {
 								getDistanceMatrixRequest.origins = [ new google.maps.LatLng(
 										originMarker.getPosition().lat(),
 										originMarker.getPosition().lng()) ];
+								document.getElementById("orig_lat").value = originMarker.getPosition().lat();
+								document.getElementById("orig_lng").value = originMarker.getPosition().lng();
 								getDistanceMatrixRequest.destinations = [ new google.maps.LatLng(
 										destMarker.getPosition().lat(),
 										destMarker.getPosition().lng()) ];
+								document.getElementById("dest_lat").value = destMarker.getPosition().lat();
+								document.getElementById("dest_lng").value = destMarker.getPosition().lng();
 								//console.log(getDistanceMatrixRequest);
 								service.getDistanceMatrix(
 										getDistanceMatrixRequest,
@@ -170,7 +175,48 @@ html, body {
 			}
 			;
 			// end distance calculation
+			
+			/*
+			// place ID finder
+			// https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder
+			
+			var inputPlaceId = document.getElementById('pac-input');
 
+			var autocomplete = new google.maps.places.Autocomplete(inputPlaceId);
+			autocomplete.bindTo('bounds', map);
+
+			map.controls[google.maps.ControlPosition.TOP_LEFT].push(inputPlaceId);
+			// var infowindow = new google.maps.InfoWindow();
+
+		  	autocomplete.addListener('place_changed', function() {
+			    // infowindow.close();
+			    var place = autocomplete.getPlace();
+			    if (!place.geometry) {
+			      return;
+			    }
+	
+			    if (place.geometry.viewport) {
+			      map.fitBounds(place.geometry.viewport);
+			    } else {
+			      map.setCenter(place.geometry.location);
+			      map.setZoom(17);
+			    }
+	
+			    // Set the position of the marker using the place ID and location.
+			    originMarker.setPlace({
+			      placeId: place.place_id,
+			      location: place.geometry.location
+			    });
+	
+			    /*
+			    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+			        'Place ID: ' + place.place_id + '<br>' +
+			        place.formatted_address);
+			    infowindow.open(map, marker);
+			    */
+			/*
+		  	});
+			*/
 		}
 
 		// function to handle geolocation errors
@@ -184,16 +230,16 @@ html, body {
 					.setContent(browserHasGeolocation ? 'Error: The Geolocation service failed.'
 							: 'Error: Your browser doesn\'t support geolocation.');
 		}
+
 	</script>
 	<!-- Google Maps API load configuration
     https://developers.google.com/maps/documentation/javascript/basics#Region
     https://developers.google.com/maps/documentation/javascript/versions
      -->
 	<script async defer
-		src="https://maps.googleapis.com/maps/api/js?v=3&region=IN&callback=initMap">
-
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCokkwucFGJh3PhBb13X7iNX6gs1txvVQQ&v=3&region=IN&callback=initMap&libraries=places">
 	</script>
-	
+		
 	<div id="output">Drag and drop marker B at the destination, or enter your destination in the field below!</div>
 	
 	<form action="book" method="post" name="bookForm" onsubmit="return validateBookForm()">
@@ -204,44 +250,21 @@ html, body {
 		<div class="input-field col s4">
 			<input type="text" name="dest" id="dest" class="validate">
 		</div>
-			<input type="hidden" name="distance" id="distance">
-			<input type="hidden" name="time" id="time">
 		<div class="input-field col s4">
 			<button class="btn waves-effect waves-light" id="book_button" type="submit" value="Book"  >Book</button>
 		</div>
+		<input type="hidden" name="distance" id="distance">
+		<input type="hidden" name="time" id="time">
+		<input type="hidden" name="orig_lat" id="orig_lat">
+		<input type="hidden" name="orig_lng" id="orig_lng">
+		<input type="hidden" name="dest_lat" id="dest_lat">
+		<input type="hidden" name="dest_lng" id="dest_lng">
+		<input type="hidden" name="place_id" id="place_id">
 	</form>
-
-	<!--
-	<form action="book" method="post" class="col s12">
-		<div class="row">
-			<div class="input-field col s4">
-				<input placeholder=" "  type="text" name="origin" id="origin" class="validate">
-				<label for="origin" id="origin">Origin</label>
-			</div>
-			<div class="input-field col s4">
-				<input placeholder=" "  type="text" name="dest" id="dest" class="validate">
-				<label for="dest" id="dest">Destination</label>
-			</div>
-			<div class="input-field col s4">
-			
-				<input placeholder=" "  type="text" name="time" id="time" class="validate">
-				<label for="time" id="time">time</label>
-			</div>
-			
-			<input type="text" name="distance" id="distance" >
-			</div>
-				
-			<div class="input-field col s4">
-				<button class="btn waves-effect waves-light" id="book_button" type="submit" value="Book">Book</button>
-			</div>
-		</div>
-	</form>
-	-->
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script type="text/javascript" src="js/materialize.min.js"></script>
         <script type="text/javascript" src="js/book.js"></script>
 
 </body>
-
 </html>

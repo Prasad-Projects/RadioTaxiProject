@@ -17,6 +17,12 @@ import com.datastax.driver.core.Session;
 import in.ac.bits_pilani.radiotaxi.roles.driver.Driver;
 import in.ac.bits_pilani.radiotaxi.roles.rider.Rider;
 
+/**
+ * all queries to database routed via this class
+ * @author lulzsec
+ *
+ */
+
 public class AccessDB {
 
 	static Cluster cluster;
@@ -189,28 +195,24 @@ public class AccessDB {
 	 * text,driver text,time timestamp,origin text,destination text,PRIMARY
 	 * KEY(rider, time));
 	 */
-	public static String bookARide(String rider, String time, String origin,
-			String destination, int fare) throws Exception {
-		// TODO: generate valid booking IDs
+	public static void bookARide(String rider, String time, String origin,
+			String destination, int fare, float[] originCoord, float[] destCoord) throws Exception {
+		// TODO: generate distinct booking IDs
 		int randBookingId = 0 + (int) (Math.random() * 100000);
 
-		String query = "INSERT INTO unmatched_bookings (booking_id,rider,time,origin,destination,fare) VALUES ("
-				+ randBookingId
-				+ ",'"
-				+ rider
-				+ "','"
-				+ time
-				+ "','"
-				+ origin
-				+ "','" + destination + "'," + fare + ");";
-		System.out.println(query);
+		String query = "INSERT INTO unmatched_bookings (booking_id,rider,time,origin,destination,fare,orig_coord,dest_coord) VALUES ("
+				+ randBookingId	+ ",'" + rider + "','" + time + "','"
+				+ origin + "','" + destination + "'," + fare	+ "," 
+				+ "[" + originCoord[0] + "," + originCoord[1] + "]"	+ ","
+				+ "[" + destCoord[0] + "," + destCoord[1] + "]"
+				+ ");";
+		// System.out.println("bookARide query\n"+query);
 		try {
 			session.execute(query);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "error bookARide", e);
 			throw e;
 		}
-		return query;
 	}
 
 	public static List<Row> getUnmatchedRides() throws Exception {
@@ -345,11 +347,11 @@ public class AccessDB {
 		String query = "SELECT * FROM " + table + " WHERE username = '"
 				+ username + "' AND password = '" + hashPassword(password)
 				+ "' ALLOW FILTERING;";
+		System.out.println("login query = " + query);
 		try {
 			ResultSet rs = session.execute(query);
 			return (!rs.all().isEmpty());
 		} catch (Exception e) {
-			
 			logger.log(Level.SEVERE, "error login", e);
 			throw e;
 		}

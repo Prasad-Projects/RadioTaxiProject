@@ -41,8 +41,13 @@ public class BookingServlet extends HttpServlet {
 			String rider = (String) session.getAttribute("user");
 			String origin = request.getParameter("origin");
 			String dest = request.getParameter("dest");
-			String distance= request.getParameter("distance");
+			String distance = request.getParameter("distance");
 			String duration = request.getParameter("time");
+			float[] originCoord = {Float.parseFloat(request.getParameter("orig_lat")),
+					Float.parseFloat(request.getParameter("orig_lng"))};
+			float[] destCoord = {Float.parseFloat(request.getParameter("dest_lat")),
+					Float.parseFloat(request.getParameter("dest_lng"))};
+			
 			System.out.println("\n\n\n\n"+duration+"\n\n\n\n");
 			System.out.println("\n\n\n\n"+distance+"\n\n\n\n");
 			
@@ -69,12 +74,11 @@ public class BookingServlet extends HttpServlet {
 			request.getRequestDispatcher("html/html-top-common.html").include(request, response);
 			request.getRequestDispatcher("html/riderbookings-layout-1.html").include(request, response);
 			try {
-				b.bookTrip(rider, origin, dest,fare); // add driver later when confirmed
+				b.bookTrip(rider, origin, dest, fare, originCoord, destCoord); // add driver later when confirmed
 			} catch(Exception e) {
 				request.getRequestDispatcher("html/error.html").include(request, response);
 				out.println("Database error");
 			}
-			//request.getRequestDispatcher("WEB-INF/riderBookings.jsp").forward(request, response);
 			request.getRequestDispatcher("html/html-bottom-common.html").include(request, response);
 		}
 		else {
