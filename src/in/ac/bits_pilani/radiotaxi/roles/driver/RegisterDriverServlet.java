@@ -1,5 +1,8 @@
 package in.ac.bits_pilani.radiotaxi.roles.driver;
 
+import in.ac.bits_pilani.radiotaxi.roles.Register;
+import in.ac.bits_pilani.radiotaxi.roles.driver.Driver;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -9,8 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import in.ac.bits_pilani.radiotaxi.roles.Register;
 
 /**
  * Servlet implementation class RegisterDriverServlet
