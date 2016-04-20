@@ -9,7 +9,7 @@ public class PaymentManager {
 	private static int commision=0;
 	private static int riderFares=0;
 	
-	public static void 	moneyTransfer(String rider, CabType cab, String distance, String duration, String origin, String dest,String time) throws Exception{
+	public static void 	moneyTransfer(String rider, CabType cab, String distance, String duration, String origin, String dest,String time,float[] originCoord, float[] destCoord) throws Exception{
 		
 		int commisionForPlatform = FareCalculator.commisionForPlatform(rider,cab,distance,duration);
 		int riderFare=FareCalculator.riderFare(rider,cab,distance,duration);
@@ -17,7 +17,7 @@ public class PaymentManager {
 		
 		commision+=commisionForPlatform;
 		riderFares+=riderFare;
-		AccessDB.bookARide(rider, time, origin, dest,driverProfit);
+		AccessDB.bookARide(rider, time, origin, dest,driverProfit, originCoord, destCoord);
 	}
 	
 	public boolean balanceCheck(){
