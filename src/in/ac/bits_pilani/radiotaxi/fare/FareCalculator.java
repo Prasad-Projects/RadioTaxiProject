@@ -29,7 +29,7 @@ public class FareCalculator {
 	    
 	    if (cab==CabType.Regular)
 	    	fare=d*7+t;
-	    else if(cab==CabType.Double)
+	    else if(cab==CabType.Extended)
 	    	fare=d*10+t;
 	    else
 	    	fare=d*15+t;

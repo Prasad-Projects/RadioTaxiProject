@@ -39,7 +39,7 @@ public class ConfirmMatchServlet extends HttpServlet {
 				ConfirmMatch match = new ConfirmMatch();
 				boolean confirmed = false;
 				try {
-					confirmed = match.confirmMatch(bookingId, driver);
+					match.confirmMatch(bookingId, driver);
 				} catch(Exception e) {
 					request.getRequestDispatcher("html/error.html").include(request, response);
 					out.println("Database error");

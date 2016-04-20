@@ -14,7 +14,6 @@ public class PaymentManager {
 		int commisionForPlatform = FareCalculator.commisionForPlatform(rider,cab,distance,duration);
 		int riderFare=FareCalculator.riderFare(rider,cab,distance,duration);
 		int driverProfit=FareCalculator.driverProfit(rider,cab,distance,duration);
-		
 		commision+=commisionForPlatform;
 		riderFares+=riderFare;
 		AccessDB.bookARide(rider, time, origin, dest,driverProfit, originCoord, destCoord);
@@ -35,5 +34,4 @@ public class PaymentManager {
 	public static int getRiderFares() {
 		return riderFares;
 	}
-
 }

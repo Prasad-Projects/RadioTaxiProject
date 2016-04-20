@@ -76,7 +76,7 @@ public class AuthorizeDriverServlet extends HttpServlet {
 			boolean authorised = false;
 
 			try {
-				authorised = auth.authorise(username);
+				auth.authorise(username);
 			} catch(Exception e) {
 				request.getRequestDispatcher("html/error.html").include(request, response);
 				out.println("Database error");

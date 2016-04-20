@@ -1,5 +1,8 @@
 package in.ac.bits_pilani.radiotaxi.db;
 
+import in.ac.bits_pilani.radiotaxi.roles.driver.Driver;
+import in.ac.bits_pilani.radiotaxi.roles.rider.Rider;
+
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -13,9 +16,6 @@ import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
-
-import in.ac.bits_pilani.radiotaxi.roles.driver.Driver;
-import in.ac.bits_pilani.radiotaxi.roles.rider.Rider;
 
 /**
  * all queries to database routed via this class
@@ -93,7 +93,7 @@ public class AccessDB {
 		return results;
 	}
 
-	public static boolean authorizeDriver(String username) throws Exception {
+	public static void authorizeDriver(String username) throws Exception {
 
 		String query = "SELECT * FROM unregistered_drivers WHERE username = '"
 				+ username + "';";
@@ -107,7 +107,7 @@ public class AccessDB {
 			throw e;
 		}
 		if (results == null) {
-			return false;
+			return;
 		}
 		Row r = results.get(0);
 		String firstName = r.getString("first_name");
@@ -148,7 +148,7 @@ public class AccessDB {
 			throw e;
 		}
 
-		return true;
+		return;
 	}
 
 	public static void registerDriver(Driver driver, String password)
@@ -230,7 +230,7 @@ public class AccessDB {
 		return results;
 	}
 
-	public static boolean confirmMatch(int bookingId, String driver)
+	public static void confirmMatch(int bookingId, String driver)
 			throws Exception {
 		List<Row> results = null;
 		String query = "SELECT * FROM unmatched_bookings WHERE booking_id = "
@@ -243,7 +243,7 @@ public class AccessDB {
 			throw e;
 		}
 		if (results == null) {
-			return false;
+			return; 
 		}
 		Row r = results.get(0);
 		String rider = r.getString("rider");
@@ -330,7 +330,7 @@ public class AccessDB {
 			throw e;
 		}
 
-		return true;
+		return;
 	}
 
 	public static int bookedCabBalance(){
