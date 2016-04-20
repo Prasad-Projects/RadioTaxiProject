@@ -1,5 +1,9 @@
 package in.ac.bits_pilani.radiotaxi.roles;
 
+/**
+ * Generic user class. 'Admin', 'Rider' and 'Driver' derive from this class
+ */
+
 public abstract class User {
 	
 	private String username;

@@ -11,14 +11,29 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class LoginServlet
+ * Performs user authentication
  */
-@WebServlet("/login")
+@WebServlet(urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     public LoginServlet() {
         super();
+    }
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+    	
+    	HttpSession session = request.getSession(false);
+    	if(session != null) {
+    		request.getRequestDispatcher("/profile").forward(request, response);
+    	}
+    	/*
+    	else {
+    		request.getRequestDispatcher("index.html").include(request, response);
+    	}
+    	*/
+    	
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

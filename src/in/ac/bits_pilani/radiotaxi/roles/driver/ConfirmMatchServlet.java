@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class ConfirmMatchServlet
+ * Performs matching of a ride with a driver
  */
 @WebServlet("/confirmmatch")
 public class ConfirmMatchServlet extends HttpServlet {
@@ -21,7 +21,10 @@ public class ConfirmMatchServlet extends HttpServlet {
         super();
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    /**
+     * Allocates the driver to a ride
+     */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession(false);
 

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.datastax.driver.core.Row;
 
 /**
- * Servlet implementation class displayQueuedRides
+ * Displays rides which have not been allocated a driver
  */
 @WebServlet("/displayqueuedrides")
 public class DisplayQueuedRidesServlet extends HttpServlet {
@@ -51,7 +51,7 @@ public class DisplayQueuedRidesServlet extends HttpServlet {
 					out.println("</div>");
 					for (Row r : results) {
 						out.println("<div class=\"col s2\">" + r.getInt("booking_id") + "</div><div class=\"col s2\">" +  "</div><div class=\"col s2\">" + r.getString("rider") + "</div><div class=\"col s2\">" + r.getString("origin") + "</div><div class=\"col s2\">"+ r.getString("destination") + "</div><div class=\"col s2\">" + r.getTimestamp("time")+"</div>"
-						+ "<form action=\"confirmmatch\" method=\"get\">"
+						+ "<form action=\"confirmmatch\" method=\"post\">"
 							+ "<button type=\"submit\" value=\"Get Ride\">Get Ride</button>"
 							+ "<input type=hidden name=\"booking_id\" value=\"" + r.getInt("booking_id") + "\">"
 						+ "</form>");

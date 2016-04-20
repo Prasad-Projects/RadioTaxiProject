@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class Profile
+ * Serves profile pages for all user roles
  */
 @WebServlet("/profile")
 public class ProfileServlet extends HttpServlet {
@@ -33,19 +33,19 @@ public class ProfileServlet extends HttpServlet {
 			if(session.getAttribute("type").toString().compareTo("rider") == 0) {
 				request.getRequestDispatcher("html/riderprofile-layout-1.html").include(request, response);
 				String user = (String) session.getAttribute("user");
-				out.println("<h1 class=\"teal lighten-2 white-text\" style=\"text-align:center;font-size:200%;font-family:Calibri;\">Hi! "+user+"</h1>");
+				out.println(Profile.getProfile(user));
 				request.getRequestDispatcher("html/riderprofile-layout-2.html").include(request, response);
 			}
 			else if(session.getAttribute("type").toString().compareTo("driver") == 0) {
 				request.getRequestDispatcher("html/driverprofile-layout-1.html").include(request, response);
 				String user = (String) session.getAttribute("user");
-				out.println("<h1 class=\"teal lighten-2 white-text\" style=\"text-align:center;font-size:200%;font-family:Calibri;\">Hi! "+user+"</h1>");
+				out.println(Profile.getProfile(user));
 				request.getRequestDispatcher("html/driverprofile-layout-2.html").include(request, response);
 			}
 			else if(session.getAttribute("type").toString().compareTo("admin") == 0) {
 				request.getRequestDispatcher("html/adminprofile-layout-1.html").include(request, response);
 				String user = (String) session.getAttribute("user");
-				out.println("<h1 class=\"teal lighten-2 white-text\" style=\"text-align:center;font-size:200%;font-family:Calibri;\">Hi! "+user+"</h1>");
+				out.println(Profile.getProfile(user));
 				request.getRequestDispatcher("html/adminprofile-layout-2.html").include(request, response);
 			}
 

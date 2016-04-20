@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.datastax.driver.core.Row;
 
 /**
- * Servlet implementation class AuthorizeDriverServlet
+ * Performs driver authentication
  */
 @WebServlet("/authorisedriver")
 public class AuthorizeDriverServlet extends HttpServlet {
@@ -24,6 +24,9 @@ public class AuthorizeDriverServlet extends HttpServlet {
 		super();
 	}
 
+	/**
+	 * Serves a list of all unverified drivers to the admin
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession(false);
@@ -64,6 +67,10 @@ public class AuthorizeDriverServlet extends HttpServlet {
 
 	}
 
+	/**
+	 * Performs authorisation for driver by the admin. Driver's username is extracted from
+	 * the request
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession(false);

@@ -19,8 +19,6 @@ import com.datastax.driver.core.Session;
 
 /**
  * all queries to database routed via this class
- * @author lulzsec
- *
  */
 
 public class AccessDB {
@@ -76,6 +74,18 @@ public class AccessDB {
 			session.execute(query);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "error registerRider", e);
+			throw e;
+		}
+	}
+	
+	public static void updateRiderDetails(String rider, String password)
+			throws Exception {
+		String query = "UPDATE rider_info SET password = '" + hashPassword(password) + "' WHERE username = '" + rider + "'"; 
+		System.out.println(query);
+		try {
+			session.execute(query);
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "error registerDriver", e);
 			throw e;
 		}
 	}
@@ -167,6 +177,18 @@ public class AccessDB {
 				+ driver.getLicenseNo()
 				+ "',0,'"
 				+ hashPassword(password) + "');";
+		try {
+			session.execute(query);
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "error registerDriver", e);
+			throw e;
+		}
+	}
+	
+	public static void updateDriverDetails(String driver, String password)
+			throws Exception {
+		String query = "UPDATE driver_info SET password = '" + hashPassword(password) + "' WHERE username = '" + driver + "'"; 
+		System.out.println(query);
 		try {
 			session.execute(query);
 		} catch (Exception e) {

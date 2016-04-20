@@ -7,8 +7,7 @@ import javax.servlet.annotation.WebListener;
 import in.ac.bits_pilani.radiotaxi.db.AccessDB;
 
 /**
- * Application Lifecycle Listener implementation class Initialise
- *
+ * Calls database initialisation routines on application startup
  */
 @WebListener
 public class InitialiseApp implements ServletContextListener {
