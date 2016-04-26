@@ -38,10 +38,9 @@ public class AccessDB {
 			throw e;
 		}
 	}
-
 	
-	
-	public AccessDB() {
+	public static void setSession(Session s) {
+		session = s;
 	}
 
 	public static void useKeyspace() throws Exception {
@@ -54,13 +53,18 @@ public class AccessDB {
 		}
 	}
 
+	public static void shutDown() {
+		session.close();
+		cluster.close();
+	}
+
 	public static String hashPassword(String password) {
 		return DigestUtils.sha1Hex(password);
 	}
 
 	public static void registerRider(Rider rider, String password)
 			throws Exception {
-		String query = " INSERT INTO rider_info (username,first_name,last_name,mobile_no,balance,password) VALUES ('"
+		String query = "INSERT INTO rider_info (username,first_name,last_name,mobile_no,balance,password) VALUES ('"
 				+ rider.getUsername()
 				+ "','"
 				+ rider.getFirstname()
@@ -158,7 +162,6 @@ public class AccessDB {
 			throw e;
 		}
 
-		return;
 	}
 
 	public static void registerDriver(Driver driver, String password)
