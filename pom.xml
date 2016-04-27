@@ -11,6 +11,7 @@
 	</properties>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
+		<testSourceDirectory>tests</testSourceDirectory>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -40,7 +41,21 @@
 		  <groupId>junit</groupId>
 		  <artifactId>junit</artifactId>
 		  <version>4.12</version>
-		  
+		</dependency>
+		<dependency>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymock</artifactId>
+			<version>3.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4</artifactId>
+			<version>1.6.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-easymock</artifactId>
+			<version>1.6.4</version>
 		</dependency>
 		<dependency>
 			<groupId>com.datastax.cassandra</groupId>

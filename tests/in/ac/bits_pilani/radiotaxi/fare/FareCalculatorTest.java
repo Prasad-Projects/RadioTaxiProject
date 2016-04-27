@@ -1,7 +1,8 @@
-package in.ac.bits_pilani.radiotaxi.tests;
+package in.ac.bits_pilani.radiotaxi.fare;
+
 import in.ac.bits_pilani.radiotaxi.CabType;
 import in.ac.bits_pilani.radiotaxi.fare.FareCalculator;
-import junit.framework.*;
+import junit.framework.TestCase;
 
 public class FareCalculatorTest extends TestCase {
 	public void testRideFare(){
