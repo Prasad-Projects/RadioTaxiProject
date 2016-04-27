@@ -1,10 +1,10 @@
 package in.ac.bits_pilani.radiotaxi.roles.rider;
 
-import in.ac.bits_pilani.radiotaxi.CabType;
-import in.ac.bits_pilani.radiotaxi.fare.PaymentManager;
-
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+
+import in.ac.bits_pilani.radiotaxi.CabType;
+import in.ac.bits_pilani.radiotaxi.payment.PaymentManager;
 
 public class Booking {
 

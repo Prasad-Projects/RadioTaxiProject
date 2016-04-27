@@ -1,4 +1,4 @@
-package in.ac.bits_pilani.radiotaxi.entry;
+package in.ac.bits_pilani.radiotaxi.auth;
 
 import static org.easymock.EasyMock.expect;
 import static org.junit.Assert.assertEquals;

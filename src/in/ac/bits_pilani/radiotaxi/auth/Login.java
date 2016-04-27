@@ -1,4 +1,4 @@
-package in.ac.bits_pilani.radiotaxi.entry;
+package in.ac.bits_pilani.radiotaxi.auth;
 
 import in.ac.bits_pilani.radiotaxi.db.AccessDB;
 

@@ -16,7 +16,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import in.ac.bits_pilani.radiotaxi.CabType;
-import in.ac.bits_pilani.radiotaxi.fare.PaymentManager;
+import in.ac.bits_pilani.radiotaxi.payment.PaymentManager;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(PaymentManager.class)

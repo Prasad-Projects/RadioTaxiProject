@@ -1,4 +1,4 @@
-package in.ac.bits_pilani.radiotaxi.fare;
+package in.ac.bits_pilani.radiotaxi.payment;
 
 import in.ac.bits_pilani.radiotaxi.CabType;
 import in.ac.bits_pilani.radiotaxi.db.AccessDB;

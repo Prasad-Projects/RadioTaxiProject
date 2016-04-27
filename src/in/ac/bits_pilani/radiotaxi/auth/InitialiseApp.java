@@ -1,4 +1,4 @@
-package in.ac.bits_pilani.radiotaxi.entry;
+package in.ac.bits_pilani.radiotaxi.auth;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
