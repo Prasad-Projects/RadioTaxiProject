@@ -1,4 +1,4 @@
-package in.ac.bits_pilani.radiotaxi.roles.admin;
+package ac.in.bits_pilani.radiotaxi.roles.admin;
 
 import static org.easymock.EasyMock.expectLastCall;
 import static org.powermock.api.easymock.PowerMock.mockStatic;
@@ -18,30 +18,30 @@ import in.ac.bits_pilani.radiotaxi.roles.admin.AuthorizeDriver;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(AccessDB.class)
 public class AuthorizeDriverTest extends EasyMockSupport {
-
+	
 	@Test
 	public void testAuthorise() throws Exception {
 		AuthorizeDriver auth = new AuthorizeDriver();
-
+		
 		mockStatic(AccessDB.class);
-
+		
 		/* expect */ auth.authorise("driver");
 		expectLastCall();
-
+		
 		replay(AccessDB.class);
-
+		
 		auth.authorise("driver");
-
+		
 		verify(AccessDB.class);
 	}
-
+	
 	@Ignore
 	@Test
 	public void testGetUnregisteredDrivers() throws Exception {
 		AuthorizeDriver auth = new AuthorizeDriver();
-
+		
 		mockStatic(AccessDB.class);
-
+		
 		// expect(auth.getUnregisteredDrivers()).andReturn(new List<int>());
 
 	}

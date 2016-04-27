@@ -1,4 +1,4 @@
-package ac.in.bits_pilani.radiotaxi.roles.driver;
+package in.ac.bits_pilani.radiotaxi.roles.driver;
 
 import static org.easymock.EasyMock.expectLastCall;
 import static org.powermock.api.easymock.PowerMock.mockStatic;
