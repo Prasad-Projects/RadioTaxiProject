@@ -1,6 +1,7 @@
 package in.ac.bits_pilani.radiotaxi.roles.driver;
 
 import in.ac.bits_pilani.radiotaxi.roles.User;
+import in.ac.bits_pilani.radiotaxi.db.AccessDB;
 
 public class Driver extends User {
 
@@ -11,6 +12,10 @@ public class Driver extends User {
 		super(username, firstname, lastname, mobileNo,balance);
 		this.licenseNo=licenseNo;
 		this.carNo=carNo;
+	}
+
+	public void register(String password) throws Exception {
+		AccessDB.registerDriver(this, password);
 	}
 
 	public String getLicenseNo() {

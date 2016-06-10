@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import in.ac.bits_pilani.radiotaxi.roles.Register;
-
 /**
  * Servlet implementation class RegisterRiderServlet
  */
@@ -38,10 +36,10 @@ public class RegisterRiderServlet extends HttpServlet {
 			String mobile=request.getParameter("mobile");
 			String password=request.getParameter("password");  
 
-			Register register = new Register();
+			Rider rider = new Rider(username, firstName, lastName, mobile, 0);
 
 			try {
-				register.registerRider(new Rider(username,firstName, lastName,mobile,0),password);
+				rider.register(password);
 				out.println("<p align=\"center\"><font color=green>Successfully registered!</font></p>");
 				request.getRequestDispatcher("index.html").include(request, response);
 			} catch(Exception e) {

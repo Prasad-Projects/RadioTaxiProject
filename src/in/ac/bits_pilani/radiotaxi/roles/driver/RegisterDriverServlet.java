@@ -1,8 +1,5 @@
 package in.ac.bits_pilani.radiotaxi.roles.driver;
 
-import in.ac.bits_pilani.radiotaxi.roles.Register;
-import in.ac.bits_pilani.radiotaxi.roles.driver.Driver;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -41,10 +38,10 @@ public class RegisterDriverServlet extends HttpServlet {
 			String licence=request.getParameter("licence");
 			String carNo=request.getParameter("car_no");
 
-			Register register = new Register();
+			Driver driver = new Driver(username, firstName, lastName, mobile, licence, carNo, 0);
 
 			try {
-				register.registerDriver(new Driver(username, firstName, lastName, mobile, licence, carNo,0),password);
+				driver.register(password);
 				out.println("<p align=\"center\"><font color=green>Successfully registered! Pending verification</font></p>");
 				request.getRequestDispatcher("index.html").include(request, response);
 			} catch (Exception e) {
