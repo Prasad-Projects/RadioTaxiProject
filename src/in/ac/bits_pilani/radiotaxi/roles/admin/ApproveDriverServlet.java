@@ -16,11 +16,11 @@ import com.datastax.driver.core.Row;
 /**
  * Performs driver authentication
  */
-@WebServlet("/authorisedriver")
-public class AuthorizeDriverServlet extends HttpServlet {
+@WebServlet("/approvedriver")
+public class ApproveDriverServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public AuthorizeDriverServlet() {
+	public ApproveDriverServlet() {
 		super();
 	}
 
@@ -36,10 +36,10 @@ public class AuthorizeDriverServlet extends HttpServlet {
 			request.getRequestDispatcher("html/html-top-common.html").include(request, response);
 			request.getRequestDispatcher("html/unregistereddrivers-layout-1.html").include(request, response);
 
-			AuthorizeDriver getDrivers = new AuthorizeDriver();
+			Admin admin = (Admin) session.getAttribute("user");
 			List<Row> results = null;
 			try {
-				results = getDrivers.getUnregisteredDrivers();
+				results = admin.getUnregisteredDrivers();
 			} catch(Exception e) {
 				request.getRequestDispatcher("html/error.html").include(request, response);
 				out.println("Database error");
@@ -53,7 +53,7 @@ public class AuthorizeDriverServlet extends HttpServlet {
 						+ " <strong>Last Name:</strong> " + r.getString("last_name")
 						+ " <strong>License No:</strong> " + r.getString("license_no")
 						+ " <strong>Mobile No:</strong> " + r.getString("mobile_no")
-						+ "<form action=\"authorisedriver\" method=\"post\">"
+						+ "<form action=\"approvedriver\" method=\"post\">"
 							+ "<button type=\"submit\" value=\"Approve\">Approve</button>"
 							+ "<input type=hidden name=\"username\" value=\"" + r.getString("username") + "\">"
 							+ "</form>"
@@ -68,7 +68,7 @@ public class AuthorizeDriverServlet extends HttpServlet {
 	}
 
 	/**
-	 * Performs authorisation for driver by the admin. Driver's username is extracted from
+	 * Performs approval of driver by the admin. Driver's username is extracted from
 	 * the request
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -79,17 +79,17 @@ public class AuthorizeDriverServlet extends HttpServlet {
 		if(session != null) {
 
 			PrintWriter out = response.getWriter();
-			AuthorizeDriver auth = new AuthorizeDriver();
-			boolean authorised = false;
+			Admin admin = (Admin) session.getAttribute("user");
+			boolean approved = false;
 
 			try {
-				auth.authorise(username);
+				approved = admin.approveDriver(username);
 			} catch(Exception e) {
 				request.getRequestDispatcher("html/error.html").include(request, response);
 				out.println("Database error");
 			}
 
-			if(!authorised) {
+			if(!approved) {
 				out.println("<p align=\"center\"><font color=red>No unregistered drivers!</font></p>");
 				request.getRequestDispatcher("profile").include(request, response);
 			}

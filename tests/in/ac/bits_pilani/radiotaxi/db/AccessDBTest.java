@@ -2,10 +2,9 @@ package in.ac.bits_pilani.radiotaxi.db;
 
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.expectLastCall;
+import static org.easymock.EasyMock.find;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
-import static org.easymock.EasyMock.anyString;
-import static org.easymock.EasyMock.find;
 
 import org.easymock.EasyMockSupport;
 import org.junit.Ignore;
@@ -97,7 +96,7 @@ public class AccessDBTest extends EasyMockSupport {
 
 	@Ignore
 	@Test
-	public void testAuthorizeDriver() throws Exception {
+	public void testApproveDriver() throws Exception {
 
 		// TODO: first query returns a List<Row>
 		Session session = mock(Session.class);
@@ -122,7 +121,7 @@ public class AccessDBTest extends EasyMockSupport {
 		replay(session);
 
 		AccessDB.setSession(session);
-		AccessDB.authorizeDriver(username);
+		AccessDB.approveDriver(username);
 
 		verify(session);
 	}

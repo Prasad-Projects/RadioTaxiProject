@@ -109,7 +109,7 @@ public class AccessDB {
 		return results;
 	}
 
-	public static void authorizeDriver(String username) throws Exception {
+	public static boolean approveDriver(String username) throws Exception {
 
 		String query = "SELECT * FROM unregistered_drivers WHERE username = '"
 				+ username + "';";
@@ -119,11 +119,11 @@ public class AccessDB {
 			ResultSet rs = session.execute(query);
 			results = rs.all();
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "error authorizeDriver", e);
+			logger.log(Level.SEVERE, "error approveDriver", e);
 			throw e;
 		}
 		if (results == null) {
-			return;
+			return false;
 		}
 		Row r = results.get(0);
 		String firstName = r.getString("first_name");
@@ -151,7 +151,7 @@ public class AccessDB {
 		try {
 			session.execute(query);
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "error authorizeDriver", e);
+			logger.log(Level.SEVERE, "error approveDriver", e);
 			throw e;
 		}
 
@@ -160,9 +160,11 @@ public class AccessDB {
 		try {
 			session.execute(query);
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "error authorizeDriver", e);
+			logger.log(Level.SEVERE, "error approveDriver", e);
 			throw e;
 		}
+
+		return true;
 
 	}
 
