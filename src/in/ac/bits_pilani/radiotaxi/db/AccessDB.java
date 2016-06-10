@@ -1,8 +1,5 @@
 package in.ac.bits_pilani.radiotaxi.db;
 
-import in.ac.bits_pilani.radiotaxi.roles.driver.Driver;
-import in.ac.bits_pilani.radiotaxi.roles.rider.Rider;
-
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -16,6 +13,11 @@ import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
+
+import in.ac.bits_pilani.radiotaxi.roles.User;
+import in.ac.bits_pilani.radiotaxi.roles.admin.Admin;
+import in.ac.bits_pilani.radiotaxi.roles.driver.Driver;
+import in.ac.bits_pilani.radiotaxi.roles.rider.Rider;
 
 /**
  * all queries to database routed via this class
@@ -377,8 +379,9 @@ public class AccessDB {
 		
 	}
 	
-	public static boolean login(String username, String password, String type)
+	public static User login(String username, String password, String type)
 			throws Exception {
+		List<Row> results = null;
 		String table = null;
 		switch (type) {
 		case "rider":
@@ -393,13 +396,48 @@ public class AccessDB {
 		String query = "SELECT * FROM " + table + " WHERE username = '"
 				+ username + "' AND password = '" + hashPassword(password)
 				+ "' ALLOW FILTERING;";
-		System.out.println("login query = " + query);
+		// System.out.println("login query = " + query);
 		try {
 			ResultSet rs = session.execute(query);
-			return (!rs.all().isEmpty());
+			results = rs.all();
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "error login", e);
 			throw e;
+		}
+		if (results == null) {
+			return null;
+		}
+		Row r = results.get(0);
+		String firstname, lastname, mobile;
+		int balance;
+
+		switch(type) {
+		case "rider":
+			firstname = r.getString("first_name");
+			lastname = r.getString("last_name");
+			mobile = r.getString("mobile_no");
+			balance = r.getInt("balance");
+			return new Rider(username, firstname, lastname, mobile, balance);
+
+		case "admin":
+			firstname = r.getString("first_name");
+			lastname = r.getString("last_name");
+			// TODO: add mobile no field to admin table
+			mobile = "9999999999";
+			balance = 0;
+			return new Admin(username, firstname, lastname, mobile, balance);
+
+		case "driver":
+			firstname = r.getString("first_name");
+			lastname = r.getString("last_name");
+			mobile = r.getString("mobile_no");
+			String license = r.getString("license_no");
+			String car = r.getString("car_no");
+			balance = r.getInt("balance");
+			return new Driver(username, firstname, lastname, mobile, license, car, balance);
+
+		default:
+			return null;
 		}
 	}
 }

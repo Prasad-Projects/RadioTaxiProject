@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import in.ac.bits_pilani.radiotaxi.db.AccessDB;
+import in.ac.bits_pilani.radiotaxi.roles.driver.Driver;
+import in.ac.bits_pilani.radiotaxi.roles.rider.Rider;
 
 @WebServlet("/updateprofile")
 public class UpdateProfileServlet extends HttpServlet {
@@ -30,20 +32,20 @@ public class UpdateProfileServlet extends HttpServlet {
 			request.getRequestDispatcher("html/html-top-common.html").include(request, response);
 
 			if(session.getAttribute("type").toString().compareTo("rider") == 0) {
-				String username = (String) session.getAttribute("user");
+				Rider user = (Rider) session.getAttribute("user");
 				String new_password = request.getParameter("new_password");
 				try {
-					AccessDB.updateRiderDetails(username, new_password);
+					AccessDB.updateRiderDetails(user.getUsername(), new_password);
 				} catch (Exception e) {
 						request.getRequestDispatcher("html/error.html").include(request, response);
 						out.println("Database error");
 				}
 			}
 			else if(session.getAttribute("type").toString().compareTo("driver") == 0) {
-				String username = (String) session.getAttribute("user");
+				Driver user = (Driver) session.getAttribute("user");
 				String new_password=request.getParameter("new_password");
 				try {
-					AccessDB.updateDriverDetails(username, new_password);
+					AccessDB.updateDriverDetails(user.getUsername(), new_password);
 				} catch (Exception e) {
 						request.getRequestDispatcher("html/error.html").include(request, response);
 						out.println("Database error");

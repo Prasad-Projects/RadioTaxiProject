@@ -38,7 +38,7 @@ public class BookingServlet extends HttpServlet {
 		if(session != null) {
 			PrintWriter out = response.getWriter();
 
-			String rider = (String) session.getAttribute("user");
+			Rider rider = (Rider) session.getAttribute("user");
 			String origin = request.getParameter("origin");
 			String dest = request.getParameter("dest");
 			String distance = request.getParameter("distance");
@@ -53,7 +53,7 @@ public class BookingServlet extends HttpServlet {
 			request.getRequestDispatcher("html/html-top-common.html").include(request, response);
 			request.getRequestDispatcher("html/riderbookings-layout-1.html").include(request, response);
 			try {
-				b.bookTrip(rider, origin, dest, CabType.Regular, distance, duration, originCoord, destCoord); // add driver later when confirmed
+				b.bookTrip(rider.getUsername(), origin, dest, CabType.Regular, distance, duration, originCoord, destCoord); // add driver later when confirmed
 			} catch(Exception e) {
 				request.getRequestDispatcher("html/error.html").include(request, response);
 				out.println("Database error");
