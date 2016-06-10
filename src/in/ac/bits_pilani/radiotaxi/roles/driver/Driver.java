@@ -1,5 +1,8 @@
 package in.ac.bits_pilani.radiotaxi.roles.driver;
 
+import java.util.List;
+import com.datastax.driver.core.Row;
+
 import in.ac.bits_pilani.radiotaxi.roles.User;
 import in.ac.bits_pilani.radiotaxi.db.AccessDB;
 
@@ -24,6 +27,15 @@ public class Driver extends User {
 
 	public String getCarNo() {
 		return carNo;
+	}
+
+	public void confirmMatch(int bookingId) throws Exception {
+		AccessDB.confirmMatch(bookingId, this.getUsername());
+	}
+
+	public List<Row> getRides() throws Exception {
+		List<Row> results = AccessDB.getUnmatchedRides();
+		return results;
 	}
 
 }

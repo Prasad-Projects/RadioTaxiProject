@@ -37,12 +37,11 @@ public class ConfirmMatchServlet extends HttpServlet {
 			} else {
 
 				int bookingId = Integer.parseInt(request.getParameter("booking_id"));
-				String driver = (String) session.getAttribute("user");
+				Driver driver = (Driver) session.getAttribute("user");
 
-				ConfirmMatch match = new ConfirmMatch();
 				boolean confirmed = false;
 				try {
-					match.confirmMatch(bookingId, driver);
+					driver.confirmMatch(bookingId);
 				} catch(Exception e) {
 					request.getRequestDispatcher("html/error.html").include(request, response);
 					out.println("Database error");

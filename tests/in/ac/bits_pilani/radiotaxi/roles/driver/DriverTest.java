@@ -33,4 +33,20 @@ public class DriverTest extends EasyMockSupport {
 		verify(AccessDB.class);
 	}
 
+	@Test
+	public void testConfirmMatch() throws Exception {
+		Driver driver = new Driver("driver1", "driver", "driver", "1111111111", "12345", "12345", 0);
+
+		mockStatic(AccessDB.class);
+
+		/* expect */ driver.confirmMatch(123456);
+		expectLastCall();
+
+		replay(AccessDB.class);
+
+		driver.confirmMatch(123456);
+
+		verify(AccessDB.class);
+	}
+
 }

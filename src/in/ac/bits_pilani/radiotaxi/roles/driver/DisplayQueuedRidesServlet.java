@@ -35,10 +35,10 @@ public class DisplayQueuedRidesServlet extends HttpServlet {
 				request.getRequestDispatcher("html/error.html").include(request, response);
 				out.println("Access denied");
 			} else {
-				DisplayQueuedRides rides = new DisplayQueuedRides();
+				Driver driver = (Driver) session.getAttribute("user");
 				List<Row> results = null;
 				try {
-					results = rides.getRides();
+					results = driver.getRides();
 				} catch(Exception e) {
 					request.getRequestDispatcher("html/error.html").include(request, response);
 					out.println("Database error");
