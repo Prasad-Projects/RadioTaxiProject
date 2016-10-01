@@ -48,10 +48,9 @@ public class LoginTest extends EasyMockSupport {
 		
 		//Assert
 		assertEquals(return1, rider);
-		//verify(AccessDB.class);
 		assertEquals(return2, null); 
-		//verify(AccessDB.class);
 		assertEquals(return3,admin);
+		
 		verify(AccessDB.class);
 	}
 

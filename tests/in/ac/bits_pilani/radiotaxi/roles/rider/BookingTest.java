@@ -30,8 +30,12 @@ public class BookingTest extends EasyMockSupport {
 
 		mockStatic(PaymentManager.class);
 
-		// /* expect */ booking.bookTrip("rider", "from", "to", CabType.Regular, "10 km", "1 mins", aryEq(new float[] {10.0f, 11.0f}), aryEq(new float[] {10.0f, 11.0f}));
-		/* expect */ booking.bookTrip(anyString(), anyString(), anyString(), eq(CabType.Regular), anyString(), anyString(), aryEq(new float[] {10.0f, 11.0f}), aryEq(new float[] {10.0f, 11.0f}));
+		// /* expect */ booking.bookTrip("rider", "from", "to", CabType.Regular,
+		//"10 km", "1 mins", aryEq(new float[] {10.0f, 11.0f}), 
+		//aryEq(new float[] {10.0f, 11.0f}));
+		/* expect */ booking.bookTrip(anyString(), anyString(), anyString(),
+		        eq(CabType.Regular), anyString(), anyString(), 
+		        aryEq(new float[] {10.0f, 11.0f}), aryEq(new float[] {10.0f, 11.0f}));
 		expectLastCall();
 
 		replay(PaymentManager.class);
