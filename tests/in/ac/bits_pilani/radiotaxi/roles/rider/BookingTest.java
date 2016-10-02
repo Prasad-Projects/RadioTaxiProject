@@ -9,7 +9,6 @@ import static org.powermock.api.easymock.PowerMock.replay;
 import static org.powermock.api.easymock.PowerMock.verify;
 
 import org.easymock.EasyMockSupport;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -22,25 +21,21 @@ import in.ac.bits_pilani.radiotaxi.payment.PaymentManager;
 @PrepareForTest(PaymentManager.class)
 public class BookingTest extends EasyMockSupport {
 
-	// TODO
-	@Ignore
 	@Test
 	public void testBooking() throws Exception {
 		Booking booking = new Booking();
 
 		mockStatic(PaymentManager.class);
-
-		// /* expect */ booking.bookTrip("rider", "from", "to", CabType.Regular,
-		//"10 km", "1 mins", aryEq(new float[] {10.0f, 11.0f}), 
-		//aryEq(new float[] {10.0f, 11.0f}));
-		/* expect */ booking.bookTrip(anyString(), anyString(), anyString(),
-		        eq(CabType.Regular), anyString(), anyString(), 
-		        aryEq(new float[] {10.0f, 11.0f}), aryEq(new float[] {10.0f, 11.0f}));
+		
+		PaymentManager.moneyTransfer(eq("rider"),eq(CabType.Regular), eq("10 km"), eq("1 mins"),
+		        eq("from"), eq("to"), anyString(), aryEq(new float[] {10.0f, 11.0f}),
+		        aryEq(new float[] {10.0f, 11.0f}));
 		expectLastCall();
 
 		replay(PaymentManager.class);
 
-		booking.bookTrip("rider", "from", "to", CabType.Regular, "10 km", "1 mins", new float[] {10.0f, 11.0f}, new float[] {10.0f, 11.0f});
+		booking.bookTrip("rider", "from", "to", CabType.Regular, "10 km", "1 mins", 
+		        new float[] {10.0f, 11.0f}, new float[] {10.0f, 11.0f});
 
 		verify(PaymentManager.class);
 	}

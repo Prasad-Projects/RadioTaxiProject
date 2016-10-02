@@ -87,7 +87,7 @@ public class AccessDB {
 	public static void updateRiderDetails(String rider, String password)
 			throws Exception {
 		String query = "UPDATE rider_info SET password = '" + hashPassword(password) + "' WHERE username = '" + rider + "'"; 
-		System.out.println(query);
+		
 		try {
 			session.execute(query);
 		} catch (Exception e) {
@@ -195,8 +195,8 @@ public class AccessDB {
 	
 	public static void updateDriverDetails(String driver, String password)
 			throws Exception {
-		String query = "UPDATE driver_info SET password = '" + hashPassword(password) + "' WHERE username = '" + driver + "'"; 
-		System.out.println(query);
+		String query = "UPDATE driver_info SET password = '" + 
+			hashPassword(password) + "' WHERE username = '" + driver + "'"; 
 		try {
 			session.execute(query);
 		} catch (Exception e) {
@@ -306,8 +306,7 @@ public class AccessDB {
 		fr=fr-fare;
 		query ="update rider_info set balance="+fr+" where username='"+rider+"';";
 		try {
-			ResultSet rs = session.execute(query);
-			results = rs.all();
+			session.execute(query);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "error confirmMatch", e);
 			throw e;
@@ -329,8 +328,7 @@ public class AccessDB {
 		fd+=fare;
 		query ="update driver_info set balance="+fd+" where username='"+driver+"';";
 		try {
-			ResultSet rs = session.execute(query);
-			results = rs.all();
+			session.execute(query);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "error confirmMatch", e);
 			throw e;

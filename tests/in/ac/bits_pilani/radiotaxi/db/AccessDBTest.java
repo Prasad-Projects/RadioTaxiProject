@@ -2,23 +2,22 @@ package in.ac.bits_pilani.radiotaxi.db;
 
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.expectLastCall;
-import static org.easymock.EasyMock.find;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
-import static org.junit.Assert.*;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.easymock.EasyMockSupport;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
 
-import in.ac.bits_pilani.radiotaxi.roles.User;
 import in.ac.bits_pilani.radiotaxi.roles.driver.Driver;
 import in.ac.bits_pilani.radiotaxi.roles.rider.Rider;
 
@@ -70,7 +69,8 @@ public class AccessDBTest extends EasyMockSupport {
 
 		Rider rider = new Rider("rider", "rider", "rider", "1234567890", 0);
 		String password = "rider";
-		String query = "INSERT INTO rider_info (username,first_name,last_name,mobile_no,balance,password) VALUES ('"
+		String query = "INSERT INTO rider_info (username,first_name,last_name,"
+		        + "mobile_no,balance,password) VALUES ('"
 				+ rider.getUsername() + "','" + rider.getFirstname() + "','"
 				+ rider.getLastname() + "','" + rider.getMobileNo() + "',0,'"
 				+ AccessDB.hashPassword(password) + "');";
@@ -86,12 +86,14 @@ public class AccessDBTest extends EasyMockSupport {
 
 		verify(session);
 	}
+	
 
 	@Test
 	public void testRegisterDriver() throws Exception {
 		Session session = mock(Session.class);
 
-		Driver driver = new Driver("driver", "driver", "driver", "2143658709", "asdf43", "123456", 0);
+		Driver driver = new Driver("driver", "driver", "driver", 
+		        "2143658709", "asdf43", "123456", 0);
 		String password = "driver";
 		String query = " INSERT INTO unregistered_drivers (username,"
 		        + "first_name,last_name,mobile_no,car_no,license_no,"
@@ -121,7 +123,8 @@ public class AccessDBTest extends EasyMockSupport {
 		String password = "driver";
 
 		String query = "UPDATE rider_info SET password = '"
-				+ AccessDB.hashPassword(password) + "' WHERE username = '" + rider + "'";
+				+ AccessDB.hashPassword(password) + "'"
+				        + " WHERE username = '" + rider + "'";
 
 		expect(session.execute(query)).andReturn(null);
 		
@@ -134,6 +137,28 @@ public class AccessDBTest extends EasyMockSupport {
 
 		verify(session);
 	}
+	
+	@Test
+    public void testUpdateDriverDetails() throws Exception {
+        Session session = mock(Session.class);
+
+        String driver = "driver";
+        String password = "dshafhj";
+
+        String query = "UPDATE driver_info SET password = '" + 
+                AccessDB.hashPassword(password) + "' WHERE username = '" + driver + "'"; 
+
+        expect(session.execute(query)).andReturn(null);
+        
+        expectLastCall();
+
+        replay(session);
+
+        AccessDB.setSession(session);
+        AccessDB.updateDriverDetails(driver, password);
+
+        verify(session);
+    }
 	
 	@Test
 	public void testApproveDriver() throws Exception {
@@ -188,18 +213,17 @@ public class AccessDBTest extends EasyMockSupport {
 	@Test
 	public void testBookARide() throws Exception {
 
-		//TODO: currently working on this
 		Session session = mock(Session.class);
 
-		String rider = "rider", time = "", origin = "from", destination = "to",
-				regex = "[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}";
+		String rider = "rider", time = "", origin = "from", destination = "to";
 		int fare = 10; 
 		int randBookingId = (((17*37 + rider.hashCode())* 37 + time.hashCode())
                 * 37 + origin.hashCode())* 37 +
                 destination.hashCode();
 		float[] originCoord = new float[] {0f, 0f}, destCoord = new float[] {0f, 0f};
 
-		String query = "INSERT INTO unmatched_bookings (booking_id,rider,time,origin,destination,fare,orig_coord,dest_coord) VALUES ("
+		String query = "INSERT INTO unmatched_bookings (booking_id,rider,time,"
+		        + "origin,destination,fare,orig_coord,dest_coord) VALUES ("
 				+ randBookingId	+ ",'" + rider + "','" + time + "','"
 				+ origin + "','" + destination + "'," + fare + "," + "["
 				+ originCoord[0] + "," + originCoord[1] + "]" + "," + "["
@@ -212,9 +236,85 @@ public class AccessDBTest extends EasyMockSupport {
 		replay(session);
 
 		AccessDB.setSession(session);
-		AccessDB.bookARide(rider, time, origin, destination, fare, originCoord, destCoord);
+		AccessDB.bookARide(rider, time, origin, destination, fare, 
+		        originCoord, destCoord);
 
 		verify(session);
+	}
+	
+	@Test
+	public void testConfirmMatch() throws Exception {
+	    Session session = mock(Session.class);
+	    ResultSet rs = mock(ResultSet.class);
+	    Row r = mock(Row.class);
+	    List<Row> list = new ArrayList<Row>();
+	    list.add(r);
+	    
+	    int bookingId = 983634;
+	    String driver = "driver";
+	    String rider = "rider";
+	    String origin = "from";
+	    String destination = "to";
+	    int fare = 654;
+	    int balance = 432;
+	    int balance2 = 123;
+	    int fr =  balance - fare;
+	    int fd = fare + balance2;
+	    Date time = new Date();
+	    LocalDateTime localTime = LocalDateTime.ofInstant(time.toInstant(),
+                ZoneId.of("Asia/Kolkata"));
+        String time_str = localTime.toString().replace('T', ' ').split("\\.")[0];
+	    
+	    
+	    String query = "SELECT * FROM unmatched_bookings WHERE booking_id = "
+                + bookingId + ";";
+	    String query2 ="select * from rider_info where username='"+rider+"';";
+	    String query3 ="update rider_info set balance="+fr
+	            +" where username='"+rider+"';";
+	    String query4 ="select * from driver_info where username='"+driver+"';";
+	    String query5 ="update driver_info set balance="+fd+" where username='"+driver+"';";
+	    String query6 = "INSERT INTO matched_bookings (booking_id,rider,driver,"
+	            + "time,origin,destination,fare) VALUES ("
+                + bookingId
+                + ",'"
+                + rider
+                + "','"
+                + driver
+                + "','"
+                + time_str
+                + "','" + origin + "','" + destination + "'," + fare + ");";
+	    String query7 = "DELETE FROM unmatched_bookings WHERE booking_id = "
+                + bookingId + ";";
+	    
+	    expect(session.execute(query)).andReturn(rs);
+	    expect(rs.all()).andReturn(list);
+	    expect(r.getString("rider")).andReturn(rider);
+        expect(r.getTimestamp("time")).andReturn(time);
+        expect(r.getString("origin")).andReturn(origin);
+        expect(r.getString("destination")).andReturn(destination);
+        expect(r.getInt("fare")).andReturn(fare);
+	    expect(session.execute(query2)).andReturn(rs);
+	    expect(rs.all()).andReturn(list);
+	    expect(r.getInt("balance")).andReturn(balance);
+	    expect(session.execute(query3)).andReturn(null);
+	    expect(session.execute(query4)).andReturn(rs);
+	    expect(rs.all()).andReturn(list);
+	    expect(r.getInt("balance")).andReturn(balance2);
+	    expect(session.execute(query5)).andReturn(null);
+	    expect(session.execute(query6)).andReturn(null);
+	    expect(session.execute(query7)).andReturn(null);
+	    
+	    expectLastCall();
+
+        replay(session);
+        replay(rs);
+        replay(r);
+        
+        AccessDB.setSession(session);
+        AccessDB.confirmMatch(bookingId, driver);
+
+        verify(session);
+	    
 	}
 
 }
