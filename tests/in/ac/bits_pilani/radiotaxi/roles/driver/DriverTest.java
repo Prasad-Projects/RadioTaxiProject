@@ -20,15 +20,15 @@ public class DriverTest extends EasyMockSupport {
 	@Test
 	public void testRegister() throws Exception {
 		Driver driver = new Driver("driver", "driver", "driver", "1234567890", "werwe34", "1234", 0);
-
+		String password = "dshjdvsaf";
 		mockStatic(AccessDB.class);
 
-		/* expect */ driver.register("driver");
+		AccessDB.registerDriver(driver, password);
 		expectLastCall();
 
 		replay(AccessDB.class);
 
-		driver.register("driver");
+		driver.register(password);
 
 		verify(AccessDB.class);
 	}
@@ -39,7 +39,7 @@ public class DriverTest extends EasyMockSupport {
 
 		mockStatic(AccessDB.class);
 
-		/* expect */ driver.confirmMatch(123456);
+		AccessDB.confirmMatch(123456,driver.getUsername());
 		expectLastCall();
 
 		replay(AccessDB.class);

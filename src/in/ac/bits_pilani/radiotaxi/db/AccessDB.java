@@ -87,7 +87,7 @@ public class AccessDB {
 	public static void updateRiderDetails(String rider, String password)
 			throws Exception {
 		String query = "UPDATE rider_info SET password = '" + hashPassword(password) + "' WHERE username = '" + rider + "'"; 
-		System.out.println(query);
+		
 		try {
 			session.execute(query);
 		} catch (Exception e) {
@@ -108,7 +108,7 @@ public class AccessDB {
 		}
 		return results;
 	}
-
+	
 	public static boolean approveDriver(String username) throws Exception {
 
 		String query = "SELECT * FROM unregistered_drivers WHERE username = '"
@@ -116,8 +116,9 @@ public class AccessDB {
 
 		List<Row> results = null;
 		try {
-			ResultSet rs = session.execute(query);
+		    ResultSet rs = session.execute(query);
 			results = rs.all();
+			
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "error approveDriver", e);
 			throw e;
@@ -133,7 +134,7 @@ public class AccessDB {
 		String mobileNo = r.getString("mobile_no");
 		String password = r.getString("password");
 
-		query = " INSERT INTO driver_info (username,first_name,last_name,mobile_no,password,car_no,license_no,balance) VALUES ('"
+		query = "INSERT INTO driver_info (username,first_name,last_name,mobile_no,password,car_no,license_no,balance) VALUES ('"
 				+ username
 				+ "','"
 				+ firstName
@@ -147,7 +148,7 @@ public class AccessDB {
 				+ carNo
 				+ "','"
 				+ licenseNo + "',0);";
-
+		
 		try {
 			session.execute(query);
 		} catch (Exception e) {
@@ -194,8 +195,8 @@ public class AccessDB {
 	
 	public static void updateDriverDetails(String driver, String password)
 			throws Exception {
-		String query = "UPDATE driver_info SET password = '" + hashPassword(password) + "' WHERE username = '" + driver + "'"; 
-		System.out.println(query);
+		String query = "UPDATE driver_info SET password = '" + 
+			hashPassword(password) + "' WHERE username = '" + driver + "'"; 
 		try {
 			session.execute(query);
 		} catch (Exception e) {
@@ -227,11 +228,15 @@ public class AccessDB {
 	 * KEY(rider, time));
 	 */
 	public static void bookARide(String rider, String time, String origin,
-			String destination, int fare, float[] originCoord, float[] destCoord) throws Exception {
-		// TODO: generate distinct booking IDs
-		int randBookingId = 0 + (int) (Math.random() * 100000);
-
-		String query = "INSERT INTO unmatched_bookings (booking_id,rider,time,origin,destination,fare,orig_coord,dest_coord) VALUES ("
+			String destination, int fare, float[] originCoord, float[] destCoord)
+			        throws Exception {
+		
+	    int randBookingId = (((17*37 + rider.hashCode())* 37 + time.hashCode())
+	            * 37 + origin.hashCode())* 37 +
+	            destination.hashCode();
+		String query = "INSERT INTO unmatched_bookings (booking_id,"
+		        + "rider,time,origin,destination,fare,orig_coord,"
+		        + "dest_coord) VALUES ("
 				+ randBookingId	+ ",'" + rider + "','" + time + "','"
 				+ origin + "','" + destination + "'," + fare	+ "," 
 				+ "[" + originCoord[0] + "," + originCoord[1] + "]"	+ ","
@@ -301,8 +306,7 @@ public class AccessDB {
 		fr=fr-fare;
 		query ="update rider_info set balance="+fr+" where username='"+rider+"';";
 		try {
-			ResultSet rs = session.execute(query);
-			results = rs.all();
+			session.execute(query);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "error confirmMatch", e);
 			throw e;
@@ -324,8 +328,7 @@ public class AccessDB {
 		fd+=fare;
 		query ="update driver_info set balance="+fd+" where username='"+driver+"';";
 		try {
-			ResultSet rs = session.execute(query);
-			results = rs.all();
+			session.execute(query);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "error confirmMatch", e);
 			throw e;
@@ -383,25 +386,27 @@ public class AccessDB {
 	
 	public static User login(String username, String password, String type)
 			throws Exception {
+	    String table = null;
+        switch (type) {
+        case "rider":
+            table = "rider_info";
+            break;
+        case "driver":
+            table = "driver_info";
+            break;
+        case "admin":
+            table = "admin_list";
+        }
+        String query = "SELECT * FROM " + table + " WHERE username = '"
+                + username + "' AND password = '" + hashPassword(password)
+                + "' ALLOW FILTERING;";
+        
 		List<Row> results = null;
-		String table = null;
-		switch (type) {
-		case "rider":
-			table = "rider_info";
-			break;
-		case "driver":
-			table = "driver_info";
-			break;
-		case "admin":
-			table = "admin_list";
-		}
-		String query = "SELECT * FROM " + table + " WHERE username = '"
-				+ username + "' AND password = '" + hashPassword(password)
-				+ "' ALLOW FILTERING;";
-		// System.out.println("login query = " + query);
 		try {
-			ResultSet rs = session.execute(query);
-			results = rs.all();
+			ResultSet rs = session.execute(query); 
+		    results = rs.all();
+			//System.out.println(rs);
+			//System.out.println(results);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "error login", e);
 			throw e;

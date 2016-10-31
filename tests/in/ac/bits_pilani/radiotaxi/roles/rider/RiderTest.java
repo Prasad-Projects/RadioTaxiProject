@@ -19,15 +19,15 @@ public class RiderTest {
 	@Test
 	public void testRegisterRider() throws Exception {
 		Rider rider = new Rider("rider", "rider", "rider", "1234567890", 0);
-
+		String password = "abdyfjfhb";
 		mockStatic(AccessDB.class);
-
-		/* expect */ rider.register("rider");
+		
+		AccessDB.registerRider(rider, password);
 		expectLastCall();
 
 		replay(AccessDB.class);
 
-		rider.register("rider");
+		rider.register(password);
 
 		verify(AccessDB.class);
 	}
