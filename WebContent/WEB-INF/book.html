@@ -2,79 +2,94 @@
 <html>
 
 <head>
-	<title>Choose pickup and drop-off location - RadioTaxi</title>
-	<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-	<link type="text/css" rel="stylesheet" href="css/index.css"/>
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<style type="text/css">
-		html, body {
-			height: 100%;
-			margin: 0;
-			padding: 0;
-		}
+    <title>Choose pickup and drop-off location - RadioTaxi</title>
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="css/index.css"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style type="text/css">
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
 
-		#map {
-			height: 80%;
-		}
-		.controls {
-		        background-color: #fff;
-		        border-radius: 2px;
-		        border: 1px solid transparent;
-		        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-		        box-sizing: border-box;
-		        font-family: Roboto;
-		        font-size: 15px;
-		        font-weight: 300;
-		        height: 29px;
-		        margin-left: 17px;
-		        margin-top: 10px;
-		        outline: none;
-		        padding: 0 11px 0 13px;
-		        text-overflow: ellipsis;
-		        width: 400px;
-		      }
-		.controls:focus {
-		        border-color: #4d90fe;
-		      }
-	</style>
+        #map {
+            height: 75%;
+        }
+        .controls {
+                background-color: #fff;
+                border-radius: 2px;
+                border: 1px solid transparent;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+                box-sizing: border-box;
+                font-family: Roboto;
+                font-size: 15px;
+                font-weight: 300;
+                height: 29px;
+                margin-left: 17px;
+                margin-top: 10px;
+                outline: none;
+                padding: 0 11px 0 13px;
+                text-overflow: ellipsis;
+                width: 400px;
+              }
+        .controls:focus {
+                border-color: #4d90fe;
+              }
+    </style>
 </head>
 
 <body>
 
-	<div id="map"></div>
-	<!-- holds the google map -->
-	<div id="output">Drag and drop marker B at the destination, or enter your destination in the field below!</div>
-	
-	<form action="book" method="post" name="bookForm" onsubmit="return validateBookForm()">
-
-		<input id="origin-auto" class="controls" type="text" placeholder="Enter origin">
-		<input id="dest-auto" class="controls" type="text" placeholder="Enter destination">
-		
-		<div class="row">
-		<div class="input-field col s4">
-			<button class="btn waves-effect waves-light" id="book_button" type="submit" value="Book"  >Book</button>
-		</div>
-		<input type="hidden" name="origin" id="origin">
-		<input type="hidden" name="dest" id="dest">
-		<input type="hidden" name="distance" id="distance">
-		<input type="hidden" name="time" id="time">
-		<input type="hidden" name="orig_lat" id="orig_lat">
-		<input type="hidden" name="orig_lng" id="orig_lng">
-		<input type="hidden" name="dest_lat" id="dest_lat">
-		<input type="hidden" name="dest_lng" id="dest_lng">
-		<input type="hidden" name="place_id" id="place_id">
-	</form>
-	<script src="js/gmaps.js"></script>
-	<!-- Google Maps API load configuration
+    <div id="map"></div>
+    <!-- holds the google map -->
+    <div id="output">Drag and drop marker B at the destination, or enter your destination in the field below!</div>
+    <form action="book" method="post" name="bookForm" onsubmit="return validateBookForm()">
+        <input id="origin-auto" class="controls" type="text" placeholder="Enter origin">
+        <input id="dest-auto" class="controls" type="text" placeholder="Enter destination">
+        
+        
+        <div class="row">
+            <div class="card panel">        
+                    <span class="white text-black"> Choose your ride! </span>
+                    <br />
+                    <input name="cabtype" type="radio" id="regular" value="regular"/>
+                    <label for="regular">Regular</label>
+                    <input name="cabtype" type="radio" id="extended" value="extended"/>
+                    <label for="extended">Extended</label>
+                    <input name="cabtype" type="radio" id="double" value="double"/>
+                    <label for="double">Double</label>
+            </div>    
+        </div>
+        <div class = "row">
+        <div class = "input-field col s6">
+             <button class="btn waves-effect waves-light" id="estimate_button" type="button" onclick="displayRoughEstimate()">Get Rough Estimate</button>
+        </div>
+        <div class="input-field col s6">
+            <button class="btn waves-effect waves-light" id="book_button" type="submit" value="Book"  >Book</button>
+        </div>
+        </div>
+        <input type="hidden" name="origin" id="origin">
+        <input type="hidden" name="dest" id="dest">
+        <input type="hidden" name="distance" id="distance">
+        <input type="hidden" name="time" id="time">
+        <input type="hidden" name="orig_lat" id="orig_lat">
+        <input type="hidden" name="orig_lng" id="orig_lng">
+        <input type="hidden" name="dest_lat" id="dest_lat">
+        <input type="hidden" name="dest_lng" id="dest_lng">
+        <input type="hidden" name="place_id" id="place_id">
+    </form>
+    <script src="js/gmaps.js"></script>
+    <!-- Google Maps API load configuration
     https://developers.google.com/maps/documentation/javascript/basics#Region
     https://developers.google.com/maps/documentation/javascript/versions
      -->
-	<script async defer
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCokkwucFGJh3PhBb13X7iNX6gs1txvVQQ&v=3&region=IN&callback=initMap&libraries=places">
-	</script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCokkwucFGJh3PhBb13X7iNX6gs1txvVQQ&v=3&region=IN&callback=initMap&libraries=places">
+    </script>
 
-	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script type="text/javascript" src="js/book.js"></script>
 

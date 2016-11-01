@@ -48,12 +48,24 @@ public class BookingServlet extends HttpServlet {
 					Float.parseFloat(request.getParameter("orig_lng"))};
 			float[] destCoord = {Float.parseFloat(request.getParameter("dest_lat")),
 					Float.parseFloat(request.getParameter("dest_lng"))};
-
+			
+			CabType cab;
+			
+			String cabtype = request.getParameter("cabtype");
+			switch(cabtype) {
+			case "regular": cab = CabType.Regular; break;
+			case "extended": cab = CabType.Extended; break;
+			case "double": cab = CabType.Double; break;
+			default: cab = CabType.Regular;
+			}
+			getServletContext().log(cabtype);
+			System.out.println(cabtype);
 			Booking b = new Booking();
 			request.getRequestDispatcher("html/html-top-common.html").include(request, response);
 			request.getRequestDispatcher("html/riderbookings-layout-1.html").include(request, response);
 			try {
-				b.bookTrip(rider.getUsername(), origin, dest, CabType.Regular, distance, duration, originCoord, destCoord); // add driver later when confirmed
+				b.bookTrip(rider.getUsername(), origin, dest, cab, distance, duration, originCoord, destCoord); 
+				// add driver later when confirmed
 			} catch(Exception e) {
 				request.getRequestDispatcher("html/error.html").include(request, response);
 				out.println("Database error");
