@@ -37,7 +37,10 @@ public class DisplayBookingsServlet extends HttpServlet{
             if(history != null) {
             request.getRequestDispatcher("html/html-top-common.html").include(request, response);
             request.getRequestDispatcher("html/riderbookings-layout-1.html").include(request, response);
-            out.println("<table>");
+            out.println("<div class = 'row'>");
+            out.println("<h5> Your completed rides: </h5> ");
+            out.println("</div>");
+            out.println("<table class = 'striped'>");
             out.println("<tr>");
             out.println("<th> BookingId </th>");
             out.println("<th> Origin </th>");

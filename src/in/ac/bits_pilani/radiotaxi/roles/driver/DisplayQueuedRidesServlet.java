@@ -66,4 +66,9 @@ public class DisplayQueuedRidesServlet extends HttpServlet {
 			response.sendRedirect("index.html");
 		}
 	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+	    doGet(request, response);
+	}
 }

@@ -60,8 +60,6 @@ public class BookingServlet extends HttpServlet {
 			}
 			
 			Booking b = new Booking();
-			//request.getRequestDispatcher("html/html-top-common.html").include(request, response);
-			//request.getRequestDispatcher("html/riderbookings-layout-1.html").include(request, response);
 			try {
 				b.bookTrip(rider.getUsername(), origin, dest, cab, distance, duration, originCoord, destCoord); 
 				// add driver later when confirmed
@@ -69,7 +67,6 @@ public class BookingServlet extends HttpServlet {
 				request.getRequestDispatcher("html/error.html").include(request, response);
 				out.println("Database error");
 			}
-			//request.getRequestDispatcher("html/html-bottom-common.html").include(request, response);
 			request.getRequestDispatcher("/bookings").forward(request, response);
 		}
 		else {
