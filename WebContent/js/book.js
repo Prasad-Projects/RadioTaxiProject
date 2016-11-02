@@ -19,13 +19,12 @@ function validateBookForm() {
 function displayRoughEstimate() {
 	
 	var distance = parseInt(document.forms["bookForm"]["distance"].value.split(" "));
-	var time = parseInt(document.forms["bookForm"]["time"].value.split(" "));
 	var cabtype = document.forms["bookForm"]["cabtype"].value;
 	var fare;
 	switch(cabtype) {
-	case 'regular': fare = distance*7 + time; break;
-	case 'extended': fare = distance*10 + time; break;
-	case 'double': fare = distance*15 + time; break;
+	case 'regular': fare = distance*7; break;
+	case 'extended': fare = distance*10; break;
+	case 'double': fare = distance*15; break;
 	default: fare = 100;
 	}
 	window.alert("The rough estimate is: " + fare);

@@ -58,8 +58,7 @@ public class BookingServlet extends HttpServlet {
 			case "double": cab = CabType.Double; break;
 			default: cab = CabType.Regular;
 			}
-			getServletContext().log(cabtype);
-			System.out.println(cabtype);
+			
 			Booking b = new Booking();
 			request.getRequestDispatcher("html/html-top-common.html").include(request, response);
 			request.getRequestDispatcher("html/riderbookings-layout-1.html").include(request, response);
