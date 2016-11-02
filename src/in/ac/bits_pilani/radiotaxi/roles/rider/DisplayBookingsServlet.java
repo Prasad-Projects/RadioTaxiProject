@@ -33,30 +33,36 @@ public class DisplayBookingsServlet extends HttpServlet{
         if(session != null) {
             PrintWriter out = response.getWriter();
             Rider rider = (Rider) session.getAttribute("user");
-            List<HashMap<String, String>> history = rider.getTravelHistory();
-            if(history != null) {
-            request.getRequestDispatcher("html/html-top-common.html").include(request, response);
-            request.getRequestDispatcher("html/riderbookings-layout-1.html").include(request, response);
-            out.println("<div class = 'row'>");
-            out.println("<h5> Your completed rides: </h5> ");
-            out.println("</div>");
-            out.println("<table class = 'striped'>");
-            out.println("<tr>");
-            out.println("<th> BookingId </th>");
-            out.println("<th> Origin </th>");
-            out.println("<th> Destination </th>");
-            out.println("<th> Driver </th>");
-            out.println("<th> Fare </th>");
-            out.println("</tr>");
-            for(HashMap<String, String> map : history) {
-                out.println("<tr>");
-                out.println("<td>" + map.get("bookingId") + "</td>");
-                out.println("<td>" + map.get("origin") + "</td>");
-                out.println("<td>" + map.get("destination") + "</td>");
-                out.println("<td>" + map.get("driver") + "</td>");
-                out.println("<td>" + map.get("fare") + "</td>");
-                out.println("</tr>");
+            List<HashMap<String, String>> history = null;
+            try {
+                history = rider.getTravelHistory();
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
+            if(history != null) {
+                request.getRequestDispatcher("html/html-top-common.html").include(request, response);
+                request.getRequestDispatcher("html/riderbookings-layout-1.html").include(request, response);
+                out.println("<div class = 'row'>");
+                out.println("<h5> Your completed rides: </h5> ");
+                out.println("</div>");
+                out.println("<table class = 'striped'>");
+                out.println("<tr>");
+                out.println("<th> BookingId </th>");
+                out.println("<th> Origin </th>");
+                out.println("<th> Destination </th>");
+                out.println("<th> Driver </th>");
+                out.println("<th> Fare </th>");
+                out.println("</tr>");
+                for(HashMap<String, String> map : history) {
+                    out.println("<tr>");
+                    out.println("<td>" + map.get("bookingId") + "</td>");
+                    out.println("<td>" + map.get("origin") + "</td>");
+                    out.println("<td>" + map.get("destination") + "</td>");
+                    out.println("<td>" + map.get("driver") + "</td>");
+                    out.println("<td>" + map.get("fare") + "</td>");
+                    out.println("</tr>");
+                }
             out.println("</table>");
             }
             else {

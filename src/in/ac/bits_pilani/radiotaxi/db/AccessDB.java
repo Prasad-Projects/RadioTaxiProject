@@ -450,7 +450,7 @@ public class AccessDB {
 		}
 	}
 	
-	public static List<HashMap<String, String>> getRiderTravelHistory(Rider rider) {
+	public static List<Row> getRiderTravelHistory(Rider rider) throws Exception{
 	    
 	    String query = "SELECT * FROM matched_bookings WHERE rider ='" + rider.getUsername() + "' ALLOW FILTERING;";
 	    List<Row> results = null;
@@ -461,23 +461,10 @@ public class AccessDB {
             logger.log(Level.SEVERE, "error getTravelHistory", e);
             throw e;
         }
-	    if(results == null)
-	        return null;
-	    List<HashMap<String, String>> history = new ArrayList<HashMap<String,String>>();
-	    for(Row r: results) {
-	        HashMap<String, String> row = new HashMap<String, String>();
-	        row.put("origin", r.getString("origin"));
-	        row.put("destination", r.getString("destination"));
-	        row.put("driver", r.getString("driver"));
-	        row.put("fare", new Integer(r.getInt("fare")).toString());
-	        row.put("bookingId", new Integer(r.getInt("booking_id")).toString());
-	        history.add(row);
-	    }
-	    return history;
-	    
+	    return results;
 	}
 
-    public static List<HashMap<String, String>> getDriverTravelHistory(Driver driver) {
+    public static List<Row> getDriverTravelHistory(Driver driver) throws Exception{
         String query = "SELECT * FROM matched_bookings WHERE driver ='" + driver.getUsername() + "' ALLOW FILTERING;";
         List<Row> results = null;
         try {
@@ -487,18 +474,7 @@ public class AccessDB {
             logger.log(Level.SEVERE, "error getTravelHistory", e);
             throw e;
         }
-        if(results == null)
-            return null;
-        List<HashMap<String, String>> history = new ArrayList<HashMap<String,String>>();
-        for(Row r: results) {
-            HashMap<String, String> row = new HashMap<String, String>();
-            row.put("origin", r.getString("origin"));
-            row.put("destination", r.getString("destination"));
-            row.put("rider", r.getString("rider"));
-            row.put("fare", r.getString("fare"));
-            row.put("bookingId", new Integer(r.getInt("booking_id")).toString());
-            history.add(row);
-        }
-        return history;
+        return results;
+        
     }
 }

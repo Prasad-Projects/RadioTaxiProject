@@ -2,6 +2,7 @@ package in.ac.bits_pilani.radiotaxi.roles.driver;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -36,26 +37,42 @@ public class DisplayQueuedRidesServlet extends HttpServlet {
 				out.println("Access denied");
 			} else {
 				Driver driver = (Driver) session.getAttribute("user");
-				List<Row> results = null;
+				List<HashMap<String, String>> history = null;
 				try {
-					results = driver.getRides();
-				} catch(Exception e) {
-					request.getRequestDispatcher("html/error.html").include(request, response);
-					out.println("Database error");
-				}
+                    history = driver.getRides();
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
 				request.getRequestDispatcher("html/html-top-common.html").include(request, response);
 				request.getRequestDispatcher("html/ridequeue-layout-1.html").include(request, response);
-				if(results != null) {
-					out.println("<div class=\"row\">");
-					out.println("<div class=\"col s2\">Id:</div><div class=\"col s2\">Rider:</div><div class=\"col s2\">Origin:</div><div class=\"col s2\">Destination:</div><div class=\"col s2\">Time:</div>");
-					out.println("</div>");
-					for (Row r : results) {
-						out.println("<div class=\"col s2\">" + r.getInt("booking_id") + "</div><div class=\"col s2\">" +  "</div><div class=\"col s2\">" + r.getString("rider") + "</div><div class=\"col s2\">" + r.getString("origin") + "</div><div class=\"col s2\">"+ r.getString("destination") + "</div><div class=\"col s2\">" + r.getTimestamp("time")+"</div>"
-						+ "<form action=\"confirmmatch\" method=\"post\">"
-							+ "<button type=\"submit\" value=\"Get Ride\">Get Ride</button>"
-							+ "<input type=hidden name=\"booking_id\" value=\"" + r.getInt("booking_id") + "\">"
-						+ "</form>");
-					}
+				if(history!= null) {
+	                out.println("<table class = 'striped'>");
+	                out.println("<tr>");
+	                out.println("<th> BookingId </th>");
+	                out.println("<th> Origin </th>");
+	                out.println("<th> Destination </th>");
+	                out.println("<th> Rider </th>");
+	                out.println("<th> Time </th>");
+	                out.println("<th />");
+	                out.println("</tr>");
+	                for(HashMap<String, String> map : history) {
+	                    out.println("<tr>");
+	                    out.println("<td>" + map.get("bookingId") + "</td>");
+	                    out.println("<td>" + map.get("origin") + "</td>");
+	                    out.println("<td>" + map.get("destination") + "</td>");
+	                    out.println("<td>" + map.get("rider") + "</td>");
+	                    out.println("<td>" + map.get("time") + "</td>");
+	                    out.println("<td>" + "<form action=\"confirmmatch\" method=\"post\">"
+	                            + "<button type=\"submit\" value=\"Get Ride\">Get Ride</button>"
+	                            + "<input type=hidden name=\"booking_id\" value=\"" + 
+	                            Integer.parseInt(map.get("bookingId")) + "\">"
+	                        + "</form>" + "</td>");
+	                    out.println("</tr>");
+	                }
+	            out.println("</table>");
+					
+					
 				} else {
 					out.println("No rides to display!");
 				}
