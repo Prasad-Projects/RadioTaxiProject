@@ -1,5 +1,6 @@
 package in.ac.bits_pilani.radiotaxi.roles.driver;
 
+import java.util.HashMap;
 import java.util.List;
 import com.datastax.driver.core.Row;
 
@@ -37,5 +38,8 @@ public class Driver extends User {
 		List<Row> results = AccessDB.getUnmatchedRides();
 		return results;
 	}
-
+	
+	public List<HashMap<String, String>> getTravelHistory() {
+        return AccessDB.getDriverTravelHistory(this);
+    }
 }

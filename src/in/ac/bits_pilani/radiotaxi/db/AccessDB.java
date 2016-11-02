@@ -2,7 +2,9 @@ package in.ac.bits_pilani.radiotaxi.db;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -447,4 +449,56 @@ public class AccessDB {
 			return null;
 		}
 	}
+	
+	public static List<HashMap<String, String>> getRiderTravelHistory(Rider rider) {
+	    
+	    String query = "SELECT * FROM matched_bookings WHERE rider ='" + rider.getUsername() + "' ALLOW FILTERING;";
+	    List<Row> results = null;
+	    try {
+            ResultSet rs = session.execute(query);
+            results = rs.all();
+        } catch(Exception e) {
+            logger.log(Level.SEVERE, "error getTravelHistory", e);
+            throw e;
+        }
+	    if(results == null)
+	        return null;
+	    List<HashMap<String, String>> history = new ArrayList<HashMap<String,String>>();
+	    for(Row r: results) {
+	        HashMap<String, String> row = new HashMap<String, String>();
+	        row.put("origin", r.getString("origin"));
+	        row.put("destination", r.getString("destination"));
+	        row.put("driver", r.getString("driver"));
+	        row.put("fare", new Integer(r.getInt("fare")).toString());
+	        row.put("bookingId", new Integer(r.getInt("booking_id")).toString());
+	        history.add(row);
+	    }
+	    return history;
+	    
+	}
+
+    public static List<HashMap<String, String>> getDriverTravelHistory(Driver driver) {
+        String query = "SELECT * FROM matched_bookings WHERE driver ='" + driver.getUsername() + "' ALLOW FILTERING;";
+        List<Row> results = null;
+        try {
+            ResultSet rs = session.execute(query);
+            results = rs.all();
+        } catch(Exception e) {
+            logger.log(Level.SEVERE, "error getTravelHistory", e);
+            throw e;
+        }
+        if(results == null)
+            return null;
+        List<HashMap<String, String>> history = new ArrayList<HashMap<String,String>>();
+        for(Row r: results) {
+            HashMap<String, String> row = new HashMap<String, String>();
+            row.put("origin", r.getString("origin"));
+            row.put("destination", r.getString("destination"));
+            row.put("rider", r.getString("rider"));
+            row.put("fare", r.getString("fare"));
+            row.put("bookingId", new Integer(r.getInt("booking_id")).toString());
+            history.add(row);
+        }
+        return history;
+    }
 }
