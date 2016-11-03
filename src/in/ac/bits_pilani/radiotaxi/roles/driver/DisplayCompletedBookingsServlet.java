@@ -65,7 +65,7 @@ public class DisplayCompletedBookingsServlet extends HttpServlet {
             request.getRequestDispatcher("html/driverbookings-layout-2.html").include(request, response);
             }
             else {
-                out.println("<p> You have no (completed) previous bookings! <p>"); 
+                out.println("<p> You have no (completed) previous bookings! </p>"); 
             }
             request.getRequestDispatcher("html/html-bottom-common.html").include(request, response);
     
