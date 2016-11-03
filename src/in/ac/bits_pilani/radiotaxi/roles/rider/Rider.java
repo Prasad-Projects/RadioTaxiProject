@@ -32,6 +32,7 @@ public class Rider extends User {
                 row.put("driver", r.getString("driver"));
                 row.put("fare", new Integer(r.getInt("fare")).toString());
                 row.put("bookingId", new Integer(r.getInt("booking_id")).toString());
+                row.put("time", r.getTimestamp("time").toString());
                 history.add(row);
             }
             return history;

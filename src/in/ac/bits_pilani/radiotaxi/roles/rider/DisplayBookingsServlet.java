@@ -45,6 +45,7 @@ public class DisplayBookingsServlet extends HttpServlet{
                 out.println("<th> Destination </th>");
                 out.println("<th> Driver </th>");
                 out.println("<th> Fare </th>");
+                out.println("<th> Time </th>");
                 out.println("</tr>");
                 for(HashMap<String, String> map : history) {
                     out.println("<tr>");
@@ -53,6 +54,7 @@ public class DisplayBookingsServlet extends HttpServlet{
                     out.println("<td>" + map.get("destination") + "</td>");
                     out.println("<td>" + map.get("driver") + "</td>");
                     out.println("<td>" + map.get("fare") + "</td>");
+                    out.println("<td>" + map.get("time") + "</td>");
                     out.println("</tr>");
                 }
             out.println("</table> <br />");

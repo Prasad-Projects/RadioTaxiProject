@@ -64,6 +64,7 @@ public class Driver extends User {
             row.put("rider", r.getString("rider"));
             row.put("fare", new Integer(r.getInt("fare")).toString());
             row.put("bookingId", new Integer(r.getInt("booking_id")).toString());
+            row.put("time", r.getTimestamp("time").toString());
             history.add(row);
         }
         return history;
