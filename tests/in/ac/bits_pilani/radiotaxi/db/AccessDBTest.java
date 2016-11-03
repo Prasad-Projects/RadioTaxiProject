@@ -316,5 +316,49 @@ public class AccessDBTest extends EasyMockSupport {
         verify(session);
 	    
 	}
-
+	
+	@Test
+	public void testgetDriverTravelHistory() throws Exception {
+	    Session session = mock(Session.class);
+        ResultSet rs = mock(ResultSet.class);
+        List<Row> list = new ArrayList<Row>();
+	    Driver driver = new Driver("driver", "driver", "driver", 
+                "2143658709", "asdf43", "123456", 0);
+	    String query = "SELECT * FROM matched_bookings WHERE driver ='" 
+                + driver.getUsername() + "' ALLOW FILTERING;";
+	    expect(session.execute(query)).andReturn(rs);
+	    expect(rs.all()).andReturn(list);
+	    expectLastCall();
+	    
+	    replay(session);
+	    replay(rs);
+	    
+	    AccessDB.setSession(session);
+	    AccessDB.getDriverTravelHistory(driver);
+	    verify(session);
+	    verify(rs);
+	    
+	}
+	
+	@Test
+    public void testgetRiderTravelHistory() throws Exception {
+        Session session = mock(Session.class);
+        ResultSet rs = mock(ResultSet.class);
+        List<Row> list = new ArrayList<Row>();
+        Rider rider = new Rider("rider", "rider", "rider", "1234567890", 0);
+        String query = "SELECT * FROM matched_bookings WHERE rider ='" + 
+        rider.getUsername() + "' ALLOW FILTERING;";
+        expect(session.execute(query)).andReturn(rs);
+        expect(rs.all()).andReturn(list);
+        expectLastCall();
+        
+        replay(session);
+        replay(rs);
+        
+        AccessDB.setSession(session);
+        AccessDB.getRiderTravelHistory(rider);
+        verify(session);
+        verify(rs);
+        
+    }
 }

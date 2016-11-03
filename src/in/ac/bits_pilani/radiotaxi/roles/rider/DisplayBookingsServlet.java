@@ -37,8 +37,8 @@ public class DisplayBookingsServlet extends HttpServlet{
             try {
                 history = rider.getTravelHistory();
             } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                request.getRequestDispatcher("html/error.html").include(request, response);
+                out.println("Database error");
             }
             if(history != null) {
                 request.getRequestDispatcher("html/html-top-common.html").include(request, response);

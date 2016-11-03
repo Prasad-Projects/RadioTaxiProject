@@ -37,16 +37,16 @@ public class DisplayQueuedRidesServlet extends HttpServlet {
 				out.println("Access denied");
 			} else {
 				Driver driver = (Driver) session.getAttribute("user");
-				List<HashMap<String, String>> history = null;
+				List<HashMap<String, String>> unmatchedRides = null;
 				try {
-                    history = driver.getRides();
+                    unmatchedRides = driver.getRides();
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    request.getRequestDispatcher("html/error.html").include(request, response);
+                    out.println("Database error");
                 }
 				request.getRequestDispatcher("html/html-top-common.html").include(request, response);
 				request.getRequestDispatcher("html/ridequeue-layout-1.html").include(request, response);
-				if(history!= null) {
+				if(unmatchedRides != null) {
 	                out.println("<table class = 'striped'>");
 	                out.println("<tr>");
 	                out.println("<th> BookingId </th>");
@@ -56,7 +56,7 @@ public class DisplayQueuedRidesServlet extends HttpServlet {
 	                out.println("<th> Time </th>");
 	                out.println("<th />");
 	                out.println("</tr>");
-	                for(HashMap<String, String> map : history) {
+	                for(HashMap<String, String> map : unmatchedRides) {
 	                    out.println("<tr>");
 	                    out.println("<td>" + map.get("bookingId") + "</td>");
 	                    out.println("<td>" + map.get("origin") + "</td>");

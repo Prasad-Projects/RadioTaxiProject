@@ -2,6 +2,7 @@ package in.ac.bits_pilani.radiotaxi.roles.admin;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -37,27 +38,39 @@ public class ApproveDriverServlet extends HttpServlet {
 			request.getRequestDispatcher("html/unregistereddrivers-layout-1.html").include(request, response);
 
 			Admin admin = (Admin) session.getAttribute("user");
-			List<Row> results = null;
+			List<HashMap<String, String>> unregDrivers = null;
 			try {
-				results = admin.getUnregisteredDrivers();
+				unregDrivers = admin.getUnregisteredDrivers();
 			} catch(Exception e) {
 				request.getRequestDispatcher("html/error.html").include(request, response);
 				out.println("Database error");
 			}
-			if(results != null) {
-				for (Row r : results) {
-					out.println("<br /><pre>"
-						+ " <strong>Username:</strong> " + r.getString("username")
-						+ " <strong>Car No:</strong> " + r.getString("car_no")
-						+ " <strong>First Name:</strong> " + r.getString("first_name")
-						+ " <strong>Last Name:</strong> " + r.getString("last_name")
-						+ " <strong>License No:</strong> " + r.getString("license_no")
-						+ " <strong>Mobile No:</strong> " + r.getString("mobile_no")
-						+ "<form action=\"approvedriver\" method=\"post\">"
-							+ "<button type=\"submit\" value=\"Approve\">Approve</button>"
-							+ "<input type=hidden name=\"username\" value=\"" + r.getString("username") + "\">"
-							+ "</form>"
-						+ "</pre>");
+			if(unregDrivers != null) {
+				    out.println("<table class = 'striped'>");
+                    out.println("<tr>");
+                    out.println("<th> Username </th>");
+                    out.println("<th> Car No </th>");
+                    out.println("<th> First name </th>");
+                    out.println("<th> Last name </th>");
+                    out.println("<th> License No </th>");
+                    out.println("<th> Mobile No </th>");
+                    out.println("<th />");
+                    out.println("</tr>");
+                    for(HashMap<String, String> map : unregDrivers) {
+                        out.println("<tr>");
+                        out.println("<td>" + map.get("username") + "</td>");
+                        out.println("<td>" + map.get("carNo") + "</td>");
+                        out.println("<td>" + map.get("firstName") + "</td>");
+                        out.println("<td>" + map.get("lastName") + "</td>");
+                        out.println("<td>" + map.get("licenseNo") + "</td>");
+                        out.println("<td>" + map.get("mobileNo") + "</td>");
+                        out.println("<td>" + "<form action=\"approvedriver\" "
+                                + "method=\"post\">"
+                                + "<button type=\"submit\" value=\"Approve\">"
+                                + "Approve</button>"
+                                + "<input type=hidden name=\"username\" value=\"" + 
+                                map.get("username") + "\">"
+                                + "</form>" + "</td>");
 				}
 			}
 			request.getRequestDispatcher("html/unregistereddrivers-layout-2.html").include(request, response);

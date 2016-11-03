@@ -465,7 +465,8 @@ public class AccessDB {
 	}
 
     public static List<Row> getDriverTravelHistory(Driver driver) throws Exception{
-        String query = "SELECT * FROM matched_bookings WHERE driver ='" + driver.getUsername() + "' ALLOW FILTERING;";
+        String query = "SELECT * FROM matched_bookings WHERE driver ='" + driver.getUsername() +
+                "' ALLOW FILTERING;";
         List<Row> results = null;
         try {
             ResultSet rs = session.execute(query);
