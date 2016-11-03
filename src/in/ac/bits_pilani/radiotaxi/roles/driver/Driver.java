@@ -62,7 +62,7 @@ public class Driver extends User {
             row.put("origin", r.getString("origin"));
             row.put("destination", r.getString("destination"));
             row.put("rider", r.getString("rider"));
-            row.put("fare", r.getString("fare"));
+            row.put("fare", new Integer(r.getInt("fare")).toString());
             row.put("bookingId", new Integer(r.getInt("booking_id")).toString());
             history.add(row);
         }
