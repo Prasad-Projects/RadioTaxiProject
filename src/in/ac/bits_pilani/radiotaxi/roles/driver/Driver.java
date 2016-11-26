@@ -1,5 +1,7 @@
 package in.ac.bits_pilani.radiotaxi.roles.driver;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import com.datastax.driver.core.Row;
 
@@ -33,9 +35,38 @@ public class Driver extends User {
 		AccessDB.confirmMatch(bookingId, this.getUsername());
 	}
 
-	public List<Row> getRides() throws Exception {
+	public List<HashMap<String, String>> getRides() throws Exception {
 		List<Row> results = AccessDB.getUnmatchedRides();
-		return results;
+		if(results ==  null)
+		    return null;
+		List<HashMap<String, String>> history = new ArrayList<HashMap<String,String>>();
+		for(Row r: results) {
+		            HashMap<String, String> row = new HashMap<String, String>();
+		            row.put("origin", r.getString("origin"));
+		            row.put("destination", r.getString("destination"));
+		            row.put("rider", r.getString("rider"));
+		            row.put("time", r.getTimestamp("time").toString());
+		            row.put("bookingId", new Integer(r.getInt("booking_id")).toString());
+		            history.add(row);
+		        }
+		return history;
 	}
-
+	
+	public List<HashMap<String, String>> getTravelHistory() throws Exception {
+	    List<Row> results = AccessDB.getDriverTravelHistory(this);
+	    if (results== null)
+	        return null;
+	    List<HashMap<String, String>> history = new ArrayList<HashMap<String,String>>();
+        for(Row r: results) {
+            HashMap<String, String> row = new HashMap<String, String>();
+            row.put("origin", r.getString("origin"));
+            row.put("destination", r.getString("destination"));
+            row.put("rider", r.getString("rider"));
+            row.put("fare", new Integer(r.getInt("fare")).toString());
+            row.put("bookingId", new Integer(r.getInt("booking_id")).toString());
+            row.put("time", r.getTimestamp("time").toString());
+            history.add(row);
+        }
+        return history;
+    }
 }

@@ -2,7 +2,9 @@ package in.ac.bits_pilani.radiotaxi.db;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -447,4 +449,33 @@ public class AccessDB {
 			return null;
 		}
 	}
+	
+	public static List<Row> getRiderTravelHistory(Rider rider) throws Exception{
+	    
+	    String query = "SELECT * FROM matched_bookings WHERE rider ='" + rider.getUsername() + "' ALLOW FILTERING;";
+	    List<Row> results = null;
+	    try {
+            ResultSet rs = session.execute(query);
+            results = rs.all();
+        } catch(Exception e) {
+            logger.log(Level.SEVERE, "error getTravelHistory", e);
+            throw e;
+        }
+	    return results;
+	}
+
+    public static List<Row> getDriverTravelHistory(Driver driver) throws Exception{
+        String query = "SELECT * FROM matched_bookings WHERE driver ='" + driver.getUsername() +
+                "' ALLOW FILTERING;";
+        List<Row> results = null;
+        try {
+            ResultSet rs = session.execute(query);
+            results = rs.all();
+        } catch(Exception e) {
+            logger.log(Level.SEVERE, "error getTravelHistory", e);
+            throw e;
+        }
+        return results;
+        
+    }
 }
