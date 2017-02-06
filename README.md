@@ -1,5 +1,5 @@
 # RadioTaxiProject
-OOP Case Study Project on Radio Taxis
+A case study project on Radio Taxis for Object Oriented Programming courses.
 
-Hosted at http://10.1.9.209:8081/RadioTaxi/
+[![Code Climate](https://codeclimate.com/github/prasadtalasila/RadioTaxiProject/badges/gpa.svg)](https://codeclimate.com/github/prasadtalasila/RadioTaxiProject)    
 
