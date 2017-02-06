@@ -1,0 +1,40 @@
+---
+engines:
+  checkstyle:
+    enabled: true
+    channel: "beta"
+  csslint:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - ruby
+      - java
+      - javascript
+  eslint:
+    enabled: true
+  fixme:
+    enabled: true
+  radon:
+    enabled: true
+  rubocop:
+    enabled: true
+ratings:
+  paths:
+  - "**.java"
+  - "**.css"
+  - "**.inc"
+  - "**.js"
+  - "**.jsx"
+  - "**.module"
+  - "**.php"
+  - "**.py"
+  - "**.rb"
+exclude_paths:
+- WebContent/css/materialize.css
+- WebContent/css/materialize.min.css
+- WebContent/font/
+- WebContent/images/
+- WebContent/js/materialize.js
+- WebContent/js/materialize.min.js
